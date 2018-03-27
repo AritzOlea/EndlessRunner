@@ -21,6 +21,8 @@ public class CargandoScreen extends BaseScreen{
 
     private Label loading;
 
+
+
     public CargandoScreen(EndlessRunner game) {
         super(game);
 
@@ -57,7 +59,7 @@ public class CargandoScreen extends BaseScreen{
     @Override
     public void dispose() {
         stage.dispose();
-        //skin.dispose();
+        skin.dispose();
     }
 
 

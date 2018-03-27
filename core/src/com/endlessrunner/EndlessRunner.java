@@ -2,6 +2,8 @@ package com.endlessrunner;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.endlessrunner.Pantallas.BaseScreen;
 import com.endlessrunner.Pantallas.CargandoScreen;
@@ -31,8 +33,13 @@ public class EndlessRunner extends Game {
         manager.load("paisajes/dia/png/Object/Stone.png",Texture.class);
         manager.load("paisajes/dia/png/Tiles/2.png",Texture.class);
 
+        //sonidos & musica
+        manager.load("audio/die.ogg", Sound.class);
+        manager.load("audio/jump.ogg", Sound.class);
+        manager.load("audio/song.ogg", Music.class);
 
-        //por ahora solo añado el juego, sin menu ni nada
+
+        //Meto la pantalla de carga para iniciar el juego
         cargandoScreen = new CargandoScreen(this);
         this.setScreen(cargandoScreen);
     }

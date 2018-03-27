@@ -61,7 +61,7 @@ public class ActorAventurero extends Actor{
         BodyDef def = new BodyDef();
         def.position.set(position);
         def.type=BodyDef.BodyType.DynamicBody;
-        this.body=world.createBody(def);
+        body=world.createBody(def);
 
 
         //Una forma al jugador
@@ -102,7 +102,7 @@ public class ActorAventurero extends Actor{
         }
 
         if (saltando) {
-            body.applyForceToCenter(0, IMPULSO_DE_SALTO * 1.15f, true);
+            body.applyForceToCenter(0, - IMPULSO_DE_SALTO * 1.15f, true);
         }
     }
 

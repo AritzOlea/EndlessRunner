@@ -22,6 +22,9 @@ import com.endlessrunner.entidades.obstaculos.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.endlessrunner.ayuda.Constantes.PIXELS_POR_METRO;
+import static com.endlessrunner.ayuda.Constantes.VELOCIDAD_JUGADOR;
+
 /**
  * Created by aritz on 10/03/2018.
  */
@@ -70,9 +73,9 @@ public class GameScreen extends BaseScreen {
         world.setContactListener(new GameContactListener());
 
         //Sonidos y musicas...
-        //sonidoSalto = jokoa.getManager().get("audio/jump.ogg");
-        //sonidoMuerte = jokoa.getManager().get("audio/die.ogg");
-        //musicaDeFondo = jokoa.getManager().get("audio/song.ogg");
+        sonidoSalto = jokoa.getManager().get("audio/jump.ogg");
+        sonidoMuerte = jokoa.getManager().get("audio/die.ogg");
+        musicaDeFondo = jokoa.getManager().get("audio/song.ogg");
 
     }
 
@@ -94,6 +97,7 @@ public class GameScreen extends BaseScreen {
         for (EntidadSuelo floor : listaDeSuelo)
             stage.addActor(floor);
 
+
         stage.addActor(jugador);
 
 
@@ -101,12 +105,8 @@ public class GameScreen extends BaseScreen {
         stage.getCamera().update();
 
 
-
-/*
-Musica de fondo
- */
-        //musicaDeFondo.setVolume(0.75f);
-        //musicaDeFondo.play();
+        musicaDeFondo.setVolume(0.75f);
+        musicaDeFondo.play();
     }
 
 
@@ -118,8 +118,12 @@ Musica de fondo
 
         stage.act();
 
-        world.step(1/60f/*delta*/,6,2);
-        //comprobarColisiones();
+        world.step(delta,6,2);
+
+        if (jugador.getX() > 150 && jugador.isVivo()) {
+            float speed = VELOCIDAD_JUGADOR * delta * PIXELS_POR_METRO;
+            stage.getCamera().translate(speed, 0, 0);
+        }
 
         stage.draw();
     }
@@ -130,15 +134,21 @@ Musica de fondo
 
         stage.dispose();
         world.dispose();
-
-        //texturaJugadorAventurero.dispose();
-        //renderer.dispose();
     }
+
 
     @Override
     public void hide() {
+        stage.clear();
+
+        // Detach todas las entidades
         jugador.detach();
-        jugador.remove();
+        for (EntidadSuelo suelo : listaDeSuelo)
+            suelo.detach();
+
+        // Las listas (clear)
+        listaDeSuelo.clear();
+
     }
 
 
@@ -178,36 +188,12 @@ Musica de fondo
                 jugador.setSaltando(false);
 
                 if (Gdx.input.isTouched()) {
-                    //sonidoSalto.play();
+                    sonidoSalto.play();
 
                     jugador.setDebeSaltar(true);
                 }
             }
 
-            if (areCollided(contact, "player", "spike")) {
-
-                if (jugador.isVivo()) {
-                    jugador.setVivo(false);
-
-                    // Sound feedback.
-                    //musicaDeFondo.stop();
-                    //sonidoMuerte.play();
-
-
-                    stage.addAction(
-                            Actions.sequence(
-                                    Actions.delay(1.5f),
-                                    Actions.run(new Runnable() {
-
-                                        @Override
-                                        public void run() {
-                                            jokoa.setScreen(jokoa.gameOverScreen);
-                                        }
-                                    })
-                            )
-                    );
-                }
-            }
         }
 
 
@@ -217,7 +203,7 @@ Musica de fondo
 
             if (areCollided(contact, "jugador", "suelo")) {
                 if (jugador.isVivo()) {
-                    //sonidoSalto.play();
+                    sonidoSalto.play();
                 }
             }
         }
