@@ -62,6 +62,9 @@ public class GameScreen extends BaseScreen {
 
 
     Table table;
+    private int timer;
+    private float timeCount;
+    private Label labelTiempo;
     /*
     PUNTUACION
      */
@@ -92,6 +95,9 @@ public class GameScreen extends BaseScreen {
         sonidoMuerte = jokoa.getManager().get("audio/die.ogg");
         musicaDeFondo = jokoa.getManager().get("audio/song.ogg");
 
+        timer = 0;
+        timeCount = 0f;
+
     }
 
 
@@ -106,8 +112,10 @@ public class GameScreen extends BaseScreen {
 
         //Label puntuacionLabel= new Label(String.format("%06d",0),new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         Label puntuacionTextoLabel=new Label("Puntuacion: ",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        labelTiempo = new Label("Tiempo: 000",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
         table.add(puntuacionTextoLabel).expandX().padTop(10);
+        table.add(labelTiempo).expandX().padTop(10);
         //table.add(puntuacionLabel).expandX().padTop(10);
 
         stage.addActor(table);
@@ -150,6 +158,9 @@ public class GameScreen extends BaseScreen {
 
     @Override
     public void render(float delta) {
+
+        updateTimer(delta);
+
         //update(delta);//separar el update logico del render
 
         Gdx.gl.glClearColor(0.4f, 0.5f, 0.8f, 1f);
@@ -169,6 +180,17 @@ public class GameScreen extends BaseScreen {
         stage.draw();
     }
 
+
+    public void updateTimer(float delta){
+        if (jugador.isVivo()) {
+            timeCount += delta;
+            if (timeCount >= 1) {
+                timer++;
+                labelTiempo.setText(String.format("Tiempo: %03d", timer));
+                timeCount = 0;
+            }
+        }
+    }
 
 
     @Override
@@ -244,6 +266,7 @@ public class GameScreen extends BaseScreen {
             if (areCollided(contact, "jugador", "monte")) {
                 if (jugador.isVivo()) {
                     jugador.setVivo(false);
+                    timer = 0;
 
                     musicaDeFondo.stop();
                     sonidoMuerte.play();
