@@ -31,7 +31,7 @@ public class EntidadSuelo extends Actor {
     public EntidadSuelo(World world, Texture floor, Texture overfloor, float x, float width, float y) {
         this.world = world;
         this.floor = floor;
-        this.overfloor = overfloor;
+        //this.overfloor = overfloor;
 
         // Create the floor body.
         BodyDef def = new BodyDef();
@@ -66,7 +66,7 @@ public class EntidadSuelo extends Actor {
     public void draw(Batch batch, float parentAlpha) {
         // Render both textures.
         batch.draw(floor, getX(), getY(), getWidth(), getHeight());
-        batch.draw(overfloor, getX(), getY() + 0.9f * getHeight(), getWidth(), 0.1f * getHeight());
+        //batch.draw(overfloor, getX(), getY() + 0.9f * getHeight(), getWidth(), 0.1f * getHeight());
     }
 
     public void detach() {

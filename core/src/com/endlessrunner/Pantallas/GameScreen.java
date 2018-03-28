@@ -125,14 +125,15 @@ public class GameScreen extends BaseScreen {
         jugador = factory.crearJugador(world, new Vector2(1.5f, 1.5f));
 
 
-        listaDeSuelo.add(factory.crearSuelo(world, 0, 1000, 1));
+        //listaDeSuelo.add(factory.crearSuelo(world, 0, 1000, 1));
+        for (int i = 0; i < 500; i++) listaDeSuelo.add(factory.crearSuelo(world, i, 1, 1));
         //listaDeSuelo.add(factory.crearSuelo(world, 15, 10, 2));
         //listaDeSuelo.add(factory.crearSuelo(world, 30, 8, 2));
 
-        listaDeMontes.add(factory.crearMonte(world, 18, 1));
-        listaDeMontes.add(factory.crearMonte(world, 33, 1));
-        listaDeMontes.add(factory.crearMonte(world, 45, 1));
-        listaDeMontes.add(factory.crearMonte(world, 60, 1));
+        //listaDeMontes.add(factory.crearMonte(world, 18, 1));
+        //listaDeMontes.add(factory.crearMonte(world, 33, 1));
+        //listaDeMontes.add(factory.crearMonte(world, 45, 1));
+        //listaDeMontes.add(factory.crearMonte(world, 60, 1));
 
 
         for (EntidadSuelo floor : listaDeSuelo)
@@ -255,7 +256,7 @@ public class GameScreen extends BaseScreen {
                 jugador.setSaltando(false);
 
                 if (Gdx.input.isTouched()) {
-                    sonidoSalto.play();
+                    //sonidoSalto.play();
 
                     jugador.setDebeSaltar(true);
                 }
@@ -294,7 +295,7 @@ public class GameScreen extends BaseScreen {
         public void endContact(Contact contact) {
 
             if (areCollided(contact, "jugador", "suelo")) {
-                if (jugador.isVivo()) {
+                if (jugador.isVivo() && Gdx.input.isTouched()) {
                     sonidoSalto.play();
                 }
             }
