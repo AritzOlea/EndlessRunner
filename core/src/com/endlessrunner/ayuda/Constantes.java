@@ -12,4 +12,9 @@ public class Constantes {
 
     public static final float VELOCIDAD_JUGADOR = 8f;
 
+
+
+    public static final float PANTALLA_ALTURA = 360;
+    public static final float PANTALLA_ANCHURA = 640;
+
 }

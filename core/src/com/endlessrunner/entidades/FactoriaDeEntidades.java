@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.endlessrunner.entidades.actorAventurero.ActorAventurero;
+import com.endlessrunner.entidades.obstaculos.EntidadMonte;
 import com.endlessrunner.entidades.obstaculos.EntidadSuelo;
 
 
@@ -32,6 +33,11 @@ public class FactoriaDeEntidades {
         Texture floorTexture = manager.get("paisajes/dia/png/Tiles/2.png");
         Texture overfloorTexture = manager.get("paisajes/dia/png/Tiles/2.png");
         return new EntidadSuelo(world, floorTexture, overfloorTexture, x, width, y);
+    }
+
+    public EntidadMonte crearMonte(World world, float x, float y) {
+        Texture spikeTexture = manager.get("paisajes/dia/png/Object/Stone.png");
+        return new EntidadMonte(world, spikeTexture, x, y);
     }
 
 

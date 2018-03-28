@@ -5,8 +5,10 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.endlessrunner.Pantallas.BaseScreen;
 import com.endlessrunner.Pantallas.CargandoScreen;
+import com.endlessrunner.Pantallas.GameOverScreen;
 import com.endlessrunner.Pantallas.GameScreen;
 
 public class EndlessRunner extends Game {
@@ -18,8 +20,12 @@ public class EndlessRunner extends Game {
     public BaseScreen gameScreen,menuScreen,gameOverScreen,cargandoScreen;
 
 
+    public SpriteBatch batch;
+
     @Override
     public void create() {
+
+        batch = new SpriteBatch();
 
         manager = new AssetManager();
         /*
@@ -32,6 +38,9 @@ public class EndlessRunner extends Game {
         //paisajes
         manager.load("paisajes/dia/png/Object/Stone.png",Texture.class);
         manager.load("paisajes/dia/png/Tiles/2.png",Texture.class);
+
+        //menus
+        manager.load("gameover.png",Texture.class);
 
         //sonidos & musica
         manager.load("audio/die.ogg", Sound.class);
@@ -48,12 +57,22 @@ public class EndlessRunner extends Game {
     public void finishLoading() {
         //menuScreen = new MenuScreen(this);
         gameScreen = new GameScreen(this);
-        //gameOverScreen = new GameOverScreen(this);
+        gameOverScreen = new GameOverScreen(this);
         //creditsScreen = new CreditsScreen(this);
         setScreen(gameScreen);
     }
 
+    @Override
+    public void dispose() {
+        super.dispose();
+        manager.dispose();
+        batch.dispose();
+    }
 
+    @Override
+    public void render () {
+        super.render();
+    }
 
     public AssetManager getManager() {
         return manager;

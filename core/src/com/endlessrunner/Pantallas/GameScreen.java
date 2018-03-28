@@ -3,7 +3,9 @@ package com.endlessrunner.Pantallas;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Contact;
@@ -13,6 +15,8 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.endlessrunner.EndlessRunner;
 import com.endlessrunner.entidades.FactoriaDeEntidades;
@@ -52,8 +56,19 @@ public class GameScreen extends BaseScreen {
     //Posicion de camara
     private Vector3 position;
 
-    //Lista de obstaculos
+    //Listas
     private List<EntidadSuelo> listaDeSuelo = new ArrayList<EntidadSuelo>();
+    private List<EntidadMonte> listaDeMontes = new ArrayList<EntidadMonte>();
+
+
+    Table table;
+    /*
+    PUNTUACION
+     */
+
+
+
+
 
 
 
@@ -85,6 +100,19 @@ public class GameScreen extends BaseScreen {
 
         FactoriaDeEntidades factory = new FactoriaDeEntidades(jokoa.getManager());
 
+        table = new Table();
+        table.top();
+        table.setFillParent(true);
+
+        //Label puntuacionLabel= new Label(String.format("%06d",0),new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        Label puntuacionTextoLabel=new Label("Puntuacion: ",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+
+        table.add(puntuacionTextoLabel).expandX().padTop(10);
+        //table.add(puntuacionLabel).expandX().padTop(10);
+
+        stage.addActor(table);
+
+
         // Create the player. It has an initial position.
         jugador = factory.crearJugador(world, new Vector2(1.5f, 1.5f));
 
@@ -93,12 +121,21 @@ public class GameScreen extends BaseScreen {
         //listaDeSuelo.add(factory.crearSuelo(world, 15, 10, 2));
         //listaDeSuelo.add(factory.crearSuelo(world, 30, 8, 2));
 
+        listaDeMontes.add(factory.crearMonte(world, 18, 1));
+        listaDeMontes.add(factory.crearMonte(world, 33, 1));
+        listaDeMontes.add(factory.crearMonte(world, 45, 1));
+        listaDeMontes.add(factory.crearMonte(world, 60, 1));
+
 
         for (EntidadSuelo floor : listaDeSuelo)
             stage.addActor(floor);
 
+        for (EntidadMonte monte : listaDeMontes)
+            stage.addActor(monte);
+
 
         stage.addActor(jugador);
+
 
 
         stage.getCamera().position.set(position);
@@ -113,8 +150,11 @@ public class GameScreen extends BaseScreen {
 
     @Override
     public void render(float delta) {
+        //update(delta);//separar el update logico del render
+
         Gdx.gl.glClearColor(0.4f, 0.5f, 0.8f, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
 
         stage.act();
 
@@ -123,10 +163,12 @@ public class GameScreen extends BaseScreen {
         if (jugador.getX() > 150 && jugador.isVivo()) {
             float speed = VELOCIDAD_JUGADOR * delta * PIXELS_POR_METRO;
             stage.getCamera().translate(speed, 0, 0);
+            table.moveBy(speed, 0);
         }
 
         stage.draw();
     }
+
 
 
     @Override
@@ -145,9 +187,12 @@ public class GameScreen extends BaseScreen {
         jugador.detach();
         for (EntidadSuelo suelo : listaDeSuelo)
             suelo.detach();
+        for (EntidadMonte monte : listaDeMontes)
+            monte.detach();
 
         // Las listas (clear)
         listaDeSuelo.clear();
+        listaDeMontes.clear();
 
     }
 
@@ -191,6 +236,30 @@ public class GameScreen extends BaseScreen {
                     sonidoSalto.play();
 
                     jugador.setDebeSaltar(true);
+                }
+            }
+
+
+
+            if (areCollided(contact, "jugador", "monte")) {
+                if (jugador.isVivo()) {
+                    jugador.setVivo(false);
+
+                    musicaDeFondo.stop();
+                    sonidoMuerte.play();
+
+                    stage.addAction(
+                            Actions.sequence(
+                                    Actions.delay(1.5f),
+                                    Actions.run(new Runnable() {
+
+                                        @Override
+                                        public void run() {
+                                            jokoa.setScreen(jokoa.gameOverScreen);
+                                        }
+                                    })
+                            )
+                    );
                 }
             }
 

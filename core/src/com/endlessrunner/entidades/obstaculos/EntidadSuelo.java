@@ -54,7 +54,7 @@ public class EntidadSuelo extends Actor {
         PolygonShape leftBox = new PolygonShape();
         leftBox.setAsBox(0.02f, 0.45f);
         leftFixture = leftBody.createFixture(leftBox, 1);
-        leftFixture.setUserData("spike");
+        leftFixture.setUserData("monte");
         leftBox.dispose();
 
 
