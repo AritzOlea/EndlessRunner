@@ -1,0 +1,222 @@
+
+Aventurero.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Dead_
+  rotate: false
+  xy: 1, 1205
+  size: 588, 600
+  orig: 588, 600
+  offset: 0, 0
+  index: 0
+Dead_
+  rotate: false
+  xy: 1, 603
+  size: 588, 600
+  orig: 588, 600
+  offset: 0, 0
+  index: 1
+Dead_
+  rotate: false
+  xy: 591, 1205
+  size: 588, 600
+  orig: 588, 600
+  offset: 0, 0
+  index: 2
+Dead_
+  rotate: false
+  xy: 1, 1
+  size: 588, 600
+  orig: 588, 600
+  offset: 0, 0
+  index: 3
+Dead_
+  rotate: false
+  xy: 591, 603
+  size: 588, 600
+  orig: 588, 600
+  offset: 0, 0
+  index: 4
+Dead_
+  rotate: false
+  xy: 1181, 1205
+  size: 588, 600
+  orig: 588, 600
+  offset: 0, 0
+  index: 5
+Dead_
+  rotate: false
+  xy: 591, 1
+  size: 588, 600
+  orig: 588, 600
+  offset: 0, 0
+  index: 6
+Dead_
+  rotate: false
+  xy: 591, 1
+  size: 588, 600
+  orig: 588, 600
+  offset: 0, 0
+  index: 7
+Dead_
+  rotate: false
+  xy: 591, 1
+  size: 588, 600
+  orig: 588, 600
+  offset: 0, 0
+  index: 8
+Dead_
+  rotate: false
+  xy: 591, 1
+  size: 588, 600
+  orig: 588, 600
+  offset: 0, 0
+  index: 9
+Jump_
+  rotate: false
+  xy: 1181, 667
+  size: 407, 536
+  orig: 407, 536
+  offset: 0, 0
+  index: 0
+Jump_
+  rotate: false
+  xy: 1771, 1269
+  size: 407, 536
+  orig: 407, 536
+  offset: 0, 0
+  index: 1
+Jump_
+  rotate: false
+  xy: 1181, 129
+  size: 407, 536
+  orig: 407, 536
+  offset: 0, 0
+  index: 2
+Jump_
+  rotate: false
+  xy: 2180, 1269
+  size: 407, 536
+  orig: 407, 536
+  offset: 0, 0
+  index: 3
+Jump_
+  rotate: false
+  xy: 2180, 1269
+  size: 407, 536
+  orig: 407, 536
+  offset: 0, 0
+  index: 4
+Jump_
+  rotate: false
+  xy: 2180, 1269
+  size: 407, 536
+  orig: 407, 536
+  offset: 0, 0
+  index: 5
+Jump_
+  rotate: false
+  xy: 2589, 1269
+  size: 407, 536
+  orig: 407, 536
+  offset: 0, 0
+  index: 6
+Jump_
+  rotate: false
+  xy: 2998, 1269
+  size: 407, 536
+  orig: 407, 536
+  offset: 0, 0
+  index: 7
+Jump_
+  rotate: false
+  xy: 3407, 1269
+  size: 407, 536
+  orig: 407, 536
+  offset: 0, 0
+  index: 8
+Jump_
+  rotate: false
+  xy: 3407, 1269
+  size: 407, 536
+  orig: 407, 536
+  offset: 0, 0
+  index: 9
+Run_
+  rotate: false
+  xy: 1590, 696
+  size: 415, 507
+  orig: 415, 507
+  offset: 0, 0
+  index: 0
+Run_
+  rotate: false
+  xy: 1590, 187
+  size: 415, 507
+  orig: 415, 507
+  offset: 0, 0
+  index: 1
+Run_
+  rotate: false
+  xy: 2007, 760
+  size: 415, 507
+  orig: 415, 507
+  offset: 0, 0
+  index: 2
+Run_
+  rotate: false
+  xy: 2007, 251
+  size: 415, 507
+  orig: 415, 507
+  offset: 0, 0
+  index: 3
+Run_
+  rotate: false
+  xy: 2424, 760
+  size: 415, 507
+  orig: 415, 507
+  offset: 0, 0
+  index: 4
+Run_
+  rotate: false
+  xy: 2424, 251
+  size: 415, 507
+  orig: 415, 507
+  offset: 0, 0
+  index: 5
+Run_
+  rotate: false
+  xy: 2841, 760
+  size: 415, 507
+  orig: 415, 507
+  offset: 0, 0
+  index: 6
+Run_
+  rotate: false
+  xy: 2841, 251
+  size: 415, 507
+  orig: 415, 507
+  offset: 0, 0
+  index: 7
+Run_
+  rotate: false
+  xy: 3258, 760
+  size: 415, 507
+  orig: 415, 507
+  offset: 0, 0
+  index: 8
+Run_
+  rotate: false
+  xy: 3258, 251
+  size: 415, 507
+  orig: 415, 507
+  offset: 0, 0
+  index: 9
+Idle_
+  rotate: false
+  xy: 3675, 781
+  size: 319, 486
+  orig: 319, 486
+  offset: 0, 0
+  index: 0
