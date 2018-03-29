@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
@@ -67,7 +68,6 @@ public class GameScreen extends BaseScreen {
     private List<EntidadSetaPuntos> listaDeSetasPuntos = new ArrayList<EntidadSetaPuntos>();
     private List<EntidadSetaSinSalto> listaDeSetasSinSalto = new ArrayList<EntidadSetaSinSalto>();
     private List<EntidadSegundosPisos> listaSegundoPiso = new ArrayList<EntidadSegundosPisos>();
-
 
     //Puntuaciones, tiempo...
     Table table;
@@ -183,6 +183,7 @@ public class GameScreen extends BaseScreen {
 
         updateTimer(delta);
 
+
         //update(delta);//separar el update logico del render
 
         Gdx.gl.glClearColor(0.4f, 0.5f, 0.8f, 1f);
@@ -192,7 +193,8 @@ public class GameScreen extends BaseScreen {
         stage.act();
 
         jokoa.batch.begin();
-        jokoa.batch.draw(fondoBackground,bgIndice,0);
+        //HAY QUE MULTIPLICAR LA RESOLUCIÓN DE PANTALLA POR ALGÚN NUMERO PARA QUE QUEDE BIEN
+        jokoa.batch.draw(fondoBackground,bgIndice,0, Gdx.graphics.getWidth() + Gdx.graphics.getWidth() * 1.75f, Gdx.graphics.getHeight() * 1.75f);
         jokoa.batch.end();
 
         if(bgInc<5){
