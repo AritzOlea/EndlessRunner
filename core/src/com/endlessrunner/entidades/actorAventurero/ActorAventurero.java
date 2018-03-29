@@ -138,11 +138,6 @@ public class ActorAventurero extends Actor{
             }
             batch.draw(muertoTextures[posicionTexturaMuerto],getX(),getY(),getWidth(),getHeight());
         }
-
-
-
-
-
     }
 
     private boolean sum=true;
@@ -185,10 +180,11 @@ public class ActorAventurero extends Actor{
 
 
     public void salto() {
-
         if (!saltandoUno && vivo){
             saltandoUno = true;
-
+            Vector2 vel = body.getLinearVelocity();
+            vel.y = 0f;
+            body.setLinearVelocity(vel);
             Vector2 position = body.getPosition();
             body.applyLinearImpulse(0, IMPULSO_DE_SALTO, position.x, position.y, true);
         }else if(saltandoUno && !saltandoDos) {
