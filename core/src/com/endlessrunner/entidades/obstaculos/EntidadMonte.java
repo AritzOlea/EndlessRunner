@@ -29,21 +29,21 @@ public class EntidadMonte extends Actor {
         this.texture = texture;
 
         BodyDef def = new BodyDef();
-        def.position.set(x, y + 0.5f);
+        def.position.set(x, y + 0.25f);
         body = world.createBody(def);
 
         PolygonShape box = new PolygonShape();
         Vector2[] vertices = new Vector2[3];
-        vertices[0] = new Vector2(-0.5f, -0.5f);
-        vertices[1] = new Vector2(0.5f, -0.5f);
-        vertices[2] = new Vector2(0, 0.5f);
+        vertices[0] = new Vector2(-0.25f, -0.25f);
+        vertices[1] = new Vector2(0.25f, -0.25f);
+        vertices[2] = new Vector2(0, 0.25f);
         box.set(vertices);
-        fixture = body.createFixture(box, 1);
+        fixture = body.createFixture(box, 1/2);
         fixture.setUserData("monte");
         box.dispose();
 
         setPosition((x - 0.5f) * PIXELS_POR_METRO, y * PIXELS_POR_METRO);
-        setSize(PIXELS_POR_METRO, PIXELS_POR_METRO);
+        setSize(PIXELS_POR_METRO/2, PIXELS_POR_METRO/2);
     }
 
     @Override

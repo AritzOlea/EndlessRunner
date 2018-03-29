@@ -34,6 +34,28 @@ public class EndlessRunner extends Game {
 
         //personajes
         manager.load("personajes/aventurero/Idle__000.png",Texture.class);
+        //corriendo
+        manager.load("personajes/aventurero/Run__000.png",Texture.class);
+        manager.load("personajes/aventurero/Run__001.png",Texture.class);
+        manager.load("personajes/aventurero/Run__002.png",Texture.class);
+        manager.load("personajes/aventurero/Run__003.png",Texture.class);
+        manager.load("personajes/aventurero/Run__004.png",Texture.class);
+        manager.load("personajes/aventurero/Run__005.png",Texture.class);
+        manager.load("personajes/aventurero/Run__006.png",Texture.class);
+        manager.load("personajes/aventurero/Run__007.png",Texture.class);
+        manager.load("personajes/aventurero/Run__008.png",Texture.class);
+        manager.load("personajes/aventurero/Run__009.png",Texture.class);
+        //saltando
+        manager.load("personajes/aventurero/Jump__000.png",Texture.class);
+        manager.load("personajes/aventurero/Jump__001.png",Texture.class);
+        manager.load("personajes/aventurero/Jump__002.png",Texture.class);
+        manager.load("personajes/aventurero/Jump__003.png",Texture.class);
+        manager.load("personajes/aventurero/Jump__004.png",Texture.class);
+        manager.load("personajes/aventurero/Jump__005.png",Texture.class);
+        manager.load("personajes/aventurero/Jump__006.png",Texture.class);
+        manager.load("personajes/aventurero/Jump__007.png",Texture.class);
+        manager.load("personajes/aventurero/Jump__008.png",Texture.class);
+        manager.load("personajes/aventurero/Jump__009.png",Texture.class);
 
         //paisajes
         manager.load("paisajes/dia/png/Object/Stone.png",Texture.class);

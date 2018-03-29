@@ -125,8 +125,15 @@ public class GameScreen extends BaseScreen {
         jugador = factory.crearJugador(world, new Vector2(1.5f, 1.5f));
 
 
+        /*listaDeSuelo.add(factory.crearSuelo(world, 0, 10, 1));
+
+        listaDeSuelo.add(factory.crearSuelo(world, 12, 1000, 1));*/
+        GeneracionDeEscenario.GenerarSuelo(listaDeSuelo,world,factory,2000);
+        GeneracionDeEscenario.GenerarRocas(listaDeMontes,world,factory);
+
+
         //listaDeSuelo.add(factory.crearSuelo(world, 0, 1000, 1));
-        for (int i = 0; i < 500; i++) listaDeSuelo.add(factory.crearSuelo(world, i, 1, 1));
+        //for (int i = 0; i < 500; i++) listaDeSuelo.add(factory.crearSuelo(world, 1, i, 1));
         //listaDeSuelo.add(factory.crearSuelo(world, 15, 10, 2));
         //listaDeSuelo.add(factory.crearSuelo(world, 30, 8, 2));
 
@@ -173,7 +180,7 @@ public class GameScreen extends BaseScreen {
         world.step(delta,6,2);
 
         if (jugador.getX() > 150 && jugador.isVivo()) {
-            float speed = VELOCIDAD_JUGADOR * delta * PIXELS_POR_METRO;
+            float speed = VELOCIDAD_JUGADOR * delta *  PIXELS_POR_METRO;
             stage.getCamera().translate(speed, 0, 0);
             table.moveBy(speed, 0);
         }

@@ -19,7 +19,7 @@ import static com.endlessrunner.ayuda.Constantes.PIXELS_POR_METRO;
 
 public class EntidadSuelo extends Actor {
 
-    private Texture floor, overfloor;
+    private Texture floor;//, overfloor;
 
     private World world;
 

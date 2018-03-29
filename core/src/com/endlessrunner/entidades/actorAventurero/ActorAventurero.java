@@ -2,7 +2,9 @@ package com.endlessrunner.entidades.actorAventurero;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -10,6 +12,8 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+
+import org.w3c.dom.Text;
 
 import static com.endlessrunner.ayuda.Constantes.IMPULSO_DE_SALTO;
 import static com.endlessrunner.ayuda.Constantes.PIXELS_POR_METRO;
@@ -21,7 +25,7 @@ import static com.endlessrunner.ayuda.Constantes.VELOCIDAD_JUGADOR;
 
 public class ActorAventurero extends Actor{
 
-    private Texture texture;
+    //private Texture texture;
 
     private World world;
 
@@ -47,14 +51,21 @@ public class ActorAventurero extends Actor{
     public void setDebeSaltar(boolean debeSaltar) {this.debeSaltar = debeSaltar;}
 
 
+    //Texturas del jugador
+    Texture[] corriendoTextures,saltandoTextures;
+    int posicionTextura,cadaTexturaXveces;//corriendo
 
-    public ActorAventurero(World world, Texture texture, Vector2 position){
+    public ActorAventurero(World world, Texture texture, Vector2 position, Texture[] corriendo,Texture[] saltandoTex){
         this.vivo=true;
         this.saltando=false;
         this.debeSaltar=false;
 
-        this.texture=texture;
+        //this.texture=texture;
+        this.corriendoTextures=corriendo;
         this.world=world;
+        this.posicionTextura=0;
+        this.cadaTexturaXveces=0;
+        this.saltandoTextures=saltandoTex;
 
 
         //Body jugador
@@ -81,8 +92,36 @@ public class ActorAventurero extends Actor{
     public void draw(Batch batch, float parentAlpha) {
         setPosition((body.getPosition().x - 0.5f) * PIXELS_POR_METRO,
                     (body.getPosition().y - 0.5f) * PIXELS_POR_METRO);
-        batch.draw(texture,getX(),getY(),getWidth(),getHeight());
+
+        if(saltando){
+            if(cadaTexturaXveces<4){
+                cadaTexturaXveces++;
+            }else{
+                cadaTexturaXveces=0;
+                if(posicionTextura+1==corriendoTextures.length)posicionTextura=-1;
+                posicionTextura++;
+            }
+            batch.draw(saltandoTextures[posicionTextura],getX(),getY(),getWidth(),getHeight());
+
+        }else{
+            if(cadaTexturaXveces<4){
+                cadaTexturaXveces++;
+            }else{
+                cadaTexturaXveces=0;
+                if(posicionTextura+1==corriendoTextures.length)posicionTextura=-1;
+                posicionTextura++;
+            }
+            batch.draw(corriendoTextures[posicionTextura],getX(),getY(),getWidth(),getHeight());
+        }
+
+
+
+        //batch.draw(corriendo[0],getX(),getY(),getWidth(),getHeight());
+
+
     }
+
+    private boolean sum=true;
 
     @Override
     public void act(float delta) {
@@ -91,14 +130,23 @@ public class ActorAventurero extends Actor{
             salto();
         }
 
-        if (debeSaltar) {
+        /*if (debeSaltar) {
             debeSaltar = false;
             salto();
-        }
+        }*/
 
         if (vivo) {
             float velocidadY = body.getLinearVelocity().y;
-            body.setLinearVelocity(VELOCIDAD_JUGADOR, velocidadY);
+            //float speed = VELOCIDAD_JUGADOR * delta * PIXELS_POR_METRO;
+
+            if(sum){
+                sum=false;
+                body.setLinearVelocity(VELOCIDAD_JUGADOR*(1+delta-0.01f), velocidadY);
+            }else{
+                sum=true;
+                body.setLinearVelocity(VELOCIDAD_JUGADOR, velocidadY);
+            }
+
         }
 
         if (saltando) {
@@ -112,6 +160,9 @@ public class ActorAventurero extends Actor{
 
         if (!saltando && vivo) {
             saltando = true;
+
+            //animazio parametro guztiak hasieratu
+            posicionTextura=0;cadaTexturaXveces=0;
 
             Vector2 position = body.getPosition();
             body.applyLinearImpulse(0, IMPULSO_DE_SALTO, position.x, position.y, true);
