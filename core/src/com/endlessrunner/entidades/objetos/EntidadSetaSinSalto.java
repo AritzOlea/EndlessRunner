@@ -1,10 +1,13 @@
 package com.endlessrunner.entidades.objetos;
 
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
@@ -46,7 +49,19 @@ public class EntidadSetaSinSalto  extends Actor {
         box.dispose();*/
 
         setPosition((x - 0.5f) * PIXELS_POR_METRO, y * PIXELS_POR_METRO);
-        setSize(PIXELS_POR_METRO / 3, PIXELS_POR_METRO /3);
+        setSize(PIXELS_POR_METRO*2, PIXELS_POR_METRO*2);
+    }
+
+    public boolean areCollided(Contact contact, Object userA, Object userB) {
+        Object userDataA = contact.getFixtureA().getUserData();
+        Object userDataB = contact.getFixtureB().getUserData();
+
+        if (userDataA == null || userDataB == null) {
+            return false;
+        }
+
+        return (userDataA.equals(userA) && userDataB.equals(userB)) ||
+                (userDataA.equals(userB) && userDataB.equals(userA));
     }
 
     @Override
@@ -55,12 +70,13 @@ public class EntidadSetaSinSalto  extends Actor {
 
         if(sinCoger) {
             if (getX() + getWidth() > GameScreen.jugador.getX() && GameScreen.jugador.getX() > getX()
-                    &&
-                    getY() + getHeight() > GameScreen.jugador.getY() && GameScreen.jugador.getY() > getY()) {
+                    && GameScreen.jugadorEnElSuelo
+                    ) {
 
                 GameScreen.timer = 2;
                 GameScreen.jugador.setPegadoAlSuelo(true);
                 GameScreen.labelTiempo.setText(String.format("Cuenta atras: %03d", GameScreen.timer));
+                GameScreen.labelTiempo.setColor(Color.RED);
                 sinCoger = false;
 
             } else {

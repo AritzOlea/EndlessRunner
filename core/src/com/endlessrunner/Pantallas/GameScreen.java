@@ -73,6 +73,7 @@ public class GameScreen extends BaseScreen {
     public static float timeCount;
     public static Label labelTiempo,puntuacionTextoLabel;
     public static boolean pegadoAlSuelo;
+    public static boolean jugadorEnElSuelo;
 
     //Pegado al suelo
 
@@ -101,6 +102,8 @@ public class GameScreen extends BaseScreen {
         timer = 0;
         timeCount = 0f;
         puntuacion=0;
+
+        jugadorEnElSuelo = true;
     }
 
 
@@ -205,6 +208,9 @@ public class GameScreen extends BaseScreen {
             table.moveBy(speed, 0);
         }
 
+        if (timer == 0)
+            GameScreen.labelTiempo.setColor(Color.WHITE);
+
         stage.draw();
     }
 
@@ -277,7 +283,7 @@ public class GameScreen extends BaseScreen {
 
     private class GameContactListener implements ContactListener {
 
-        private boolean areCollided(Contact contact, Object userA, Object userB) {
+        public boolean areCollided(Contact contact, Object userA, Object userB) {
             Object userDataA = contact.getFixtureA().getUserData();
             Object userDataB = contact.getFixtureB().getUserData();
 
@@ -295,6 +301,7 @@ public class GameScreen extends BaseScreen {
 
             if (areCollided(contact, "jugador", "suelo")) {
                 jugador.setSaltando(false);
+                jugadorEnElSuelo = true;
 
                 if (Gdx.input.isTouched()) {
                     //sonidoSalto.play();
@@ -309,6 +316,7 @@ public class GameScreen extends BaseScreen {
                 if (jugador.isVivo()) {
                     jugador.setVivo(false);
                     timer = 0;
+                    puntuacion = 0;
 
                     musicaDeFondo.stop();
                     sonidoMuerte.play();
@@ -344,6 +352,7 @@ public class GameScreen extends BaseScreen {
         public void endContact(Contact contact) {
 
             if (areCollided(contact, "jugador", "suelo")) {
+                jugadorEnElSuelo = false;
                 if (jugador.isVivo() && Gdx.input.isTouched()) {
                     sonidoSalto.play();
                 }

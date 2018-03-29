@@ -126,7 +126,6 @@ public class GeneracionDeEscenario {
 
     public static void GenerarSinSalto(List<EntidadSetaSinSalto> listaSetasPositivas, World world, FactoriaDeEntidades factory){
 
-
         int i=105,siguienteSeta;
 
         while(i<2000){
@@ -140,7 +139,7 @@ public class GeneracionDeEscenario {
                 espaciosOcupados.add(i);
                 espaciosOcupados.add(i+1);espaciosOcupados.add(i+2);espaciosOcupados.add(i+3);
 
-                listaSetasPositivas.add(factory.crearSetaSinSalto(world, i, 1));
+                listaSetasPositivas.add(factory.crearSetaSinSalto(world, i, 0.5f));
             }
 
         }
