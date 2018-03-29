@@ -193,7 +193,7 @@ public class GeneracionDeEscenario {
 
         while(i<2000){
 
-            siguienteRoca= (int) Math.floor(Math.random()*(15-5+1)+0);
+            siguienteRoca= (int) Math.floor(Math.random()*(15-5+1)+10);
 
             i=i+siguienteRoca;
 
