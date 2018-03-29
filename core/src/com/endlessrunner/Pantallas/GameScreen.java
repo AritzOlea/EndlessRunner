@@ -91,7 +91,7 @@ public class GameScreen extends BaseScreen {
         stage=new Stage(new FitViewport(640,360));
         position = new Vector3(stage.getCamera().position);
 
-        world=new World(new Vector2(0,-10),true);
+        world=new World(new Vector2(0,-15),true);
         world.setContactListener(new GameContactListener());
 
         fondoBackground=jokoa.getManager().get("paisajes/dia/png/BG/BG.png");
@@ -138,12 +138,14 @@ public class GameScreen extends BaseScreen {
         listaDeSetasSinSalto.clear();
         listaSegundoPiso.clear();
 
-        listaDeSuelo.add(factory.crearSuelo(world, 0, 1000, 1));
-        //GeneracionDeEscenario.GenerarSuelo(listaDeSuelo,world,factory,2000);
+        //listaDeSuelo.add(factory.crearSuelo(world, 0, 1000, 1));
+        GeneracionDeEscenario.GenerarSuelo(listaDeSuelo,world,factory,2000);
         GeneracionDeEscenario.GenerarSegundosPisos(listaSegundoPiso,world,factory,listaDeMontes,listaDeSetasPuntos);
-        //GeneracionDeEscenario.GenerarRocas(listaDeMontes,world,factory);
-        //GeneracionDeEscenario.GenerarSetasPositivas(listaDeSetasPuntos,world,factory);
-        //GeneracionDeEscenario.GenerarSinSalto(listaDeSetasSinSalto,world,factory);
+
+        GeneracionDeEscenario.GenerarSinSalto(listaDeSetasSinSalto,world,factory);
+        GeneracionDeEscenario.GenerarRocas(listaDeMontes,world,factory);
+        GeneracionDeEscenario.GenerarSetasPositivas(listaDeSetasPuntos,world,factory);
+
 
 
         for (EntidadSuelo floor : listaDeSuelo)

@@ -151,7 +151,8 @@ public class ActorAventurero extends Actor{
     public void act(float delta) {
 
         if (Gdx.input.justTouched()) {
-            salto();
+            if(!pegadoAlSuelo)
+                salto();
         }
 
         /*if (debeSaltar) {

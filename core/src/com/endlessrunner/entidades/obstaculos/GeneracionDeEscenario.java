@@ -136,29 +136,7 @@ public class GeneracionDeEscenario {
 
 
 
-    public static void GenerarRocas(List<EntidadMonte> listaDeRocas, World world, FactoriaDeEntidades factory){
 
-
-        int i=15,siguienteRoca;
-
-        while(i<2000){
-
-            siguienteRoca= (int) Math.floor(Math.random()*(15-5+1)+15);
-
-            i=i+siguienteRoca;
-
-            if( !espaciosOcupados.contains(i)){
-                espaciosOcupados.add(i-1);espaciosOcupados.add(i-2);espaciosOcupados.add(i-3);
-                espaciosOcupados.add(i);
-                espaciosOcupados.add(i+1);espaciosOcupados.add(i+2);espaciosOcupados.add(i+3);
-
-                listaDeRocas.add(factory.crearMonte(world, i, 1));
-            }
-
-        }
-
-
-    }
 
     public static void GenerarSetasPositivas(List<EntidadSetaPuntos> listaSetasPositivas, World world, FactoriaDeEntidades factory){
 
@@ -172,9 +150,9 @@ public class GeneracionDeEscenario {
             i=i+siguienteSeta;
 
             if( !espaciosOcupados.contains(i)){
-                espaciosOcupados.add(i-1);espaciosOcupados.add(i-2);espaciosOcupados.add(i-3);
+                espaciosOcupados.add(i-1);espaciosOcupados.add(i-2);espaciosOcupados.add(i);
                 espaciosOcupados.add(i);
-                espaciosOcupados.add(i+1);espaciosOcupados.add(i+2);espaciosOcupados.add(i+3);
+                espaciosOcupados.add(i+1);espaciosOcupados.add(i+2);espaciosOcupados.add(i);
 
                 listaSetasPositivas.add(factory.crearSetaPuntos(world, i, 1));
             }
@@ -191,16 +169,40 @@ public class GeneracionDeEscenario {
 
         while(i<2000){
 
-            siguienteSeta= (int) Math.floor(Math.random()*(100-50+1)+10);
+            siguienteSeta= (int) Math.floor(Math.random()*(80-30+1)+10);
 
             i=i+siguienteSeta;
 
             if( !espaciosOcupados.contains(i)){
-                espaciosOcupados.add(i-1);espaciosOcupados.add(i-2);espaciosOcupados.add(i-3);
+                espaciosOcupados.add(i-1);espaciosOcupados.add(i-2);
                 espaciosOcupados.add(i);
-                espaciosOcupados.add(i+1);espaciosOcupados.add(i+2);espaciosOcupados.add(i+3);
+                espaciosOcupados.add(i+1);espaciosOcupados.add(i+2);
 
                 listaSetasPositivas.add(factory.crearSetaSinSalto(world, i, 0.5f));
+            }
+
+        }
+
+
+    }
+
+    public static void GenerarRocas(List<EntidadMonte> listaDeRocas, World world, FactoriaDeEntidades factory){
+
+
+        int i=15,siguienteRoca;
+
+        while(i<2000){
+
+            siguienteRoca= (int) Math.floor(Math.random()*(15-5+1)+0);
+
+            i=i+siguienteRoca;
+
+            if( !espaciosOcupados.contains(i)){
+                espaciosOcupados.add(i-1);
+                espaciosOcupados.add(i);
+                espaciosOcupados.add(i+1);
+
+                listaDeRocas.add(factory.crearMonte(world, i, 1));
             }
 
         }
