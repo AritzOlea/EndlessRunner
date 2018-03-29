@@ -68,7 +68,7 @@ public class EntidadSetaSinSalto  extends Actor {
     public void draw(Batch batch, float parentAlpha) {
         batch.draw(texture, getX(), getY(), getWidth(), getHeight());
 
-        if(sinCoger) {
+        if(sinCoger && GameScreen.jugador.isVivo()) {
             if (getX() + getWidth() > GameScreen.jugador.getX() && GameScreen.jugador.getX() > getX()
                     && GameScreen.jugadorEnElSuelo
                     ) {

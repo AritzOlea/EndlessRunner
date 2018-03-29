@@ -54,7 +54,7 @@ public class GameScreen extends BaseScreen {
     private Texture fondoBackground;
 
     //Sonidos y musicas
-    private Sound sonidoSalto,sonidoMuerte;
+    public static Sound sonidoSalto,sonidoMuerte;
     private Music musicaDeFondo;
 
     //Posicion de camara
@@ -105,7 +105,6 @@ public class GameScreen extends BaseScreen {
 
         jugadorEnElSuelo = true;
     }
-
 
     @Override
     public void show() {
@@ -211,6 +210,30 @@ public class GameScreen extends BaseScreen {
         if (timer == 0)
             GameScreen.labelTiempo.setColor(Color.WHITE);
 
+        if (jugador.getY() < -150){
+            if (jugador.isVivo()) {
+                jugador.setVivo(false);
+                timer = 0;
+                puntuacion = 0;
+
+                musicaDeFondo.stop();
+                sonidoMuerte.play();
+
+                stage.addAction(
+                        Actions.sequence(
+                                Actions.delay(1.5f),
+                                Actions.run(new Runnable() {
+
+                                    @Override
+                                    public void run() {
+                                        jokoa.setScreen(jokoa.gameOverScreen);
+                                    }
+                                })
+                        )
+                );
+            }
+        }
+
         stage.draw();
     }
 
@@ -300,7 +323,8 @@ public class GameScreen extends BaseScreen {
         public void beginContact(Contact contact) {
 
             if (areCollided(contact, "jugador", "suelo")) {
-                jugador.setSaltando(false);
+                jugador.setSaltandoUno(false);
+                jugador.setSaltandoDos(false);
                 jugadorEnElSuelo = true;
 
                 if (Gdx.input.isTouched()) {

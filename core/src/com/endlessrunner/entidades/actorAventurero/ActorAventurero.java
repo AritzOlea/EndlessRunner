@@ -12,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.endlessrunner.Pantallas.GameScreen;
 
 import org.w3c.dom.Text;
 
@@ -42,9 +43,13 @@ public class ActorAventurero extends Actor{
     public boolean isVivo() {return vivo;}
     public void setVivo(boolean vivo) {this.vivo = vivo;}
 
-    private boolean saltando;
-    public boolean isSaltando() {return saltando;}
-    public void setSaltando(boolean saltando) {this.saltando = saltando;}
+    private boolean saltandoUno;
+    public boolean isSaltandoUno() {return saltandoUno;}
+    public void setSaltandoUno(boolean saltando) {this.saltandoUno = saltando;}
+
+    private boolean saltandoDos;
+    public boolean isSaltandoDos() {return saltandoDos;}
+    public void setSaltandoDos(boolean saltando) {this.saltandoDos = saltando;}
 
     private boolean debeSaltar;
     public boolean isDebeSaltar() {return debeSaltar;}
@@ -61,7 +66,8 @@ public class ActorAventurero extends Actor{
 
     public ActorAventurero(World world, Texture texture, Vector2 position, Texture[] corriendo,Texture[] saltandoTex, Texture[] muertoTex){
         this.vivo=true;
-        this.saltando=false;
+        this.saltandoUno=false;
+        this.saltandoDos=false;
         this.debeSaltar=false;
         this.pegadoAlSuelo=false;
 
@@ -101,7 +107,7 @@ public class ActorAventurero extends Actor{
         setPosition((body.getPosition().x - 0.5f) * PIXELS_POR_METRO,
                     (body.getPosition().y - 0.5f) * PIXELS_POR_METRO);
 
-        if(saltando){
+        if(saltandoUno){
             if(cadaTexturaXveces<4){
                 cadaTexturaXveces++;
             }else{
@@ -167,7 +173,7 @@ public class ActorAventurero extends Actor{
 
         }
 
-        if (saltando) {
+        if (saltandoUno) {
             body.applyForceToCenter(0, - IMPULSO_DE_SALTO * 1.15f, true);
         }
     }
@@ -176,14 +182,19 @@ public class ActorAventurero extends Actor{
 
     public void salto() {
 
-        if (!saltando && vivo &&!pegadoAlSuelo) {
-            saltando = true;
-
-            //animazio parametro guztiak hasieratu
-            posicionTextura=0;cadaTexturaXveces=0;
+        if (!saltandoUno && vivo){
+            saltandoUno = true;
 
             Vector2 position = body.getPosition();
             body.applyLinearImpulse(0, IMPULSO_DE_SALTO, position.x, position.y, true);
+        }else if(saltandoUno && !saltandoDos) {
+            saltandoDos = true;
+            Vector2 vel = body.getLinearVelocity();
+            vel.y = 0f;
+            body.setLinearVelocity(vel);
+            Vector2 position = body.getPosition();
+            body.applyLinearImpulse(0, IMPULSO_DE_SALTO, position.x, position.y, true);
+            GameScreen.sonidoSalto.play();
         }
     }
 
