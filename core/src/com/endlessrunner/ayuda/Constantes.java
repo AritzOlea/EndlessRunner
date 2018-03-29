@@ -6,9 +6,9 @@ package com.endlessrunner.ayuda;
 
 public class Constantes {
 
-    public static final float PIXELS_POR_METRO = 90f;
+    public static final float PIXELS_POR_METRO = 70f;
 
-    public static final float IMPULSO_DE_SALTO = 20;
+    public static final float IMPULSO_DE_SALTO = 22;
 
     public static final float VELOCIDAD_JUGADOR = 7.5f;
 

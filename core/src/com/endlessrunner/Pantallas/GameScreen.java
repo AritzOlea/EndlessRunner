@@ -45,6 +45,7 @@ public class GameScreen extends BaseScreen {
      */
     //Actor jugador
     public static ActorAventurero jugador;
+    public static float velocidadJugador;
 
     //Mundo Box2D
     private World world;
@@ -65,6 +66,7 @@ public class GameScreen extends BaseScreen {
     private List<EntidadMonte> listaDeMontes = new ArrayList<EntidadMonte>();
     private List<EntidadSetaPuntos> listaDeSetasPuntos = new ArrayList<EntidadSetaPuntos>();
     private List<EntidadSetaSinSalto> listaDeSetasSinSalto = new ArrayList<EntidadSetaSinSalto>();
+    private List<EntidadSegundosPisos> listaSegundoPiso = new ArrayList<EntidadSegundosPisos>();
 
 
     //Puntuaciones, tiempo...
@@ -127,18 +129,21 @@ public class GameScreen extends BaseScreen {
 
 
         // Create the player. It has an initial position.
-        jugador = factory.crearJugador(world, new Vector2(1.5f, 1.5f));
+        jugador = factory.crearJugador(world, new Vector2(0.75f, 1.5f));
 
 
         listaDeSuelo.clear();
         listaDeMontes.clear();
         listaDeSetasPuntos.clear();
         listaDeSetasSinSalto.clear();
-        //listaDeSuelo.add(factory.crearSuelo(world, 0, 1000, 1));
-        GeneracionDeEscenario.GenerarSuelo(listaDeSuelo,world,factory,2000);
-        GeneracionDeEscenario.GenerarRocas(listaDeMontes,world,factory);
-        GeneracionDeEscenario.GenerarSetasPositivas(listaDeSetasPuntos,world,factory);
-        GeneracionDeEscenario.GenerarSinSalto(listaDeSetasSinSalto,world,factory);
+        listaSegundoPiso.clear();
+
+        listaDeSuelo.add(factory.crearSuelo(world, 0, 1000, 1));
+        //GeneracionDeEscenario.GenerarSuelo(listaDeSuelo,world,factory,2000);
+        GeneracionDeEscenario.GenerarSegundosPisos(listaSegundoPiso,world,factory,listaDeMontes,listaDeSetasPuntos);
+        //GeneracionDeEscenario.GenerarRocas(listaDeMontes,world,factory);
+        //GeneracionDeEscenario.GenerarSetasPositivas(listaDeSetasPuntos,world,factory);
+        //GeneracionDeEscenario.GenerarSinSalto(listaDeSetasSinSalto,world,factory);
 
 
         for (EntidadSuelo floor : listaDeSuelo)
@@ -152,6 +157,9 @@ public class GameScreen extends BaseScreen {
 
         for (EntidadSetaSinSalto seta : listaDeSetasSinSalto)
             stage.addActor(seta);
+
+        for (EntidadSegundosPisos piso: listaSegundoPiso)
+            stage.addActor(piso);
 
 
         stage.addActor(jugador);
@@ -280,12 +288,15 @@ public class GameScreen extends BaseScreen {
             monte.detach();
         for (EntidadSetaPuntos seta : listaDeSetasPuntos)
             seta.detach();
+        for (EntidadSegundosPisos piso: listaSegundoPiso)
+            piso.detach();
 
         // Las listas (clear)
         listaDeSuelo.clear();
         listaDeMontes.clear();
         listaDeSetasPuntos.clear();
         listaDeSetasSinSalto.clear();
+        listaSegundoPiso.clear();
 
     }
 

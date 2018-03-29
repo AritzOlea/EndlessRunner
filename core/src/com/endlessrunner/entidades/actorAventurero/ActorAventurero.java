@@ -16,6 +16,7 @@ import com.endlessrunner.Pantallas.GameScreen;
 
 import org.w3c.dom.Text;
 
+import static com.endlessrunner.Pantallas.GameScreen.velocidadJugador;
 import static com.endlessrunner.ayuda.Constantes.IMPULSO_DE_SALTO;
 import static com.endlessrunner.ayuda.Constantes.PIXELS_POR_METRO;
 import static com.endlessrunner.ayuda.Constantes.VELOCIDAD_JUGADOR;
@@ -140,7 +141,6 @@ public class ActorAventurero extends Actor{
 
 
 
-        //batch.draw(corriendo[0],getX(),getY(),getWidth(),getHeight());
 
 
     }
@@ -161,7 +161,10 @@ public class ActorAventurero extends Actor{
 
         if (vivo) {
             float velocidadY = body.getLinearVelocity().y;
-            //float speed = VELOCIDAD_JUGADOR * delta * PIXELS_POR_METRO;
+            //velocidadJugador= body.getLinearVelocity().y;
+
+
+            //body.setLinearVelocity(VELOCIDAD_JUGADOR, velocidadY);
 
             if(sum){
                 sum=false;
@@ -193,7 +196,7 @@ public class ActorAventurero extends Actor{
             vel.y = 0f;
             body.setLinearVelocity(vel);
             Vector2 position = body.getPosition();
-            body.applyLinearImpulse(0, IMPULSO_DE_SALTO, position.x, position.y, true);
+            body.applyLinearImpulse(0, IMPULSO_DE_SALTO*1.2f, position.x, position.y, true);
             GameScreen.sonidoSalto.play();
         }
     }

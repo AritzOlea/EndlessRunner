@@ -8,6 +8,7 @@ import com.endlessrunner.entidades.actorAventurero.ActorAventurero;
 import com.endlessrunner.entidades.objetos.EntidadSetaPuntos;
 import com.endlessrunner.entidades.objetos.EntidadSetaSinSalto;
 import com.endlessrunner.entidades.obstaculos.EntidadMonte;
+import com.endlessrunner.entidades.obstaculos.EntidadSegundosPisos;
 import com.endlessrunner.entidades.obstaculos.EntidadSuelo;
 
 
@@ -88,6 +89,11 @@ public class FactoriaDeEntidades {
     public EntidadSetaSinSalto crearSetaSinSalto(World world, float x, float y) {
         Texture spikeTexture = manager.get("paisajes/dia/png/Object/charcoCola.png");
         return new EntidadSetaSinSalto(world, spikeTexture, x, y);
+    }
+
+    public EntidadSegundosPisos crearSegundosPisos(World world, float x, float width, float y){
+        Texture floorTexture = manager.get("paisajes/dia/png/Tiles/14.png");
+        return new EntidadSegundosPisos(world, floorTexture, x, width, y);
     }
 
 }

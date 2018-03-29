@@ -56,7 +56,7 @@ public class GeneracionDeEscenario {
 
 
             anchuraDelSuelo=(int) Math.floor(Math.random()*(maximoDeAnchoBloque-minimoDeAnchoBloque+1)+maximoDeAnchoBloque);
-            anchuraDelSalto=(int) Math.floor(Math.random()*(3-1+1)+3);
+            anchuraDelSalto=(int) Math.floor(Math.random()*(5-1+1)+3);
 
             listaDeSuelo.add(factory.crearSuelo(world, i, anchuraDelSuelo, 1));
 
@@ -70,6 +70,67 @@ public class GeneracionDeEscenario {
 
         //Iterator it = espaciosOcupados.iterator();
         //while(it.hasNext())System.out.println(it.next());
+
+    }
+
+
+
+    public static void GenerarSegundosPisos(List<EntidadSegundosPisos> listaDeSuelo, World world, FactoriaDeEntidades factory,List<EntidadMonte> listaDeRocas,List<EntidadSetaPuntos> listaSetasPositivas){
+
+        int i=0,anchuraDelSuelo=0,maximoDeAnchoBloque=0,minimoDeAnchoBloque=0,iLag;
+        boolean libre;
+        while(i<2000){
+
+            i=i+(int) Math.floor(Math.random()*(50)+10);
+
+            anchuraDelSuelo=(int) Math.floor(Math.random()*(10-5+1)+5);
+            iLag=0;
+
+            libre=true;
+            while(libre && iLag<=anchuraDelSuelo){
+
+                if(espaciosOcupados.contains(iLag))libre=false;
+
+                iLag++;
+
+            }
+
+
+            if(libre){
+
+                if((Math.random() < 0.5)){//zeoze jarriko dugu
+                    int posizioa=anchuraDelSuelo-3;
+                    posizioa=posizioa+i;
+
+                    if((Math.random() < 0.5)){//goikoa
+                        if((Math.random() < 0.5)){//positiboa
+                            listaSetasPositivas.add(factory.crearSetaPuntos(world, posizioa, 3.5f));
+                        }else{//negatiboa
+                            listaDeRocas.add(factory.crearMonte(world, posizioa, 3.5f));
+                        }
+                    } else {//bekoa
+                        if((Math.random() < 0.5)){//positiboa
+                            listaSetasPositivas.add(factory.crearSetaPuntos(world, posizioa, 1));
+                        }else{//negatiboa
+                            listaDeRocas.add(factory.crearMonte(world, posizioa, 1));
+                        }
+                    }
+                }
+
+
+
+                for(iLag=i-2;iLag<(i+anchuraDelSuelo+2);iLag++)espaciosOcupados.add(iLag);
+
+                listaDeSuelo.add(factory.crearSegundosPisos(world, i, anchuraDelSuelo, 3.5f));
+
+                i=i+anchuraDelSuelo;
+
+            }
+
+
+
+
+        }
 
     }
 
