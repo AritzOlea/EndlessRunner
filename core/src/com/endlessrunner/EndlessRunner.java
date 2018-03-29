@@ -56,6 +56,17 @@ public class EndlessRunner extends Game {
         manager.load("personajes/aventurero/Jump__007.png",Texture.class);
         manager.load("personajes/aventurero/Jump__008.png",Texture.class);
         manager.load("personajes/aventurero/Jump__009.png",Texture.class);
+        //muerto
+        manager.load("personajes/aventurero/Dead__000.png",Texture.class);
+        manager.load("personajes/aventurero/Dead__001.png",Texture.class);
+        manager.load("personajes/aventurero/Dead__002.png",Texture.class);
+        manager.load("personajes/aventurero/Dead__003.png",Texture.class);
+        manager.load("personajes/aventurero/Dead__004.png",Texture.class);
+        manager.load("personajes/aventurero/Dead__005.png",Texture.class);
+        manager.load("personajes/aventurero/Dead__006.png",Texture.class);
+        manager.load("personajes/aventurero/Dead__007.png",Texture.class);
+        manager.load("personajes/aventurero/Dead__008.png",Texture.class);
+        manager.load("personajes/aventurero/Dead__009.png",Texture.class);
 
         //paisajes
         manager.load("paisajes/dia/png/Object/Stone.png",Texture.class);

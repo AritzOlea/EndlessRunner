@@ -10,7 +10,7 @@ public class Constantes {
 
     public static final float IMPULSO_DE_SALTO = 20;
 
-    public static final float VELOCIDAD_JUGADOR = 8f;
+    public static final float VELOCIDAD_JUGADOR = 7.5f;
 
 
 

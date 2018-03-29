@@ -52,10 +52,11 @@ public class ActorAventurero extends Actor{
 
 
     //Texturas del jugador
-    Texture[] corriendoTextures,saltandoTextures;
+    Texture[] corriendoTextures,saltandoTextures, muertoTextures;
     int posicionTextura,cadaTexturaXveces;//corriendo
+    int posicionTexturaMuerto ,cadaTexturaMuertoXveces;//morir
 
-    public ActorAventurero(World world, Texture texture, Vector2 position, Texture[] corriendo,Texture[] saltandoTex){
+    public ActorAventurero(World world, Texture texture, Vector2 position, Texture[] corriendo,Texture[] saltandoTex, Texture[] muertoTex){
         this.vivo=true;
         this.saltando=false;
         this.debeSaltar=false;
@@ -64,8 +65,11 @@ public class ActorAventurero extends Actor{
         this.corriendoTextures=corriendo;
         this.world=world;
         this.posicionTextura=0;
+        this.posicionTexturaMuerto=0;
         this.cadaTexturaXveces=0;
+        this.cadaTexturaMuertoXveces=0;
         this.saltandoTextures=saltandoTex;
+        this.muertoTextures=muertoTex;
 
 
         //Body jugador
@@ -103,7 +107,7 @@ public class ActorAventurero extends Actor{
             }
             batch.draw(saltandoTextures[posicionTextura],getX(),getY(),getWidth(),getHeight());
 
-        }else{
+        }else if(vivo){
             if(cadaTexturaXveces<4){
                 cadaTexturaXveces++;
             }else{
@@ -112,6 +116,16 @@ public class ActorAventurero extends Actor{
                 posicionTextura++;
             }
             batch.draw(corriendoTextures[posicionTextura],getX(),getY(),getWidth(),getHeight());
+        }else{
+            if (posicionTexturaMuerto+1 != muertoTextures.length) {
+                if (cadaTexturaXveces < 1) {
+                    cadaTexturaXveces++;
+                } else {
+                    cadaTexturaXveces = 0;
+                    posicionTexturaMuerto++;
+                }
+            }
+            batch.draw(muertoTextures[posicionTexturaMuerto],getX(),getY(),getWidth(),getHeight());
         }
 
 

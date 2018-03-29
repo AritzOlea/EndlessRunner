@@ -50,8 +50,20 @@ public class FactoriaDeEntidades {
         saltando[8] = manager.get("personajes/aventurero/Jump__008.png",Texture.class);
         saltando[9] = manager.get("personajes/aventurero/Jump__009.png",Texture.class);
 
+        Texture[] muerto = new Texture[10];
+        muerto[0] = manager.get("personajes/aventurero/Dead__000.png",Texture.class);
+        muerto[1] = manager.get("personajes/aventurero/Dead__001.png",Texture.class);
+        muerto[2] = manager.get("personajes/aventurero/Dead__002.png",Texture.class);
+        muerto[3] = manager.get("personajes/aventurero/Dead__003.png",Texture.class);
+        muerto[4] = manager.get("personajes/aventurero/Dead__004.png",Texture.class);
+        muerto[5] = manager.get("personajes/aventurero/Dead__005.png",Texture.class);
+        muerto[6] = manager.get("personajes/aventurero/Dead__006.png",Texture.class);
+        muerto[7] = manager.get("personajes/aventurero/Dead__007.png",Texture.class);
+        muerto[8] = manager.get("personajes/aventurero/Dead__008.png",Texture.class);
+        muerto[9] = manager.get("personajes/aventurero/Dead__009.png",Texture.class);
 
-        return new ActorAventurero(world, texturaJugador, posicion,corriendo,saltando);
+
+        return new ActorAventurero(world, texturaJugador, posicion,corriendo,saltando, muerto);
     }
 
 
