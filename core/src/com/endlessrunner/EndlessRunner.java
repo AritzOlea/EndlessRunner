@@ -77,7 +77,7 @@ public class EndlessRunner extends Game {
         //fondo
         manager.load("paisajes/dia/png/BG/BG.png",Texture.class);
 
-        //menus
+        //menu
         manager.load("gameover.png",Texture.class);
 
         //sonidos & musica
