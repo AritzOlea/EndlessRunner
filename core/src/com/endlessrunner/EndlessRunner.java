@@ -70,7 +70,12 @@ public class EndlessRunner extends Game {
 
         //paisajes
         manager.load("paisajes/dia/png/Object/Stone.png",Texture.class);
+        manager.load("paisajes/dia/png/Object/charcoCola.png",Texture.class);
+        manager.load("paisajes/dia/png/Object/Mushroom_2.png",Texture.class);
         manager.load("paisajes/dia/png/Tiles/2.png",Texture.class);
+
+        //fondo
+        manager.load("paisajes/dia/png/BG/BG.png",Texture.class);
 
         //menus
         manager.load("gameover.png",Texture.class);

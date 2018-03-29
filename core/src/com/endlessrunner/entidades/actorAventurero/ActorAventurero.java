@@ -50,6 +50,9 @@ public class ActorAventurero extends Actor{
     public boolean isDebeSaltar() {return debeSaltar;}
     public void setDebeSaltar(boolean debeSaltar) {this.debeSaltar = debeSaltar;}
 
+    private boolean pegadoAlSuelo;
+    public boolean isPegadoAlSuelo() {return pegadoAlSuelo;}
+    public void setPegadoAlSuelo(boolean pegadoAlSuelo) {this.pegadoAlSuelo = pegadoAlSuelo;}
 
     //Texturas del jugador
     Texture[] corriendoTextures,saltandoTextures, muertoTextures;
@@ -60,6 +63,7 @@ public class ActorAventurero extends Actor{
         this.vivo=true;
         this.saltando=false;
         this.debeSaltar=false;
+        this.pegadoAlSuelo=false;
 
         //this.texture=texture;
         this.corriendoTextures=corriendo;
@@ -172,7 +176,7 @@ public class ActorAventurero extends Actor{
 
     public void salto() {
 
-        if (!saltando && vivo) {
+        if (!saltando && vivo &&!pegadoAlSuelo) {
             saltando = true;
 
             //animazio parametro guztiak hasieratu

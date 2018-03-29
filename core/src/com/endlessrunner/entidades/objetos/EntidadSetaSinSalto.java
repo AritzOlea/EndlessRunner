@@ -1,0 +1,79 @@
+package com.endlessrunner.entidades.objetos;
+
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.endlessrunner.Pantallas.GameScreen;
+
+import static com.endlessrunner.ayuda.Constantes.PIXELS_POR_METRO;
+
+/**
+ * Created by Jongui on 29/03/2018.
+ */
+
+public class EntidadSetaSinSalto  extends Actor {
+
+    private Texture texture;
+    private World world;
+    private Body body;
+    private Fixture fixture;
+    private boolean sinCoger;
+
+    public EntidadSetaSinSalto(World world, Texture texture, float x, float y) {
+        this.world = world;
+        this.texture = texture;
+        this.sinCoger=true;
+
+
+        /*BodyDef def = new BodyDef();
+        def.position.set(x, y + 0.5f);
+        body = world.createBody(def);
+
+        PolygonShape box = new PolygonShape();
+        Vector2[] vertices = new Vector2[3];
+        vertices[0] = new Vector2(-0.5f /3, -0.5f /3);
+        vertices[1] = new Vector2(0.5f /3, -0.5f /3);
+        vertices[2] = new Vector2(0, 0.5f /3);
+        box.set(vertices);
+        fixture = body.createFixture(box, 1 / 3);
+        fixture.setUserData("setaSinSalto");
+        box.dispose();*/
+
+        setPosition((x - 0.5f) * PIXELS_POR_METRO, y * PIXELS_POR_METRO);
+        setSize(PIXELS_POR_METRO / 3, PIXELS_POR_METRO /3);
+    }
+
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+        batch.draw(texture, getX(), getY(), getWidth(), getHeight());
+
+        if(sinCoger) {
+            if (getX() + getWidth() > GameScreen.jugador.getX() && GameScreen.jugador.getX() > getX()
+                    &&
+                    getY() + getHeight() > GameScreen.jugador.getY() && GameScreen.jugador.getY() > getY()) {
+
+                GameScreen.timer = 2;
+                GameScreen.jugador.setPegadoAlSuelo(true);
+                GameScreen.labelTiempo.setText(String.format("Cuenta atras: %03d", GameScreen.timer));
+                sinCoger = false;
+
+            } else {
+
+                batch.draw(texture, getX(), getY(), getWidth(), getHeight());
+
+            }
+        }
+
+    }
+
+    public void detach() {
+        //body.destroyFixture(fixture);
+        //world.destroyBody(body);
+    }
+}

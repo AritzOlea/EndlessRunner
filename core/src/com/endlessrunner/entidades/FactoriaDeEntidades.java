@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.endlessrunner.entidades.actorAventurero.ActorAventurero;
+import com.endlessrunner.entidades.objetos.EntidadSetaPuntos;
+import com.endlessrunner.entidades.objetos.EntidadSetaSinSalto;
 import com.endlessrunner.entidades.obstaculos.EntidadMonte;
 import com.endlessrunner.entidades.obstaculos.EntidadSuelo;
 
@@ -78,5 +80,14 @@ public class FactoriaDeEntidades {
         return new EntidadMonte(world, spikeTexture, x, y);
     }
 
+    public EntidadSetaPuntos crearSetaPuntos(World world, float x, float y) {
+        Texture spikeTexture = manager.get("paisajes/dia/png/Object/Mushroom_2.png");
+        return new EntidadSetaPuntos(world, spikeTexture, x, y);
+    }
+
+    public EntidadSetaSinSalto crearSetaSinSalto(World world, float x, float y) {
+        Texture spikeTexture = manager.get("paisajes/dia/png/Object/charcoCola.png");
+        return new EntidadSetaSinSalto(world, spikeTexture, x, y);
+    }
 
 }

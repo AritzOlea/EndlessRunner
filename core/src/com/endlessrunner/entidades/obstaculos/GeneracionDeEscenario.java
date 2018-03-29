@@ -3,6 +3,8 @@ package com.endlessrunner.entidades.obstaculos;
 import com.badlogic.gdx.assets.loaders.SynchronousAssetLoader;
 import com.badlogic.gdx.physics.box2d.World;
 import com.endlessrunner.entidades.FactoriaDeEntidades;
+import com.endlessrunner.entidades.objetos.EntidadSetaPuntos;
+import com.endlessrunner.entidades.objetos.EntidadSetaSinSalto;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -84,9 +86,11 @@ public class GeneracionDeEscenario {
 
             i=i+siguienteRoca;
 
-            System.out.println("Siguiente roca: "+i);
-
             if( !espaciosOcupados.contains(i)){
+                espaciosOcupados.add(i-1);espaciosOcupados.add(i-2);espaciosOcupados.add(i-3);
+                espaciosOcupados.add(i);
+                espaciosOcupados.add(i+1);espaciosOcupados.add(i+2);espaciosOcupados.add(i+3);
+
                 listaDeRocas.add(factory.crearMonte(world, i, 1));
             }
 
@@ -94,4 +98,56 @@ public class GeneracionDeEscenario {
 
 
     }
+
+    public static void GenerarSetasPositivas(List<EntidadSetaPuntos> listaSetasPositivas, World world, FactoriaDeEntidades factory){
+
+
+        int i=5,siguienteSeta;
+
+        while(i<2000){
+
+            siguienteSeta= (int) Math.floor(Math.random()*(25-15+1)+15);
+
+            i=i+siguienteSeta;
+
+            if( !espaciosOcupados.contains(i)){
+                espaciosOcupados.add(i-1);espaciosOcupados.add(i-2);espaciosOcupados.add(i-3);
+                espaciosOcupados.add(i);
+                espaciosOcupados.add(i+1);espaciosOcupados.add(i+2);espaciosOcupados.add(i+3);
+
+                listaSetasPositivas.add(factory.crearSetaPuntos(world, i, 1));
+            }
+
+        }
+
+
+    }
+
+
+    public static void GenerarSinSalto(List<EntidadSetaSinSalto> listaSetasPositivas, World world, FactoriaDeEntidades factory){
+
+
+        int i=105,siguienteSeta;
+
+        while(i<2000){
+
+            siguienteSeta= (int) Math.floor(Math.random()*(100-50+1)+10);
+
+            i=i+siguienteSeta;
+
+            if( !espaciosOcupados.contains(i)){
+                espaciosOcupados.add(i-1);espaciosOcupados.add(i-2);espaciosOcupados.add(i-3);
+                espaciosOcupados.add(i);
+                espaciosOcupados.add(i+1);espaciosOcupados.add(i+2);espaciosOcupados.add(i+3);
+
+                listaSetasPositivas.add(factory.crearSetaSinSalto(world, i, 1));
+            }
+
+        }
+
+
+    }
+
+
+
 }

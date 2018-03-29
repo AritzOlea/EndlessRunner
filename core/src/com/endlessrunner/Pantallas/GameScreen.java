@@ -5,6 +5,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -21,6 +22,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.endlessrunner.EndlessRunner;
 import com.endlessrunner.entidades.FactoriaDeEntidades;
 import com.endlessrunner.entidades.actorAventurero.ActorAventurero;
+import com.endlessrunner.entidades.objetos.EntidadSetaPuntos;
+import com.endlessrunner.entidades.objetos.EntidadSetaSinSalto;
 import com.endlessrunner.entidades.obstaculos.*;
 
 import java.util.ArrayList;
@@ -41,13 +44,14 @@ public class GameScreen extends BaseScreen {
     VARIABLES
      */
     //Actor jugador
-    private ActorAventurero jugador;
+    public static ActorAventurero jugador;
 
     //Mundo Box2D
     private World world;
 
     //Escenario Scene2D
     private Stage stage;
+    private Texture fondoBackground;
 
     //Sonidos y musicas
     private Sound sonidoSalto,sonidoMuerte;
@@ -59,21 +63,18 @@ public class GameScreen extends BaseScreen {
     //Listas
     private List<EntidadSuelo> listaDeSuelo = new ArrayList<EntidadSuelo>();
     private List<EntidadMonte> listaDeMontes = new ArrayList<EntidadMonte>();
+    private List<EntidadSetaPuntos> listaDeSetasPuntos = new ArrayList<EntidadSetaPuntos>();
+    private List<EntidadSetaSinSalto> listaDeSetasSinSalto = new ArrayList<EntidadSetaSinSalto>();
 
 
+    //Puntuaciones, tiempo...
     Table table;
-    private int timer;
-    private float timeCount;
-    private Label labelTiempo;
-    /*
-    PUNTUACION
-     */
+    public static int timer,puntuacion;
+    public static float timeCount;
+    public static Label labelTiempo,puntuacionTextoLabel;
+    public static boolean pegadoAlSuelo;
 
-
-
-
-
-
+    //Pegado al suelo
 
 
     /*
@@ -90,6 +91,8 @@ public class GameScreen extends BaseScreen {
         world=new World(new Vector2(0,-10),true);
         world.setContactListener(new GameContactListener());
 
+        fondoBackground=jokoa.getManager().get("paisajes/dia/png/BG/BG.png");
+
         //Sonidos y musicas...
         sonidoSalto = jokoa.getManager().get("audio/jump.ogg");
         sonidoMuerte = jokoa.getManager().get("audio/die.ogg");
@@ -97,7 +100,7 @@ public class GameScreen extends BaseScreen {
 
         timer = 0;
         timeCount = 0f;
-
+        puntuacion=0;
     }
 
 
@@ -111,8 +114,8 @@ public class GameScreen extends BaseScreen {
         table.setFillParent(true);
 
         //Label puntuacionLabel= new Label(String.format("%06d",0),new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        Label puntuacionTextoLabel=new Label("Puntuacion: ",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        labelTiempo = new Label("Tiempo: 000",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        puntuacionTextoLabel=new Label("Puntuacion: 000",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        labelTiempo = new Label("Cuenta atras: 000",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
         table.add(puntuacionTextoLabel).expandX().padTop(10);
         table.add(labelTiempo).expandX().padTop(10);
@@ -125,22 +128,15 @@ public class GameScreen extends BaseScreen {
         jugador = factory.crearJugador(world, new Vector2(1.5f, 1.5f));
 
 
-        /*listaDeSuelo.add(factory.crearSuelo(world, 0, 10, 1));
-
-        listaDeSuelo.add(factory.crearSuelo(world, 12, 1000, 1));*/
+        listaDeSuelo.clear();
+        listaDeMontes.clear();
+        listaDeSetasPuntos.clear();
+        listaDeSetasSinSalto.clear();
+        //listaDeSuelo.add(factory.crearSuelo(world, 0, 1000, 1));
         GeneracionDeEscenario.GenerarSuelo(listaDeSuelo,world,factory,2000);
         GeneracionDeEscenario.GenerarRocas(listaDeMontes,world,factory);
-
-
-        //listaDeSuelo.add(factory.crearSuelo(world, 0, 1000, 1));
-        //for (int i = 0; i < 500; i++) listaDeSuelo.add(factory.crearSuelo(world, 1, i, 1));
-        //listaDeSuelo.add(factory.crearSuelo(world, 15, 10, 2));
-        //listaDeSuelo.add(factory.crearSuelo(world, 30, 8, 2));
-
-        //listaDeMontes.add(factory.crearMonte(world, 18, 1));
-        //listaDeMontes.add(factory.crearMonte(world, 33, 1));
-        //listaDeMontes.add(factory.crearMonte(world, 45, 1));
-        //listaDeMontes.add(factory.crearMonte(world, 60, 1));
+        GeneracionDeEscenario.GenerarSetasPositivas(listaDeSetasPuntos,world,factory);
+        GeneracionDeEscenario.GenerarSinSalto(listaDeSetasSinSalto,world,factory);
 
 
         for (EntidadSuelo floor : listaDeSuelo)
@@ -149,9 +145,14 @@ public class GameScreen extends BaseScreen {
         for (EntidadMonte monte : listaDeMontes)
             stage.addActor(monte);
 
+        for (EntidadSetaPuntos seta : listaDeSetasPuntos)
+            stage.addActor(seta);
+
+        for (EntidadSetaSinSalto seta : listaDeSetasSinSalto)
+            stage.addActor(seta);
+
 
         stage.addActor(jugador);
-
 
 
         stage.getCamera().position.set(position);
@@ -163,6 +164,7 @@ public class GameScreen extends BaseScreen {
     }
 
 
+    int bgIndice=0,bgInc=0,dir=-1;
 
     @Override
     public void render(float delta) {
@@ -176,6 +178,24 @@ public class GameScreen extends BaseScreen {
 
 
         stage.act();
+
+        jokoa.batch.begin();
+        jokoa.batch.draw(fondoBackground,bgIndice,0);
+        jokoa.batch.end();
+
+        if(bgInc<5){
+            bgInc++;
+        }else{
+            bgInc=0;
+            if(bgIndice<=0 && bgIndice>-100){
+                bgIndice=bgIndice+dir;
+            }else{
+                dir=dir*(-1);
+                bgIndice=bgIndice+dir;
+            }
+        }
+
+
 
         world.step(delta,6,2);
 
@@ -193,8 +213,18 @@ public class GameScreen extends BaseScreen {
         if (jugador.isVivo()) {
             timeCount += delta;
             if (timeCount >= 1) {
-                timer++;
-                labelTiempo.setText(String.format("Tiempo: %03d", timer));
+
+                puntuacion=puntuacion+2;
+                puntuacionTextoLabel.setText(String.format("Puntuacion: %03d", GameScreen.puntuacion));
+
+
+                if(timer>0)timer--;
+
+                if(timer==0)jugador.setPegadoAlSuelo(false);
+
+                labelTiempo.setText(String.format("Cuenta atras: %03d", GameScreen.timer));
+
+
                 timeCount = 0;
             }
         }
@@ -219,10 +249,14 @@ public class GameScreen extends BaseScreen {
             suelo.detach();
         for (EntidadMonte monte : listaDeMontes)
             monte.detach();
+        for (EntidadSetaPuntos seta : listaDeSetasPuntos)
+            seta.detach();
 
         // Las listas (clear)
         listaDeSuelo.clear();
         listaDeMontes.clear();
+        listaDeSetasPuntos.clear();
+        listaDeSetasSinSalto.clear();
 
     }
 
@@ -293,6 +327,14 @@ public class GameScreen extends BaseScreen {
                     );
                 }
             }
+
+
+            /*if (areCollided(contact, "jugador", "setaPuntos")) {
+
+                puntuacion=puntuacion+10;
+                puntuacionTextoLabel.setText(String.format("Puntuacion: %03d", puntuacion));
+
+            }*/
 
         }
 
