@@ -1,4 +1,4 @@
-package com.endlessrunner.Pantallas;
+package com.endlessrunner.Pantallas.partida_basica;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -16,7 +16,7 @@ import com.endlessrunner.EndlessRunner;
  * Created by Jongui on 27/03/2018.
  */
 
-public class GameOverScreen extends BaseScreen {
+public class GameOverScreen extends com.endlessrunner.Pantallas.partida_basica.BaseScreen {
 
     private Stage stage;
     private Skin skin;

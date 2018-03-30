@@ -23,7 +23,7 @@ public class GeneracionDeEscenario {
     static List<Integer> espaciosOcupados = new ArrayList<Integer>();
     //static Set<Integer> espaciosOcupados = new HashSet<Integer>();
 
-    public static void GenerarSuelo(List<EntidadSuelo> listaDeSuelo, World world, FactoriaDeEntidades factory, int maximoDeLargo){
+    public static void GenerarSuelo(List<EntidadSuelo> listaDeSuelo, World world, FactoriaDeEntidades factory, int maximoDeLargo,List<EntidadAgua> listaAgua,List<EntidadSueloIzquierda> sueloIzquierdas,List<EntidadSueloDerecha> sueloDerechas){
 
         espaciosOcupados.clear();
         //for(int i=0;i<15;i++)espaciosOcupados.add(i);
@@ -58,7 +58,10 @@ public class GeneracionDeEscenario {
             anchuraDelSuelo=(int) Math.floor(Math.random()*(maximoDeAnchoBloque-minimoDeAnchoBloque+1)+maximoDeAnchoBloque);
             anchuraDelSalto=(int) Math.floor(Math.random()*(5-1+1)+3);
 
-            listaDeSuelo.add(factory.crearSuelo(world, i, anchuraDelSuelo, 1));
+            sueloDerechas.add(factory.crearSueloDerecha(world, i+anchuraDelSuelo-1, 1, 1));
+            sueloIzquierdas.add(factory.crearSueloIzquierda(world, i, 1, 1));
+            listaDeSuelo.add(factory.crearSuelo(world, i+1, anchuraDelSuelo-1, 1));
+            listaAgua.add(factory.crearAgua(world,i+anchuraDelSuelo,anchuraDelSalto,0.5f));
 
             iLag=i+anchuraDelSuelo;
             i=i+anchuraDelSuelo+anchuraDelSalto;
@@ -78,10 +81,12 @@ public class GeneracionDeEscenario {
     public static void GenerarSegundosPisos(List<EntidadSegundosPisos> listaDeSuelo, World world, FactoriaDeEntidades factory,List<EntidadMonte> listaDeRocas,List<EntidadSetaPuntos> listaSetasPositivas){
 
         int i=0,anchuraDelSuelo=0,maximoDeAnchoBloque=0,minimoDeAnchoBloque=0,iLag;
+        int kont=0;
         boolean libre;
+        i=(int) Math.floor(Math.random()*(50)+10);
         while(i<2000){
 
-            i=i+(int) Math.floor(Math.random()*(50)+10);
+            //i=i+(int) Math.floor(Math.random()*(50)+10);
 
             anchuraDelSuelo=(int) Math.floor(Math.random()*(10-5+1)+5);
             iLag=0;
@@ -92,9 +97,13 @@ public class GeneracionDeEscenario {
                 if(espaciosOcupados.contains(iLag))libre=false;
 
                 iLag++;
-
+                kont++;
             }
 
+            if(!libre && kont>6){
+                anchuraDelSuelo=6;
+                libre=true;
+            }
 
             if(libre){
 
@@ -123,11 +132,11 @@ public class GeneracionDeEscenario {
 
                 listaDeSuelo.add(factory.crearSegundosPisos(world, i, anchuraDelSuelo, 3.5f));
 
-                i=i+anchuraDelSuelo;
+                i=i+50;
 
             }
 
-
+            i++;
 
 
         }

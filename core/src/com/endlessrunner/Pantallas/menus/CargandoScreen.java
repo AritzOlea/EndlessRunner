@@ -1,4 +1,4 @@
-package com.endlessrunner.Pantallas;
+package com.endlessrunner.Pantallas.menus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -12,7 +12,7 @@ import com.endlessrunner.EndlessRunner;
  * Created by Jongui on 27/03/2018.
  */
 
-public class CargandoScreen extends BaseScreen{
+public class CargandoScreen extends com.endlessrunner.Pantallas.partida_basica.BaseScreen {
 
 
     private Stage stage;

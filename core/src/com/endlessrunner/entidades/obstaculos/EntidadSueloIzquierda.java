@@ -2,7 +2,6 @@ package com.endlessrunner.entidades.obstaculos;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -13,11 +12,10 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import static com.endlessrunner.ayuda.Constantes.PIXELS_POR_METRO;
 
 /**
- * Created by Jongui on 28/03/2018.
+ * Created by Jongui on 30/03/2018.
  */
 
-public class EntidadSegundosPisos extends Actor {
-
+public class EntidadSueloIzquierda  extends Actor {
 
     private Texture floor;//, overfloor;
 
@@ -28,10 +26,9 @@ public class EntidadSegundosPisos extends Actor {
     private Fixture fixture, leftFixture;
 
 
-    public EntidadSegundosPisos(World world, Texture floor, float x, float width, float y) {
+    public EntidadSueloIzquierda(World world, Texture floor, float x, float width, float y) {
         this.world = world;
         this.floor = floor;
-        //this.overfloor = overfloor;
 
         // Create the floor body.
         BodyDef def = new BodyDef();
@@ -44,19 +41,6 @@ public class EntidadSegundosPisos extends Actor {
         fixture = body.createFixture(box, 1);
         fixture.setUserData("suelo");
         box.dispose();
-
-
-        /*BodyDef leftDef = new BodyDef();
-        leftDef.position.set(x, y - 0.55f);
-        leftBody = world.createBody(leftDef);
-
-
-        PolygonShape leftBox = new PolygonShape();
-        leftBox.setAsBox(0.02f, 0.45f);
-        leftFixture = leftBody.createFixture(leftBox, 1);
-        leftFixture.setUserData("monte");
-        leftBox.dispose();*/
-
 
         setSize(width * PIXELS_POR_METRO, PIXELS_POR_METRO);
         setPosition(x * PIXELS_POR_METRO, (y - 1) * PIXELS_POR_METRO);
@@ -73,4 +57,5 @@ public class EntidadSegundosPisos extends Actor {
         body.destroyFixture(fixture);
         world.destroyBody(body);
     }
+
 }

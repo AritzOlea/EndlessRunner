@@ -1,4 +1,4 @@
-package com.endlessrunner.Pantallas;
+package com.endlessrunner.Pantallas.menus;
 
 /**
  * Created by Jongui on 27/03/2018.

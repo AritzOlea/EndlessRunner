@@ -1,4 +1,4 @@
-package com.endlessrunner.Pantallas;
+package com.endlessrunner.Pantallas.partida_basica;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
@@ -37,7 +36,7 @@ import static com.endlessrunner.ayuda.Constantes.VELOCIDAD_JUGADOR;
  * Created by aritz on 10/03/2018.
  */
 
-public class GameScreen extends BaseScreen {
+public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseScreen {
 
 
 
@@ -68,6 +67,9 @@ public class GameScreen extends BaseScreen {
     private List<EntidadSetaPuntos> listaDeSetasPuntos = new ArrayList<EntidadSetaPuntos>();
     private List<EntidadSetaSinSalto> listaDeSetasSinSalto = new ArrayList<EntidadSetaSinSalto>();
     private List<EntidadSegundosPisos> listaSegundoPiso = new ArrayList<EntidadSegundosPisos>();
+    private List<EntidadAgua> listaAgua = new ArrayList<EntidadAgua>();
+    private List<EntidadSueloIzquierda> listaDeSueloIzquierda = new ArrayList<EntidadSueloIzquierda>();
+    private List<EntidadSueloDerecha> listaDeSueloDerecha = new ArrayList<EntidadSueloDerecha>();
 
     //Puntuaciones, tiempo...
     Table table;
@@ -137,9 +139,12 @@ public class GameScreen extends BaseScreen {
         listaDeSetasPuntos.clear();
         listaDeSetasSinSalto.clear();
         listaSegundoPiso.clear();
+        listaAgua.clear();
+        listaDeSueloIzquierda.clear();
+        listaDeSueloDerecha.clear();
 
         //listaDeSuelo.add(factory.crearSuelo(world, 0, 1000, 1));
-        GeneracionDeEscenario.GenerarSuelo(listaDeSuelo,world,factory,2000);
+        GeneracionDeEscenario.GenerarSuelo(listaDeSuelo,world,factory,2000,listaAgua,listaDeSueloIzquierda,listaDeSueloDerecha);
         GeneracionDeEscenario.GenerarSegundosPisos(listaSegundoPiso,world,factory,listaDeMontes,listaDeSetasPuntos);
 
         GeneracionDeEscenario.GenerarSinSalto(listaDeSetasSinSalto,world,factory);
@@ -162,6 +167,15 @@ public class GameScreen extends BaseScreen {
 
         for (EntidadSegundosPisos piso: listaSegundoPiso)
             stage.addActor(piso);
+
+        for (EntidadAgua agua: listaAgua)
+            stage.addActor(agua);
+
+        for(EntidadSueloIzquierda suelo: listaDeSueloIzquierda)
+            stage.addActor(suelo);
+
+        for(EntidadSueloDerecha suelo: listaDeSueloDerecha)
+            stage.addActor(suelo);
 
 
         stage.addActor(jugador);
@@ -294,6 +308,12 @@ public class GameScreen extends BaseScreen {
             seta.detach();
         for (EntidadSegundosPisos piso: listaSegundoPiso)
             piso.detach();
+        for (EntidadAgua agua: listaAgua)
+            agua.detach();
+        for(EntidadSueloIzquierda suelo: listaDeSueloIzquierda)
+            suelo.detach();
+        for(EntidadSueloDerecha suelo: listaDeSueloDerecha)
+            suelo.detach();
 
         // Las listas (clear)
         listaDeSuelo.clear();
@@ -301,6 +321,9 @@ public class GameScreen extends BaseScreen {
         listaDeSetasPuntos.clear();
         listaDeSetasSinSalto.clear();
         listaSegundoPiso.clear();
+        listaAgua.clear();
+        listaDeSueloIzquierda.clear();
+        listaDeSueloDerecha.clear();
 
     }
 

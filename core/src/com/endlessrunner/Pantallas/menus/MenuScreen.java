@@ -1,4 +1,4 @@
-package com.endlessrunner.Pantallas;
+package com.endlessrunner.Pantallas.menus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -16,7 +16,7 @@ import com.endlessrunner.EndlessRunner;
  * Created by Jongui on 27/03/2018.
  */
 
-public class MenuScreen extends BaseScreen {
+public class MenuScreen extends com.endlessrunner.Pantallas.partida_basica.BaseScreen {
 
     private Texture fondoBackground;
     private Stage stage;
@@ -46,12 +46,12 @@ public class MenuScreen extends BaseScreen {
             }
         });
 
-        /*menu.addCaptureListener(new ChangeListener() {
+        puntuazioak.addCaptureListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                jokoa.setScreen(jokoa.menuScreen);
+                jokoa.setScreen(jokoa.topPartidaBasica);
             }
-        });*/
+        });
 
         //tituloa.setPosition(320 - tituloa.getWidth() / 2, 320 - tituloa.getHeight());
         tituloa.setPosition( 20, 250 );

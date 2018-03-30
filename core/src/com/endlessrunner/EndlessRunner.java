@@ -6,11 +6,12 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.endlessrunner.Pantallas.BaseScreen;
-import com.endlessrunner.Pantallas.CargandoScreen;
-import com.endlessrunner.Pantallas.GameOverScreen;
-import com.endlessrunner.Pantallas.GameScreen;
-import com.endlessrunner.Pantallas.MenuScreen;
+import com.endlessrunner.Pantallas.partida_basica.BaseScreen;
+import com.endlessrunner.Pantallas.menus.CargandoScreen;
+import com.endlessrunner.Pantallas.partida_basica.GameOverScreen;
+import com.endlessrunner.Pantallas.partida_basica.GameScreen;
+import com.endlessrunner.Pantallas.menus.MenuScreen;
+import com.endlessrunner.Pantallas.top.TopPartidaBasica;
 
 public class EndlessRunner extends Game {
 
@@ -18,7 +19,7 @@ public class EndlessRunner extends Game {
 
 
     //Todas las pantallas tienen que ponerse aqui...
-    public BaseScreen gameScreen,menuScreen,gameOverScreen,cargandoScreen;
+    public BaseScreen gameScreen,menuScreen,gameOverScreen,cargandoScreen,topPartidaBasica;
 
 
     public SpriteBatch batch;
@@ -75,9 +76,13 @@ public class EndlessRunner extends Game {
         manager.load("paisajes/dia/png/Object/Mushroom_2.png",Texture.class);
         manager.load("paisajes/dia/png/Tiles/2.png",Texture.class);
         manager.load("paisajes/dia/png/Tiles/14.png",Texture.class);
+        manager.load("paisajes/dia/png/Tiles/17.png",Texture.class);
+        manager.load("paisajes/dia/png/Tiles/1.png",Texture.class);
+        manager.load("paisajes/dia/png/Tiles/3.png",Texture.class);
 
         //fondo
         manager.load("paisajes/dia/png/BG/BG.png",Texture.class);
+        manager.load("bg/fondoTops.png",Texture.class);
 
         //menu
         manager.load("gameover.png",Texture.class);
@@ -99,6 +104,7 @@ public class EndlessRunner extends Game {
         menuScreen = new MenuScreen(this);
         gameScreen = new GameScreen(this);
         gameOverScreen = new GameOverScreen(this);
+        topPartidaBasica= new TopPartidaBasica(this);
         //creditsScreen = new CreditsScreen(this);
         setScreen(menuScreen);
     }

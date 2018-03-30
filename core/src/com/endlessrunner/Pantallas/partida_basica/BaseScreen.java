@@ -1,4 +1,4 @@
-package com.endlessrunner.Pantallas;
+package com.endlessrunner.Pantallas.partida_basica;
 
 import com.badlogic.gdx.Screen;
 import com.endlessrunner.EndlessRunner;
