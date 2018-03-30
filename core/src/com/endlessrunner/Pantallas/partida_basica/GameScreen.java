@@ -71,6 +71,11 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
     private List<EntidadSueloIzquierda> listaDeSueloIzquierda = new ArrayList<EntidadSueloIzquierda>();
     private List<EntidadSueloDerecha> listaDeSueloDerecha = new ArrayList<EntidadSueloDerecha>();
 
+    //Enumeracion causas muerte
+    public enum CausaMuerte {
+        MONTAÑA, CAIDA;
+    }
+
     //Puntuaciones, tiempo...
     Table table;
     public static int timer,puntuacion;
@@ -78,6 +83,9 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
     public static Label labelTiempo,puntuacionTextoLabel;
     public static boolean pegadoAlSuelo;
     public static boolean jugadorEnElSuelo;
+    public static int cantidadSaltos;
+    public static int cantidadSetas;
+    public static CausaMuerte causaMuerte;
 
     //Pegado al suelo
 
@@ -106,6 +114,8 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
         timer = 0;
         timeCount = 0f;
         puntuacion=0;
+        cantidadSaltos = 0;
+        cantidadSetas = 0;
 
         jugadorEnElSuelo = true;
     }
@@ -240,8 +250,7 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
             if (jugador.isVivo()) {
                 jugador.setVivo(false);
                 timer = 0;
-                puntuacion = 0;
-
+                causaMuerte = CausaMuerte.CAIDA;
                 musicaDeFondo.stop();
                 sonidoMuerte.play();
 
@@ -378,8 +387,8 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
                 if (jugador.isVivo()) {
                     jugador.setVivo(false);
                     timer = 0;
-                    puntuacion = 0;
 
+                    causaMuerte = CausaMuerte.MONTAÑA;
                     musicaDeFondo.stop();
                     sonidoMuerte.play();
 

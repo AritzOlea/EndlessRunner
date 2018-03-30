@@ -182,6 +182,7 @@ public class ActorAventurero extends Actor{
             body.setLinearVelocity(vel);
             Vector2 position = body.getPosition();
             body.applyLinearImpulse(0, IMPULSO_DE_SALTO, position.x, position.y, true);
+            GameScreen.cantidadSaltos++;
         }else if(saltandoUno && !saltandoDos) {
             saltandoDos = true;
             Vector2 vel = body.getLinearVelocity();
@@ -190,6 +191,7 @@ public class ActorAventurero extends Actor{
             Vector2 position = body.getPosition();
             body.applyLinearImpulse(0, IMPULSO_DE_SALTO*1.2f, position.x, position.y, true);
             GameScreen.sonidoSalto.play();
+            GameScreen.cantidadSaltos++;
         }
     }
 

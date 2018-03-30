@@ -1,5 +1,6 @@
 package com.endlessrunner.Pantallas.partida_basica;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -11,6 +12,20 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.endlessrunner.EndlessRunner;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+
+import java.io.File;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 /**
  * Created by Jongui on 27/03/2018.
@@ -59,11 +74,123 @@ public class GameOverScreen extends com.endlessrunner.Pantallas.partida_basica.B
         stage.addActor(retry);
         stage.addActor(gameover);
         stage.addActor(menu);
+
     }
 
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
+
+        final String localizacionXML = "xml/datos.xml";
+
+        //XML
+        try {
+
+            File f = new File(localizacionXML);
+
+            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+
+            //SI EL XML EXISTE DESDE ANTES
+            if(f.exists() && !f.isDirectory()) {
+                Document doc = docBuilder.parse(localizacionXML);
+
+                //CONSIGO EL ELEMENTO ROOT DEL XML
+                Node root = doc.getFirstChild();
+
+                //HAGO LAS ACTUALIZACIONES QUE HAY QUE HACER
+                Node topScore = doc.getElementsByTagName("TopScore").item(0);
+                if (GameScreen.puntuacion > Integer.parseInt(topScore.getTextContent()))
+                    topScore.setTextContent(Integer.toString(GameScreen.puntuacion));
+
+                Node avgScore = doc.getElementsByTagName("AvgScore").item(0);
+                Node playedGames = doc.getElementsByTagName("PlayedGames").item(0);
+                int totalScore = Integer.parseInt(avgScore.getTextContent()) * Integer.parseInt(playedGames.getTextContent());
+                playedGames.setTextContent(Integer.toString(Integer.parseInt(playedGames.getTextContent()) + 1));
+                avgScore.setTextContent(Float.toString(totalScore / Integer.parseInt(playedGames.getTextContent())));
+
+                Node totalJumps = doc.getElementsByTagName("TotalJumps").item(0);
+                totalJumps.setTextContent(Integer.toString(Integer.parseInt(totalJumps.getTextContent()) + GameScreen.cantidadSaltos));
+
+                Node totalMashrooms = doc.getElementsByTagName("TotalMashrooms").item(0);
+                totalMashrooms.setTextContent(Integer.toString(Integer.parseInt(totalMashrooms.getTextContent()) + GameScreen.cantidadSetas));
+
+                if (GameScreen.causaMuerte == GameScreen.CausaMuerte.MONTAÑA){
+                    Node collisionDeaths = doc.getElementsByTagName("CollisionDeaths").item(0);
+                    collisionDeaths.setTextContent(Integer.toString(Integer.parseInt(collisionDeaths.getTextContent()) + 1));
+                }else if (GameScreen.causaMuerte == GameScreen.CausaMuerte.CAIDA){
+                    Node fallDeaths = doc.getElementsByTagName("FallDeaths").item(0);
+                    fallDeaths.setTextContent(Integer.toString(Integer.parseInt(fallDeaths.getTextContent()) + 1));
+                }
+
+                TransformerFactory transformerFactory = TransformerFactory.newInstance();
+                Transformer transformer = transformerFactory.newTransformer();
+                DOMSource source = new DOMSource(doc);
+                StreamResult result = new StreamResult(new File(localizacionXML));
+                transformer.transform(source, result);
+
+            //SI EL XML NO EXISTE Y HAY QUE CREARLO
+            }else {
+                //root
+                Document doc = docBuilder.newDocument();
+                Element rootElement = doc.createElement("UserData");
+                doc.appendChild(rootElement);
+
+                //elementos que cuelgan de root
+                Element user = doc.createElement("User");
+                user.appendChild(doc.createTextNode("Makez"));
+                rootElement.appendChild(user);
+
+                Element topScore = doc.createElement("TopScore");
+                topScore.appendChild(doc.createTextNode(Integer.toString(GameScreen.puntuacion)));
+                rootElement.appendChild(topScore);
+
+                Element avgScore = doc.createElement("AvgScore");
+                avgScore.appendChild(doc.createTextNode(Integer.toString(GameScreen.puntuacion)));
+                rootElement.appendChild(avgScore);
+
+                Element playedGames = doc.createElement("PlayedGames");
+                playedGames.appendChild(doc.createTextNode("1"));
+                rootElement.appendChild(playedGames);
+
+                Element totalJumps = doc.createElement("TotalJumps");
+                totalJumps.appendChild(doc.createTextNode(Integer.toString(GameScreen.cantidadSaltos)));
+                rootElement.appendChild(totalJumps);
+
+                Element totalMashrooms = doc.createElement("TotalMashrooms");
+                totalMashrooms.appendChild(doc.createTextNode(Integer.toString(GameScreen.cantidadSetas)));
+                rootElement.appendChild(totalMashrooms);
+
+                Element fallDeaths = doc.createElement("FallDeaths");
+                if (GameScreen.causaMuerte == GameScreen.CausaMuerte.CAIDA)
+                    fallDeaths.appendChild(doc.createTextNode("1"));
+                else
+                    fallDeaths.appendChild(doc.createTextNode("0"));
+                rootElement.appendChild(fallDeaths);
+
+                Element collisionDeaths = doc.createElement("CollisionDeaths");
+                if (GameScreen.causaMuerte == GameScreen.CausaMuerte.MONTAÑA)
+                    collisionDeaths.appendChild(doc.createTextNode("1"));
+                else
+                    collisionDeaths.appendChild(doc.createTextNode("0"));
+                rootElement.appendChild(collisionDeaths);
+
+                TransformerFactory transformerFactory = TransformerFactory.newInstance();
+                Transformer transformer = transformerFactory.newTransformer();
+                DOMSource source = new DOMSource(doc);
+                StreamResult result = new StreamResult(new File(localizacionXML));
+
+                transformer.transform(source, result);
+            }
+
+        }catch (Exception e){
+            System.err.println("Ha habido un error al crear el archivo XML, imposible guardar datos de partida");
+        }
+
+
+        GameScreen.cantidadSaltos = 0;
+        GameScreen.cantidadSetas = 0;
+        GameScreen.puntuacion = 0;
     }
 
     @Override
