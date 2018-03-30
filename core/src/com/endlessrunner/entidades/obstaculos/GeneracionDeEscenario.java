@@ -117,11 +117,13 @@ public class GeneracionDeEscenario {
                         }else{//negatiboa
                             listaDeRocas.add(factory.crearMonte(world, posizioa, 3.5f));
                         }
-                    } else {//bekoa
-                        if((Math.random() < 0.5)){//positiboa
-                            listaSetasPositivas.add(factory.crearSetaPuntos(world, posizioa, 1));
-                        }else{//negatiboa
-                            listaDeRocas.add(factory.crearMonte(world, posizioa, 1));
+                    } else {//behekoa
+                        if(!espaciosOcupados.contains(posizioa)){
+                            if((Math.random() < 0.5)){//positiboa
+                                listaSetasPositivas.add(factory.crearSetaPuntos(world, posizioa, 1));
+                            }else{//negatiboa
+                                listaDeRocas.add(factory.crearMonte(world, posizioa, 1));
+                            }
                         }
                     }
                 }

@@ -39,7 +39,7 @@ public class EntidadAgua extends Actor {
         PolygonShape box = new PolygonShape();
         box.setAsBox(width / 2, 0.5f);
         fixture = body.createFixture(box, 1);
-        fixture.setUserData("agua");
+        fixture.setUserData("monte");
         box.dispose();
 
         setSize(width * PIXELS_POR_METRO, PIXELS_POR_METRO);
