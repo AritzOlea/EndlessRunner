@@ -107,7 +107,7 @@ public class GameOverScreen extends com.endlessrunner.Pantallas.partida_basica.B
                 Node playedGames = doc.getElementsByTagName("PlayedGames").item(0);
                 int totalScore = Integer.parseInt(avgScore.getTextContent()) * Integer.parseInt(playedGames.getTextContent());
                 playedGames.setTextContent(Integer.toString(Integer.parseInt(playedGames.getTextContent()) + 1));
-                avgScore.setTextContent(Float.toString(totalScore / Integer.parseInt(playedGames.getTextContent())));
+                avgScore.setTextContent(Float.toString((totalScore + GameScreen.puntuacion) / Integer.parseInt(playedGames.getTextContent())));
 
                 Node totalJumps = doc.getElementsByTagName("TotalJumps").item(0);
                 totalJumps.setTextContent(Integer.toString(Integer.parseInt(totalJumps.getTextContent()) + GameScreen.cantidadSaltos));
