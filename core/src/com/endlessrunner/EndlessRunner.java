@@ -10,6 +10,7 @@ import com.endlessrunner.Pantallas.BaseScreen;
 import com.endlessrunner.Pantallas.CargandoScreen;
 import com.endlessrunner.Pantallas.GameOverScreen;
 import com.endlessrunner.Pantallas.GameScreen;
+import com.endlessrunner.Pantallas.MenuScreen;
 
 public class EndlessRunner extends Game {
 
@@ -80,6 +81,7 @@ public class EndlessRunner extends Game {
 
         //menu
         manager.load("gameover.png",Texture.class);
+        manager.load("titulo.png",Texture.class);
 
         //sonidos & musica
         manager.load("audio/die.ogg", Sound.class);
@@ -94,11 +96,11 @@ public class EndlessRunner extends Game {
 
 
     public void finishLoading() {
-        //menuScreen = new MenuScreen(this);
+        menuScreen = new MenuScreen(this);
         gameScreen = new GameScreen(this);
         gameOverScreen = new GameOverScreen(this);
         //creditsScreen = new CreditsScreen(this);
-        setScreen(gameScreen);
+        setScreen(menuScreen);
     }
 
     @Override
