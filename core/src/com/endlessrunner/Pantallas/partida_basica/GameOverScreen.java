@@ -105,7 +105,7 @@ public class GameOverScreen extends com.endlessrunner.Pantallas.partida_basica.B
 
                 Node avgScore = doc.getElementsByTagName("AvgScore").item(0);
                 Node playedGames = doc.getElementsByTagName("PlayedGames").item(0);
-                int totalScore = Integer.parseInt(avgScore.getTextContent()) * Integer.parseInt(playedGames.getTextContent());
+                float totalScore = Float.parseFloat(avgScore.getTextContent()) * Integer.parseInt(playedGames.getTextContent());
                 playedGames.setTextContent(Integer.toString(Integer.parseInt(playedGames.getTextContent()) + 1));
                 avgScore.setTextContent(Float.toString((totalScore + GameScreen.puntuacion) / Integer.parseInt(playedGames.getTextContent())));
 
@@ -114,6 +114,9 @@ public class GameOverScreen extends com.endlessrunner.Pantallas.partida_basica.B
 
                 Node totalMashrooms = doc.getElementsByTagName("TotalMashrooms").item(0);
                 totalMashrooms.setTextContent(Integer.toString(Integer.parseInt(totalMashrooms.getTextContent()) + GameScreen.cantidadSetas));
+
+                Node totalGlues = doc.getElementsByTagName("TotalGlues").item(0);
+                totalGlues.setTextContent(Integer.toString(Integer.parseInt(totalGlues.getTextContent()) + GameScreen.cantidadColas));
 
                 if (GameScreen.causaMuerte == GameScreen.CausaMuerte.MONTAÑA){
                     Node collisionDeaths = doc.getElementsByTagName("CollisionDeaths").item(0);
@@ -161,6 +164,10 @@ public class GameOverScreen extends com.endlessrunner.Pantallas.partida_basica.B
                 totalMashrooms.appendChild(doc.createTextNode(Integer.toString(GameScreen.cantidadSetas)));
                 rootElement.appendChild(totalMashrooms);
 
+                Element totalGlues = doc.createElement("TotalGlues");
+                totalGlues.appendChild(doc.createTextNode(Integer.toString(GameScreen.cantidadColas)));
+                rootElement.appendChild(totalGlues);
+
                 Element fallDeaths = doc.createElement("FallDeaths");
                 if (GameScreen.causaMuerte == GameScreen.CausaMuerte.CAIDA)
                     fallDeaths.appendChild(doc.createTextNode("1"));
@@ -190,6 +197,7 @@ public class GameOverScreen extends com.endlessrunner.Pantallas.partida_basica.B
 
         GameScreen.cantidadSaltos = 0;
         GameScreen.cantidadSetas = 0;
+        GameScreen.cantidadColas = 0;
         GameScreen.puntuacion = 0;
     }
 

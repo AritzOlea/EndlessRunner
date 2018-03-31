@@ -70,6 +70,7 @@ public class EntidadSetaSinSalto  extends Actor {
                     ) {
 
                 GameScreen.timer = 2;
+                GameScreen.cantidadColas++;
                 GameScreen.jugador.setPegadoAlSuelo(true);
                 GameScreen.labelTiempo.setText(String.format("Cuenta atras: %03d", GameScreen.timer));
                 GameScreen.labelTiempo.setColor(Color.RED);

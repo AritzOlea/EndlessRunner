@@ -85,6 +85,7 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
     public static boolean jugadorEnElSuelo;
     public static int cantidadSaltos;
     public static int cantidadSetas;
+    public static int cantidadColas;
     public static CausaMuerte causaMuerte;
 
     //Pegado al suelo
@@ -116,6 +117,7 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
         puntuacion=0;
         cantidadSaltos = 0;
         cantidadSetas = 0;
+        cantidadColas = 0;
 
         jugadorEnElSuelo = true;
     }
