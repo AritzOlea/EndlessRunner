@@ -1,11 +1,13 @@
 package com.endlessrunner.Pantallas.menus;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -13,20 +15,23 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.endlessrunner.EndlessRunner;
 import com.endlessrunner.ayuda.DatosUsuarioXML;
 
+import static com.endlessrunner.ayuda.DatosUsuarioXML.saioaItxi;
+import static com.endlessrunner.ayuda.servidor.ControlServidor.datuakPasaZerbitzariari;
+import static com.endlessrunner.ayuda.servidor.ControlServidor.logInZuzena;
+
 /**
- * Created by Jongui on 27/03/2018.
+ * Created by Jongui on 31/03/2018.
  */
 
-public class MenuScreen extends com.endlessrunner.Pantallas.partida_basica.BaseScreen {
+public class UserScreen extends com.endlessrunner.Pantallas.partida_basica.BaseScreen {
 
     private Texture fondoBackground;
     private Stage stage;
     private Skin skin;
-    private Image tituloa;
-    private TextButton jokatu, puntuazioak, aukerak,kontua;
 
+    private TextButton   atzera, usuarioLogeado,itxiKontua;
 
-    public MenuScreen(final EndlessRunner jokoa) {
+    public UserScreen(final EndlessRunner jokoa) {
         super(jokoa);
 
         stage = new Stage(new FitViewport(640, 360));
@@ -34,64 +39,56 @@ public class MenuScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
         skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
         fondoBackground=jokoa.getManager().get("paisajes/dia/png/BG/BG.png");
 
-        jokatu = new TextButton("Jokatu", skin);
-        puntuazioak = new TextButton("Puntuazioak", skin);
-        aukerak = new TextButton("Aukerak", skin);
-        kontua = new TextButton("Kontua", skin);
 
-        tituloa = new Image(jokoa.getManager().get("titulo.png", Texture.class));
+        atzera = new TextButton("Atzera", skin);
+        usuarioLogeado = new TextButton(" ", skin);
+        itxiKontua= new TextButton("Itxi", skin);
 
-        jokatu.addCaptureListener(new ChangeListener() {
+
+
+        atzera.addCaptureListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                jokoa.setScreen(jokoa.gameScreen);
+                jokoa.setScreen(jokoa.menuScreen);
             }
         });
 
-        puntuazioak.addCaptureListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                jokoa.setScreen(jokoa.topPartidaBasica);
-            }
-        });
-
-        kontua.addCaptureListener(new ChangeListener() {
+        itxiKontua.addCaptureListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
 
-                if(DatosUsuarioXML.user.equals("Anonimo")){
-                    jokoa.setScreen(jokoa.userLogInScreen);
-                }else{
-                    jokoa.setScreen(jokoa.userScreen);
-                }
-
+                UserLoginScreen.passLoginString="";
+                UserLoginScreen.usuarioLoginString="";
+                datuakPasaZerbitzariari();
+                saioaItxi();
+                jokoa.setScreen(jokoa.menuScreen);
             }
         });
 
-        //tituloa.setPosition(320 - tituloa.getWidth() / 2, 320 - tituloa.getHeight());
-        tituloa.setPosition( 20, 250 );
 
-        jokatu.setSize(200, 80);
-        puntuazioak.setSize(200, 80);
-        aukerak.setSize(160, 50);
-        kontua.setSize(160, 50);
+        atzera.setSize(100,50);
+        usuarioLogeado.setSize(500,280);
+        itxiKontua.setSize(100,50);
 
-        jokatu.setPosition(30, 110);
-        puntuazioak.setPosition(30, 20);
-        aukerak.setPosition(470, 20);
-        kontua.setPosition(470, 80);
 
-        stage.addActor(tituloa);
-        stage.addActor(jokatu);
-        stage.addActor(puntuazioak);
-        stage.addActor(aukerak);
-        stage.addActor(kontua);
+        usuarioLogeado.setPosition(20, 20);
+        atzera.setPosition(530,10);
+        itxiKontua.setPosition(530,70);
+
+
+        stage.addActor(atzera);
+        stage.addActor(usuarioLogeado);
+        stage.addActor(itxiKontua);
+
 
     }
 
     @Override
     public void show() {
+
+        usuarioLogeado.setText("User: "+DatosUsuarioXML.user+"\nTopScore: "+DatosUsuarioXML.topScore+"\nAvgScore: "+DatosUsuarioXML.avgScore+"\nPlayedGames:"+DatosUsuarioXML.playedGames+"\nTotalJumps: "+DatosUsuarioXML.totallJumps+"\nTotalMashrooms: "+DatosUsuarioXML.totalMashrooms+"\nTotalGlues: "+DatosUsuarioXML.totalGlues+"\nFallDeaths: "+DatosUsuarioXML.fallDeaths+"\nCollisionDeaths: "+DatosUsuarioXML.collisionDeaths);
         Gdx.input.setInputProcessor(stage);
+
     }
 
     @Override
@@ -120,6 +117,7 @@ public class MenuScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
     }
 
 
+
     @Override
     public void resize(int width, int height) {
 
@@ -135,4 +133,3 @@ public class MenuScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
 
     }
 }
-

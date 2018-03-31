@@ -15,6 +15,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.endlessrunner.EndlessRunner;
+import com.endlessrunner.ayuda.DatosUsuarioXML;
+import com.endlessrunner.ayuda.servidor.ControlServidor;
+
+import static com.endlessrunner.ayuda.servidor.ControlServidor.nicks;
+import static com.endlessrunner.ayuda.servidor.ControlServidor.puntuaciones;
 
 /**
  * Created by Jongui on 30/03/2018.
@@ -53,8 +58,6 @@ public class TopPartidaBasica extends com.endlessrunner.Pantallas.partida_basica
 
 
         table = new Table();
-        table.top();
-        table.setFillParent(true);
         //table.row();
 
 
@@ -62,31 +65,31 @@ public class TopPartidaBasica extends com.endlessrunner.Pantallas.partida_basica
         user1=new Label("User 1",new Label.LabelStyle(new BitmapFont(), Color.BLACK));
         puntosUser1=new Label("000",new Label.LabelStyle(new BitmapFont(), Color.BLACK));
         table.add(user1).expandX().padTop(10);
-        table.add(puntosUser1).expandX().padTop(10);
+        table.add(puntosUser1).expandX().padTop(50);
         table.row();
 
         user2=new Label("User 2",new Label.LabelStyle(new BitmapFont(), Color.BLACK));
         puntosUser2=new Label("000",new Label.LabelStyle(new BitmapFont(), Color.BLACK));
         table.add(user2).expandX().padTop(10);
-        table.add(puntosUser2).expandX().padTop(10);
+        table.add(puntosUser2).expandX().padTop(50);
         table.row();
 
         user3=new Label("User 3",new Label.LabelStyle(new BitmapFont(), Color.BLACK));
         puntosUser3=new Label("000",new Label.LabelStyle(new BitmapFont(), Color.BLACK));
         table.add(user3).expandX().padTop(10);
-        table.add(puntosUser3).expandX().padTop(10);
+        table.add(puntosUser3).expandX().padTop(50);
         table.row();
 
         user4=new Label("User 4",new Label.LabelStyle(new BitmapFont(), Color.BLACK));
         puntosUser4=new Label("000",new Label.LabelStyle(new BitmapFont(), Color.BLACK));
         table.add(user4).expandX().padTop(10);
-        table.add(puntosUser4).expandX().padTop(10);
+        table.add(puntosUser4).expandX().padTop(50);
         table.row();
 
         user5=new Label("User 5",new Label.LabelStyle(new BitmapFont(), Color.BLACK));
         puntosUser5=new Label("000",new Label.LabelStyle(new BitmapFont(), Color.BLACK));
         table.add(user5).expandX().padTop(10);
-        table.add(puntosUser5).expandX().padTop(10);
+        table.add(puntosUser5).expandX().padTop(50);
         table.row();
 
 
@@ -107,7 +110,29 @@ public class TopPartidaBasica extends com.endlessrunner.Pantallas.partida_basica
 
     @Override
     public void show() {
+
+        if(!DatosUsuarioXML.user.equals("Anonimo"))
+            ControlServidor.insertarRegistro(1,DatosUsuarioXML.topScore,DatosUsuarioXML.user);
+
+        ControlServidor.conseguirTop(5,1);
+
+        user1.setText(nicks.get(0));
+        user2.setText(nicks.get(1));
+        user3.setText(nicks.get(2));
+        user4.setText(nicks.get(3));
+        user5.setText(nicks.get(4));
+
+        puntosUser1.setText(puntuaciones.get(0));
+        puntosUser2.setText(puntuaciones.get(1));
+        puntosUser3.setText(puntuaciones.get(2));
+        puntosUser4.setText(puntuaciones.get(3));
+        puntosUser5.setText(puntuaciones.get(4));
+
+
+
         Gdx.input.setInputProcessor(stage);
+
+
     }
 
     @Override

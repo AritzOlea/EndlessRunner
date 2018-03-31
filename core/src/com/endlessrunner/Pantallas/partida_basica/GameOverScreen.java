@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.endlessrunner.EndlessRunner;
+import com.endlessrunner.ayuda.DatosUsuarioXML;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -27,6 +28,9 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import static com.endlessrunner.ayuda.DatosUsuarioXML.hasieratuDatuakXML;
+import static com.endlessrunner.ayuda.DatosUsuarioXML.localizacionXML;
+
 /**
  * Created by Jongui on 27/03/2018.
  */
@@ -36,7 +40,7 @@ public class GameOverScreen extends com.endlessrunner.Pantallas.partida_basica.B
     private Stage stage;
     private Skin skin;
     private Image gameover;
-    private TextButton retry, menu;
+    private TextButton retry, menu,stats,ranking;
 
 
     public GameOverScreen(final EndlessRunner jokoa) {
@@ -48,6 +52,8 @@ public class GameOverScreen extends com.endlessrunner.Pantallas.partida_basica.B
 
         retry = new TextButton("Berriz", skin);
         menu = new TextButton("Menua", skin);
+        stats= new TextButton("Estadistikak", skin);
+        ranking= new TextButton("Ranking", skin);
 
         gameover = new Image(jokoa.getManager().get("gameover.png", Texture.class));
 
@@ -65,15 +71,38 @@ public class GameOverScreen extends com.endlessrunner.Pantallas.partida_basica.B
             }
         });
 
+        stats.addCaptureListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                if(!DatosUsuarioXML.user.equals("Anonimo"))
+                    jokoa.setScreen(jokoa.userScreen);
+            }
+        });
+
+        ranking.addCaptureListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                if(!DatosUsuarioXML.user.equals("Anonimo"))
+                    jokoa.setScreen(jokoa.topPartidaBasica);
+            }
+        });
+
         gameover.setPosition(320 - gameover.getWidth() / 2, 320 - gameover.getHeight());
         retry.setSize(200, 80);
         menu.setSize(200, 80);
-        retry.setPosition(60, 50);
-        menu.setPosition(380, 50);
+        stats.setSize(200, 80);
+        ranking.setSize(200, 80);
+
+        retry.setPosition(60, 140);
+        menu.setPosition(380, 140);
+        stats.setPosition(60, 20);
+        ranking.setPosition(380, 20);
 
         stage.addActor(retry);
         stage.addActor(gameover);
         stage.addActor(menu);
+        stage.addActor(stats);
+        stage.addActor(ranking);
 
     }
 
@@ -81,7 +110,7 @@ public class GameOverScreen extends com.endlessrunner.Pantallas.partida_basica.B
     public void show() {
         Gdx.input.setInputProcessor(stage);
 
-        final String localizacionXML = "xml/datos.xml";
+        //final String localizacionXML = "xml/datos.xml";
 
         //XML
         try {
@@ -194,6 +223,10 @@ public class GameOverScreen extends com.endlessrunner.Pantallas.partida_basica.B
             System.err.println("Ha habido un error al crear el archivo XML, imposible guardar datos de partida");
         }
 
+        hasieratuDatuakXML();
+
+
+        DatosUsuarioXML.ultimaPuntuacion=GameScreen.puntuacion;
 
         GameScreen.cantidadSaltos = 0;
         GameScreen.cantidadSetas = 0;

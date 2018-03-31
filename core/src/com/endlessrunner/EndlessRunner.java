@@ -6,6 +6,8 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.endlessrunner.Pantallas.menus.UserScreen;
+import com.endlessrunner.Pantallas.menus.UserLoginScreen;
 import com.endlessrunner.Pantallas.partida_basica.BaseScreen;
 import com.endlessrunner.Pantallas.menus.CargandoScreen;
 import com.endlessrunner.Pantallas.partida_basica.GameOverScreen;
@@ -13,19 +15,26 @@ import com.endlessrunner.Pantallas.partida_basica.GameScreen;
 import com.endlessrunner.Pantallas.menus.MenuScreen;
 import com.endlessrunner.Pantallas.top.TopPartidaBasica;
 
+import static com.endlessrunner.ayuda.DatosUsuarioXML.hasieratuDatuakXML;
+
 public class EndlessRunner extends Game {
 
     private AssetManager manager;
 
 
     //Todas las pantallas tienen que ponerse aqui...
-    public BaseScreen gameScreen,menuScreen,gameOverScreen,cargandoScreen,topPartidaBasica;
+    public BaseScreen gameScreen,menuScreen,gameOverScreen,cargandoScreen,topPartidaBasica,userLogInScreen,userScreen;
 
 
     public SpriteBatch batch;
 
     @Override
     public void create() {
+
+
+        //XML-ko datuak irakurri
+        hasieratuDatuakXML();
+
 
         batch = new SpriteBatch();
 
@@ -105,6 +114,8 @@ public class EndlessRunner extends Game {
         gameScreen = new GameScreen(this);
         gameOverScreen = new GameOverScreen(this);
         topPartidaBasica= new TopPartidaBasica(this);
+        userScreen=new UserScreen(this);
+        userLogInScreen= new UserLoginScreen(this);
         //creditsScreen = new CreditsScreen(this);
         setScreen(menuScreen);
     }
