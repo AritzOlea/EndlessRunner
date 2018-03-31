@@ -6,8 +6,10 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.endlessrunner.Pantallas.menus.CreditosScreen;
 import com.endlessrunner.Pantallas.menus.UserScreen;
 import com.endlessrunner.Pantallas.menus.UserLoginScreen;
+import com.endlessrunner.Pantallas.menus.UserSignupScreen;
 import com.endlessrunner.Pantallas.partida_basica.BaseScreen;
 import com.endlessrunner.Pantallas.menus.CargandoScreen;
 import com.endlessrunner.Pantallas.partida_basica.GameOverScreen;
@@ -23,7 +25,7 @@ public class EndlessRunner extends Game {
 
 
     //Todas las pantallas tienen que ponerse aqui...
-    public BaseScreen gameScreen,menuScreen,gameOverScreen,cargandoScreen,topPartidaBasica,userLogInScreen,userScreen;
+    public BaseScreen gameScreen,menuScreen,gameOverScreen,cargandoScreen,topPartidaBasica,userLogInScreen,userScreen,userSignUpSceen,creditosScreen;
 
 
     public SpriteBatch batch;
@@ -101,6 +103,9 @@ public class EndlessRunner extends Game {
         manager.load("audio/die.ogg", Sound.class);
         manager.load("audio/jump.ogg", Sound.class);
         manager.load("audio/song.ogg", Music.class);
+        manager.load("audio/point.ogg", Sound.class);
+        manager.load("audio/ouch.ogg", Sound.class);
+        manager.load("audio/charco.ogg", Sound.class);
 
 
         //Meto la pantalla de carga para iniciar el juego
@@ -116,7 +121,8 @@ public class EndlessRunner extends Game {
         topPartidaBasica= new TopPartidaBasica(this);
         userScreen=new UserScreen(this);
         userLogInScreen= new UserLoginScreen(this);
-        //creditsScreen = new CreditsScreen(this);
+        userSignUpSceen = new UserSignupScreen(this);
+        creditosScreen = new CreditosScreen(this);
         setScreen(menuScreen);
     }
 

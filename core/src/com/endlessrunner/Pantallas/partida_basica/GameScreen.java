@@ -55,7 +55,7 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
     private Texture fondoBackground;
 
     //Sonidos y musicas
-    public static Sound sonidoSalto,sonidoMuerte;
+    public static Sound sonidoSalto,sonidoMuerte,sonidoPunto,sonidoOuch,sonidoCharco;
     private Music musicaDeFondo;
 
     //Posicion de camara
@@ -111,6 +111,9 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
         sonidoSalto = jokoa.getManager().get("audio/jump.ogg");
         sonidoMuerte = jokoa.getManager().get("audio/die.ogg");
         musicaDeFondo = jokoa.getManager().get("audio/song.ogg");
+        sonidoPunto = jokoa.getManager().get("audio/point.ogg");
+        sonidoOuch = jokoa.getManager().get("audio/ouch.ogg");
+        sonidoCharco = jokoa.getManager().get("audio/charco.ogg");
 
         timer = 0;
         timeCount = 0f;
@@ -255,6 +258,7 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
                 causaMuerte = CausaMuerte.CAIDA;
                 musicaDeFondo.stop();
                 sonidoMuerte.play();
+                sonidoOuch.play(0.8f);
 
                 stage.addAction(
                         Actions.sequence(
@@ -393,6 +397,7 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
                     causaMuerte = CausaMuerte.MONTAÑA;
                     musicaDeFondo.stop();
                     sonidoMuerte.play();
+                    sonidoOuch.play(0.8f);
 
                     stage.addAction(
                             Actions.sequence(
@@ -426,9 +431,9 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
 
             if (areCollided(contact, "jugador", "suelo")) {
                 jugadorEnElSuelo = false;
-                if (jugador.isVivo() && Gdx.input.isTouched()) {
-                    sonidoSalto.play();
-                }
+        //        if (jugador.isVivo() && Gdx.input.isTouched()) {
+        //            sonidoSalto.play();
+        //        }
             }
         }
 

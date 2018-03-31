@@ -23,7 +23,7 @@ public class MenuScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
     private Stage stage;
     private Skin skin;
     private Image tituloa;
-    private TextButton jokatu, puntuazioak, aukerak,kontua;
+    private TextButton jokatu,puntuazioak,aukerak,kontua,kredituak;
 
 
     public MenuScreen(final EndlessRunner jokoa) {
@@ -38,6 +38,7 @@ public class MenuScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
         puntuazioak = new TextButton("Puntuazioak", skin);
         aukerak = new TextButton("Aukerak", skin);
         kontua = new TextButton("Kontua", skin);
+        kredituak = new TextButton("Kredituak", skin);
 
         tituloa = new Image(jokoa.getManager().get("titulo.png", Texture.class));
 
@@ -52,6 +53,13 @@ public class MenuScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 jokoa.setScreen(jokoa.topPartidaBasica);
+            }
+        });
+
+        kredituak.addCaptureListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                jokoa.setScreen(jokoa.creditosScreen);
             }
         });
 
@@ -75,17 +83,20 @@ public class MenuScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
         puntuazioak.setSize(200, 80);
         aukerak.setSize(160, 50);
         kontua.setSize(160, 50);
+        kredituak.setSize(160, 50);
 
         jokatu.setPosition(30, 110);
         puntuazioak.setPosition(30, 20);
-        aukerak.setPosition(470, 20);
-        kontua.setPosition(470, 80);
+        kredituak.setPosition(470, 20);
+        aukerak.setPosition(470, 80);
+        kontua.setPosition(470, 140);
 
         stage.addActor(tituloa);
         stage.addActor(jokatu);
         stage.addActor(puntuazioak);
         stage.addActor(aukerak);
         stage.addActor(kontua);
+        stage.addActor(kredituak);
 
     }
 

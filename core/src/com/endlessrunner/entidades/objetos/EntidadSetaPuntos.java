@@ -57,6 +57,7 @@ public class EntidadSetaPuntos  extends Actor {
                     &&
                     getY()+getHeight()> GameScreen.jugador.getY() && GameScreen.jugador.getY() > getY()){
                 GameScreen.puntuacion=GameScreen.puntuacion+14;
+                GameScreen.sonidoPunto.play();
                 GameScreen.puntuacionTextoLabel.setText(String.format("Puntuacion: %03d", GameScreen.puntuacion));
                 sinCoger=false;
                 GameScreen.cantidadSetas++;

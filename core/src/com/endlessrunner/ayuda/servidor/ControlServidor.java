@@ -116,6 +116,21 @@ public class ControlServidor {
         return emaitza;
     }
 
+    public static boolean erabiltzaileaErregistratu(String user, String pass){
+        //http://sgta.webcindario.com/php/comprobarLogeatu.php?nick=jongui&pass=jongu
+        boolean emaitza=false;
+        try{
+            URL url = new URL("http://sgta.webcindario.com/php/registrarUsuario.php?nick="+user+"&pass="+pass);
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+            String line=br.readLine();
+            return line.equals("1");
+        }catch(Exception e){
+
+        }
+        return emaitza;
+    }
+
     public static void datuakPasaZerbitzariari(){
 
         try{

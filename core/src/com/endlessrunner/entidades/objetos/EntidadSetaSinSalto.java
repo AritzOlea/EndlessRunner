@@ -1,5 +1,6 @@
 package com.endlessrunner.entidades.objetos;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -75,6 +76,7 @@ public class EntidadSetaSinSalto  extends Actor {
                 GameScreen.labelTiempo.setText(String.format("Cuenta atras: %03d", GameScreen.timer));
                 GameScreen.labelTiempo.setColor(Color.RED);
                 sinCoger = false;
+                GameScreen.sonidoCharco.play();
 
             } else {
 
