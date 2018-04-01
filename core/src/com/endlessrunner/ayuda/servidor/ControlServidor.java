@@ -8,6 +8,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+
+
 import static com.endlessrunner.ayuda.DatosUsuarioXML.*;
 
 
@@ -16,8 +18,6 @@ import static com.endlessrunner.ayuda.DatosUsuarioXML.*;
  */
 
 public class ControlServidor {
-
-
 
 
     public static ArrayList<String> nicks = new ArrayList<String>();
@@ -41,6 +41,8 @@ public class ControlServidor {
 
             URL url = new URL("http://sgta.webcindario.com/php/conseguirTOP.php?modoDeJuego="+modoDeJuego+"&cuantos="+numeroTop);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestMethod("GET");
+            urlConnection.connect();
 
             String line;
             String[] datos;
@@ -76,6 +78,7 @@ public class ControlServidor {
             System.out.println(urlS);
             URL url = new URL(urlS);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.connect();
             urlConnection.getInputStream();
             System.out.println("2");
 
@@ -91,6 +94,7 @@ public class ControlServidor {
         try{
             URL url = new URL("http://sgta.webcindario.com/php/comprobarLogeatu.php?nick="+user+"&pass="+pass);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.connect();
             BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
             String line=br.readLine();
             String[] sarrerak,datuak;
@@ -117,11 +121,12 @@ public class ControlServidor {
     }
 
     public static boolean erabiltzaileaErregistratu(String user, String pass){
-        //http://sgta.webcindario.com/php/comprobarLogeatu.php?nick=jongui&pass=jongu
+        //http://sgta.webcindario.com/php/comprobarLogeatu.php?nick=jongui&pass=jongui
         boolean emaitza=false;
         try{
             URL url = new URL("http://sgta.webcindario.com/php/registrarUsuario.php?nick="+user+"&pass="+pass);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.connect();
             BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
             String line=br.readLine();
             return line.equals("1");
@@ -141,6 +146,7 @@ public class ControlServidor {
             System.out.println(urlS);
             URL url = new URL(urlS);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.connect();
             urlConnection.getInputStream();
 
         }catch(Exception e){
