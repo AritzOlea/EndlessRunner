@@ -51,11 +51,11 @@ public class EntidadSuelo extends Actor {
         leftBody = world.createBody(leftDef);
 
 
-        //PolygonShape leftBox = new PolygonShape();
-        //leftBox.setAsBox(0.02f, 0.45f);
-        //leftFixture = leftBody.createFixture(leftBox, 1);
-        //leftFixture.setUserData("monte");
-        //leftBox.dispose();
+        PolygonShape leftBox = new PolygonShape();
+        leftBox.setAsBox(0.02f, 0.45f);
+        leftFixture = leftBody.createFixture(leftBox, 1);
+        leftFixture.setUserData("monte");
+        leftBox.dispose();
 
 
         setSize(width * PIXELS_POR_METRO, PIXELS_POR_METRO);

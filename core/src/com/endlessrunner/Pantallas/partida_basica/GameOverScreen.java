@@ -170,7 +170,7 @@ public class GameOverScreen extends com.endlessrunner.Pantallas.partida_basica.B
 
                 //elementos que cuelgan de root
                 Element user = doc.createElement("User");
-                user.appendChild(doc.createTextNode("Makez"));
+                user.appendChild(doc.createTextNode("Anonimo"));
                 rootElement.appendChild(user);
 
                 Element topScore = doc.createElement("TopScore");

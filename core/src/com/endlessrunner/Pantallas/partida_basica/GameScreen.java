@@ -223,7 +223,7 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
 
         jokoa.batch.begin();
         //HAY QUE MULTIPLICAR LA RESOLUCIÓN DE PANTALLA POR ALGÚN NUMERO PARA QUE QUEDE BIEN
-        jokoa.batch.draw(fondoBackground,bgIndice,0, Gdx.graphics.getWidth() + Gdx.graphics.getWidth() * 1.75f, Gdx.graphics.getHeight() * 1.75f);
+        jokoa.batch.draw(fondoBackground,bgIndice,0, Gdx.graphics.getWidth() * 1.75f, Gdx.graphics.getHeight() * 1.75f);
         jokoa.batch.end();
 
         if(bgInc<5){
@@ -252,27 +252,7 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
             GameScreen.labelTiempo.setColor(Color.WHITE);
 
         if (jugador.getY() < -150){
-            if (jugador.isVivo()) {
-                jugador.setVivo(false);
-                timer = 0;
-                causaMuerte = CausaMuerte.CAIDA;
-                musicaDeFondo.stop();
-                sonidoMuerte.play();
-                sonidoOuch.play(0.8f);
-
-                stage.addAction(
-                        Actions.sequence(
-                                Actions.delay(1.5f),
-                                Actions.run(new Runnable() {
-
-                                    @Override
-                                    public void run() {
-                                        jokoa.setScreen(jokoa.gameOverScreen);
-                                    }
-                                })
-                        )
-                );
-            }
+            matarJugador(CausaMuerte.CAIDA);
         }
 
         stage.draw();
@@ -356,6 +336,30 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
     public void resize(int width, int height) {
     }
 
+    public void matarJugador(CausaMuerte causa){
+        if (jugador.isVivo()) {
+            jugador.setVivo(false);
+            timer = 0;
+
+            causaMuerte = CausaMuerte.MONTAÑA;
+            musicaDeFondo.stop();
+            sonidoMuerte.play();
+            sonidoOuch.play(0.8f);
+
+            stage.addAction(
+                    Actions.sequence(
+                            Actions.delay(1.5f),
+                            Actions.run(new Runnable() {
+
+                                @Override
+                                public void run() {
+                                    jokoa.setScreen(jokoa.gameOverScreen);
+                                }
+                            })
+                    )
+            );
+        }
+    }
 
     private class GameContactListener implements ContactListener {
 
@@ -376,42 +380,26 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
         public void beginContact(Contact contact) {
 
             if (areCollided(contact, "jugador", "suelo")) {
-                jugador.setSaltandoUno(false);
-                jugador.setSaltandoDos(false);
-                jugadorEnElSuelo = true;
+                if ((contact.getFixtureA().getUserData().toString().equals("jugador")
+                        && contact.getFixtureA().getBody().getPosition().y > contact.getFixtureB().getBody().getPosition().y) ||
+                        (contact.getFixtureB().getUserData().toString().equals("jugador")
+                                && contact.getFixtureB().getBody().getPosition().y > contact.getFixtureA().getBody().getPosition().y)){
+                    jugador.setSaltandoUno(false);
+                    jugador.setSaltandoDos(false);
+                    jugadorEnElSuelo = true;
 
-                if (Gdx.input.isTouched()) {
-                    //sonidoSalto.play();
+                    if (Gdx.input.isTouched()) {
+                        //sonidoSalto.play();
 
-                    jugador.setDebeSaltar(true);
+                        jugador.setDebeSaltar(true);
+                    }
                 }
             }
 
 
 
             if (areCollided(contact, "jugador", "monte")) {
-                if (jugador.isVivo()) {
-                    jugador.setVivo(false);
-                    timer = 0;
-
-                    causaMuerte = CausaMuerte.MONTAÑA;
-                    musicaDeFondo.stop();
-                    sonidoMuerte.play();
-                    sonidoOuch.play(0.8f);
-
-                    stage.addAction(
-                            Actions.sequence(
-                                    Actions.delay(1.5f),
-                                    Actions.run(new Runnable() {
-
-                                        @Override
-                                        public void run() {
-                                            jokoa.setScreen(jokoa.gameOverScreen);
-                                        }
-                                    })
-                            )
-                    );
-                }
+                matarJugador(CausaMuerte.MONTAÑA);
             }
 
 

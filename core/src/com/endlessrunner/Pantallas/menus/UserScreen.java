@@ -110,7 +110,7 @@ public class UserScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
 
         jokoa.batch.begin();
         //HAY QUE MULTIPLICAR LA RESOLUCIÓN DE PANTALLA POR ALGÚN NUMERO PARA QUE QUEDE BIEN
-        jokoa.batch.draw(fondoBackground,0,0, Gdx.graphics.getWidth() + Gdx.graphics.getWidth() * 1.75f, Gdx.graphics.getHeight() * 1.75f);
+        jokoa.batch.draw(fondoBackground,0,0, Gdx.graphics.getWidth() * 1.75f, Gdx.graphics.getHeight() * 1.75f);
         jokoa.batch.end();
 
         stage.draw();
