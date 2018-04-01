@@ -53,9 +53,9 @@ public class EntidadSetaPuntos  extends Actor {
     public void draw(Batch batch, float parentAlpha) {
 
         if(sinCoger){
-            if(getX()+getWidth()> GameScreen.jugador.getX() && GameScreen.jugador.getX() > getX()
+            if((GameScreen.jugador.getX() + GameScreen.jugador.getWidth()) > getX() && GameScreen.jugador.getX() < (getX() + getWidth())
                     &&
-                    getY()+getHeight()> GameScreen.jugador.getY() && GameScreen.jugador.getY() > getY()){
+                    (GameScreen.jugador.getY() + GameScreen.jugador.getHeight()) > getY() && GameScreen.jugador.getY() < (getY() + getHeight())){
                 GameScreen.puntuacion=GameScreen.puntuacion+14;
                 GameScreen.sonidoPunto.play();
                 GameScreen.puntuacionTextoLabel.setText(String.format("Puntuacion: %03d", GameScreen.puntuacion));
