@@ -39,6 +39,8 @@ public class DatosUsuarioXML {
 
     public static int collisionDeaths;
 
+    public static int cameraOutDeaths;
+
 
     public static int ultimaPuntuacion=0;
 
@@ -91,6 +93,9 @@ public class DatosUsuarioXML {
                 node = doc.getElementsByTagName("CollisionDeaths").item(0);
                 collisionDeaths=Integer.parseInt(node.getTextContent());
 
+                node = doc.getElementsByTagName("CameraOutDeaths").item(0);
+                cameraOutDeaths=Integer.parseInt(node.getTextContent());
+
 
             }else {//SI EL XML NO EXISTE Y HAY QUE CREARLO
 
@@ -103,6 +108,7 @@ public class DatosUsuarioXML {
                 totalGlues=0;
                 fallDeaths=0;
                 collisionDeaths=0;
+                cameraOutDeaths=0;
 
             }
 
@@ -162,6 +168,10 @@ public class DatosUsuarioXML {
             collisionDeaths.appendChild(doc.createTextNode(Integer.toString(DatosUsuarioXML.collisionDeaths)));
             rootElement.appendChild(collisionDeaths);
 
+            Element cameraOutDeaths = doc.createElement("CameraOutDeaths");
+            cameraOutDeaths.appendChild(doc.createTextNode(Integer.toString(DatosUsuarioXML.cameraOutDeaths)));
+            rootElement.appendChild(cameraOutDeaths);
+
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
@@ -186,6 +196,7 @@ public class DatosUsuarioXML {
         totalGlues=0;
         fallDeaths=0;
         collisionDeaths=0;
+        cameraOutDeaths=0;
         datuakGordeXML();
     }
 

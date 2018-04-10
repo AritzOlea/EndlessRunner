@@ -111,6 +111,7 @@ public class ControlServidor {
                 DatosUsuarioXML.totalGlues=Integer.parseInt(datuak[5]);
                 DatosUsuarioXML.fallDeaths=Integer.parseInt(datuak[6]);
                 DatosUsuarioXML.collisionDeaths=Integer.parseInt(datuak[7]);
+                DatosUsuarioXML.cameraOutDeaths=Integer.parseInt(datuak[8]);
                 DatosUsuarioXML.datuakGordeXML();
             }
 
@@ -142,7 +143,7 @@ public class ControlServidor {
 
             String urlS="http://sgta.webcindario.com/php/actualizarTodosLosDatos.php?" +
                     "nick="+user+"&TopScore="+topScore+"&AvgScore="+avgScore+"&PlayedGames="+playedGames+"&TotalJumps="+totallJumps+
-                    "&TotalMashrooms="+totalMashrooms+"&TotalGlues="+totalGlues+"&FallDeaths="+fallDeaths+"&CollisionDeaths="+collisionDeaths;
+                    "&TotalMashrooms="+totalMashrooms+"&TotalGlues="+totalGlues+"&FallDeaths="+fallDeaths+"&CollisionDeaths="+collisionDeaths+"&CameraOutDeaths="+cameraOutDeaths;
             System.out.println(urlS);
             URL url = new URL(urlS);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();

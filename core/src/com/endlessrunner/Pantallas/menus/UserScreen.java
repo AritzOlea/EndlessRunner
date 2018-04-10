@@ -86,7 +86,10 @@ public class UserScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
     @Override
     public void show() {
 
-        usuarioLogeado.setText("User: "+DatosUsuarioXML.user+"\nTopScore: "+DatosUsuarioXML.topScore+"\nAvgScore: "+DatosUsuarioXML.avgScore+"\nPlayedGames:"+DatosUsuarioXML.playedGames+"\nTotalJumps: "+DatosUsuarioXML.totallJumps+"\nTotalMashrooms: "+DatosUsuarioXML.totalMashrooms+"\nTotalGlues: "+DatosUsuarioXML.totalGlues+"\nFallDeaths: "+DatosUsuarioXML.fallDeaths+"\nCollisionDeaths: "+DatosUsuarioXML.collisionDeaths);
+        usuarioLogeado.setText("User: "+DatosUsuarioXML.user+"\nTopScore: "+DatosUsuarioXML.topScore+
+                "\nAvgScore: "+DatosUsuarioXML.avgScore+"\nPlayedGames:"+DatosUsuarioXML.playedGames+"\nTotalJumps: "+DatosUsuarioXML.totallJumps+
+                "\nTotalMashrooms: "+DatosUsuarioXML.totalMashrooms+"\nTotalGlues: "+DatosUsuarioXML.totalGlues+"\nFallDeaths: "+DatosUsuarioXML.fallDeaths+
+                "\nCollisionDeaths: "+DatosUsuarioXML.collisionDeaths+"\nCameraOutDeaths: "+DatosUsuarioXML.cameraOutDeaths);
         Gdx.input.setInputProcessor(stage);
 
     }

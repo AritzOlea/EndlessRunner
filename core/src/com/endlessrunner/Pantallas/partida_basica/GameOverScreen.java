@@ -153,6 +153,9 @@ public class GameOverScreen extends com.endlessrunner.Pantallas.partida_basica.B
                 }else if (GameScreen.causaMuerte == GameScreen.CausaMuerte.CAIDA){
                     Node fallDeaths = doc.getElementsByTagName("FallDeaths").item(0);
                     fallDeaths.setTextContent(Integer.toString(Integer.parseInt(fallDeaths.getTextContent()) + 1));
+                }else if (GameScreen.causaMuerte == GameScreen.CausaMuerte.FUERA_CAMARA){
+                    Node cameraOutDeaths = doc.getElementsByTagName("CameraOutDeaths").item(0);
+                    cameraOutDeaths.setTextContent(Integer.toString(Integer.parseInt(cameraOutDeaths.getTextContent()) + 1));
                 }
 
                 TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -210,6 +213,13 @@ public class GameOverScreen extends com.endlessrunner.Pantallas.partida_basica.B
                 else
                     collisionDeaths.appendChild(doc.createTextNode("0"));
                 rootElement.appendChild(collisionDeaths);
+
+                Element cameraOutDeaths = doc.createElement("CameraOutDeaths");
+                if (GameScreen.causaMuerte == GameScreen.CausaMuerte.FUERA_CAMARA)
+                    cameraOutDeaths.appendChild(doc.createTextNode("1"));
+                else
+                    cameraOutDeaths.appendChild(doc.createTextNode("0"));
+                rootElement.appendChild(cameraOutDeaths);
 
                 TransformerFactory transformerFactory = TransformerFactory.newInstance();
                 Transformer transformer = transformerFactory.newTransformer();

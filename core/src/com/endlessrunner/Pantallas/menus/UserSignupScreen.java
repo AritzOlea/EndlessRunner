@@ -154,9 +154,9 @@ public class UserSignupScreen extends BaseScreen {
     public void show() {
         Gdx.input.setInputProcessor(stage);
         mensaje.setText("");
-        usuarioLogin.setText("");
-        passLogin.setText("");
-        passLogin2.setText("");
+        usuarioLogin.setText("Erabiltzailea:\n");
+        passLogin.setText("Pasahitza:\n");
+        passLogin2.setText("Pasahitza errepikatu:\n");
     }
 
     @Override

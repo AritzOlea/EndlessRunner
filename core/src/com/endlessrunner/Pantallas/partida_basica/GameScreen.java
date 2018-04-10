@@ -73,7 +73,7 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
 
     //Enumeracion causas muerte
     public enum CausaMuerte {
-        MONTAÑA, CAIDA;
+        MONTAÑA, CAIDA, FUERA_CAMARA;
     }
 
     //Puntuaciones, tiempo...
@@ -255,6 +255,10 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
             matarJugador(CausaMuerte.CAIDA);
         }
 
+        if (jugador.getX() < stage.getCamera().position.x - stage.getWidth() / 2 - jugador.getWidth()){
+            matarJugador(CausaMuerte.FUERA_CAMARA);
+        }
+
         stage.draw();
     }
 
@@ -341,7 +345,7 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
             jugador.setVivo(false);
             timer = 0;
 
-            causaMuerte = CausaMuerte.MONTAÑA;
+            causaMuerte = causa;
             musicaDeFondo.stop();
             sonidoMuerte.play();
             sonidoOuch.play(0.8f);
