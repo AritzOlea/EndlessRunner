@@ -388,7 +388,7 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
                 if ((contact.getFixtureA().getUserData().toString().equals("jugador")
                         && contact.getFixtureA().getBody().getPosition().y > contact.getFixtureB().getBody().getPosition().y) ||
                         (contact.getFixtureB().getUserData().toString().equals("jugador")
-                                && contact.getFixtureB().getBody().getPosition().y > contact.getFixtureA().getBody().getPosition().y)){
+                                && contact.getFixtureB().getBody().getPosition().y > contact.getFixtureA().getBody().getPosition().y)) {
                     jugador.setSaltandoUno(false);
                     jugador.setSaltandoDos(false);
                     jugadorEnElSuelo = true;
@@ -400,7 +400,6 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
                     }
                 }
             }
-
 
 
             if (areCollided(contact, "jugador", "monte")) {
@@ -418,7 +417,6 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
         }
 
 
-
         @Override
         public void endContact(Contact contact) {
 
@@ -430,7 +428,7 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
             }
         }
 
-        // Here two lonely methods that I don't use but have to override anyway.
+        // Here two lonely methods that I don't use but have to override anyway
         @Override public void preSolve(Contact contact, Manifold oldManifold) { }
         @Override public void postSolve(Contact contact, ContactImpulse impulse) { }
     }

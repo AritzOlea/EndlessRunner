@@ -41,7 +41,6 @@ public class MenuScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
 
         tituloa = new Image(jokoa.getManager().get("titulo.png", Texture.class));
 
-        //botoiak
         //"botones/Euskera/jokatu.png"
         jokatuBotoia = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/euskera/jokatu.png")))));
         puntuazioaBotoia = new Image(jokoa.getManager().get("input/euskera/puntuazioak.png", Texture.class));
@@ -57,7 +56,7 @@ public class MenuScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
             }
         });
 
-        puntuazioaBotoia.addCaptureListener(new ChangeListener() {
+        /*puntuazioaBotoia.addCaptureListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 jokoa.setScreen(jokoa.topPartidaBasica);
@@ -82,7 +81,7 @@ public class MenuScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
                 }
 
             }
-        });
+        });*/
 
         tituloa.setPosition( 20, 250 );
 
