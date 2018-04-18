@@ -3,12 +3,15 @@ package com.endlessrunner.Pantallas.menus;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.endlessrunner.EndlessRunner;
 import com.endlessrunner.ayuda.DatosUsuarioXML;
@@ -23,7 +26,9 @@ public class MenuScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
     private Stage stage;
     private Skin skin;
     private Image tituloa;
-    private TextButton jokatu,puntuazioak,aukerak,kontua,kredituak;
+    //private TextButton jokatu,puntuazioak,aukerak,kontua,kredituak;
+    private Image puntuazioaBotoia,kontuaBotoia,aukeraBotoia,kredituakBotoia;
+    private ImageButton jokatuBotoia;
 
 
     public MenuScreen(final EndlessRunner jokoa) {
@@ -32,38 +37,41 @@ public class MenuScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
         stage = new Stage(new FitViewport(640, 360));
 
         skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
-        fondoBackground=jokoa.getManager().get("paisajes/dia/png/BG/BG.png");
-
-        jokatu = new TextButton("Jokatu", skin);
-        puntuazioak = new TextButton("Puntuazioak", skin);
-        aukerak = new TextButton("Aukerak", skin);
-        kontua = new TextButton("Kontua", skin);
-        kredituak = new TextButton("Kredituak", skin);
+        fondoBackground=jokoa.getManager().get("bg/FondoMenu.png");
 
         tituloa = new Image(jokoa.getManager().get("titulo.png", Texture.class));
 
-        jokatu.addCaptureListener(new ChangeListener() {
+        //botoiak
+        //"botones/Euskera/jokatu.png"
+        jokatuBotoia = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/euskera/jokatu.png")))));
+        puntuazioaBotoia = new Image(jokoa.getManager().get("input/euskera/puntuazioak.png", Texture.class));
+        kontuaBotoia = new Image(jokoa.getManager().get("input/euskera/kontua.png", Texture.class));
+        aukeraBotoia = new Image(jokoa.getManager().get("input/euskera/aukerak.png", Texture.class));
+        kredituakBotoia = new Image(jokoa.getManager().get("input/euskera/kredituak.png", Texture.class));
+
+
+        jokatuBotoia.addCaptureListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 jokoa.setScreen(jokoa.gameScreen);
             }
         });
 
-        puntuazioak.addCaptureListener(new ChangeListener() {
+        puntuazioaBotoia.addCaptureListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 jokoa.setScreen(jokoa.topPartidaBasica);
             }
         });
 
-        kredituak.addCaptureListener(new ChangeListener() {
+        kredituakBotoia.addCaptureListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 jokoa.setScreen(jokoa.creditosScreen);
             }
         });
 
-        kontua.addCaptureListener(new ChangeListener() {
+        kontuaBotoia.addCaptureListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
 
@@ -76,27 +84,26 @@ public class MenuScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
             }
         });
 
-        //tituloa.setPosition(320 - tituloa.getWidth() / 2, 320 - tituloa.getHeight());
         tituloa.setPosition( 20, 250 );
 
-        jokatu.setSize(200, 80);
-        puntuazioak.setSize(200, 80);
-        aukerak.setSize(160, 50);
-        kontua.setSize(160, 50);
-        kredituak.setSize(160, 50);
+        jokatuBotoia.setSize(175, 80);
+        puntuazioaBotoia.setSize(200, 80);
+        aukeraBotoia.setSize(120, 50);
+        kontuaBotoia.setSize(120, 50);
+        kredituakBotoia.setSize(120, 50);
 
-        jokatu.setPosition(30, 110);
-        puntuazioak.setPosition(30, 20);
-        kredituak.setPosition(470, 20);
-        aukerak.setPosition(470, 80);
-        kontua.setPosition(470, 140);
+        puntuazioaBotoia.setPosition(2, 155);
+        jokatuBotoia.setPosition(174, 35);
+        kredituakBotoia.setPosition(520, 50);
+        aukeraBotoia.setPosition(390, 100);
+        kontuaBotoia.setPosition(520, 180);
 
         stage.addActor(tituloa);
-        stage.addActor(jokatu);
-        stage.addActor(puntuazioak);
-        stage.addActor(aukerak);
-        stage.addActor(kontua);
-        stage.addActor(kredituak);
+        stage.addActor(jokatuBotoia);
+        stage.addActor(puntuazioaBotoia);
+        stage.addActor(aukeraBotoia);
+        stage.addActor(kontuaBotoia);
+        stage.addActor(kredituakBotoia);
 
     }
 
@@ -124,7 +131,7 @@ public class MenuScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
 
         jokoa.batch.begin();
         //HAY QUE MULTIPLICAR LA RESOLUCIÓN DE PANTALLA POR ALGÚN NUMERO PARA QUE QUEDE BIEN
-        jokoa.batch.draw(fondoBackground,0,0, Gdx.graphics.getWidth() * 1.75f, Gdx.graphics.getHeight() * 1.75f);
+        jokoa.batch.draw(fondoBackground,0,0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         jokoa.batch.end();
 
         stage.draw();

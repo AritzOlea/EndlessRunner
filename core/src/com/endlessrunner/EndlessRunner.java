@@ -94,10 +94,17 @@ public class EndlessRunner extends Game {
         //fondo
         manager.load("paisajes/dia/png/BG/BG.png",Texture.class);
         manager.load("bg/fondoTops.png",Texture.class);
-
+        manager.load("bg/FondoMenu.png",Texture.class);
+        
         //menu
         manager.load("gameover.png",Texture.class);
         manager.load("titulo.png",Texture.class);
+        //botoiak
+        manager.load("input/euskera/jokatu.png",Texture.class);
+        manager.load("input/euskera/puntuazioak.png",Texture.class);
+        manager.load("input/euskera/kontua.png",Texture.class);
+        manager.load("input/euskera/aukerak.png",Texture.class);
+        manager.load("input/euskera/kredituak.png",Texture.class);
 
         //sonidos & musica
         manager.load("audio/die.ogg", Sound.class);

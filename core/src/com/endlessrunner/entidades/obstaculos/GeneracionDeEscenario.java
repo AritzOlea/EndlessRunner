@@ -180,7 +180,7 @@ public class GeneracionDeEscenario {
 
         while(i<2000){
 
-            siguienteSeta= (int) Math.floor(Math.random()*(80-30+1)+10);
+            siguienteSeta= (int) Math.floor(Math.random()*(50-30+1)+10);
 
             i=i+siguienteSeta;
 

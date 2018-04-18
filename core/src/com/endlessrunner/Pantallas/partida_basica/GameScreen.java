@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Contact;
@@ -98,8 +99,8 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
     //CONSTRUCTOR
     public GameScreen(EndlessRunner jokoa){
         super(jokoa);
-
-        stage=new Stage(new FitViewport(640,360));
+        //640,360
+        stage=new Stage(new FitViewport( 896, 504 ));
         position = new Vector3(stage.getCamera().position);
 
         world=new World(new Vector2(0,-15),true);
@@ -135,13 +136,13 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
         table.setFillParent(true);
 
         //Label puntuacionLabel= new Label(String.format("%06d",0),new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        puntuacionTextoLabel=new Label("Puntuacion: 000",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        puntuacionTextoLabel=new Label("Puntuacion: 000", new Label.LabelStyle(new BitmapFont(),Color.WHITE) );
+        puntuacionTextoLabel.sizeBy(40);
         labelTiempo = new Label("Cuenta atras: 000",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
-        table.add(puntuacionTextoLabel).expandX().padTop(10);
-        table.add(labelTiempo).expandX().padTop(10);
+        table.add(puntuacionTextoLabel).expandX().padTop(20);
+        table.add(labelTiempo).expandX().padTop(20);
         //table.add(puntuacionLabel).expandX().padTop(10);
-
         stage.addActor(table);
 
 
@@ -423,9 +424,9 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
 
             if (areCollided(contact, "jugador", "suelo")) {
                 jugadorEnElSuelo = false;
-        //        if (jugador.isVivo() && Gdx.input.isTouched()) {
-        //            sonidoSalto.play();
-        //        }
+                //        if (jugador.isVivo() && Gdx.input.isTouched()) {
+                //            sonidoSalto.play();
+                //        }
             }
         }
 
