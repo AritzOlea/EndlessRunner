@@ -6,6 +6,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.endlessrunner.Pantallas.menus.AjustesScreen;
 import com.endlessrunner.Pantallas.menus.CreditosScreen;
 import com.endlessrunner.Pantallas.menus.UserScreen;
 import com.endlessrunner.Pantallas.menus.UserLoginScreen;
@@ -17,6 +18,7 @@ import com.endlessrunner.Pantallas.partida_basica.GameScreen;
 import com.endlessrunner.Pantallas.menus.MenuScreen;
 import com.endlessrunner.Pantallas.top.TopPartidaBasica;
 
+import static com.endlessrunner.ayuda.Ajustes.InicializarDatosDesdeXML;
 import static com.endlessrunner.ayuda.DatosUsuarioXML.hasieratuDatuakXML;
 
 public class EndlessRunner extends Game {
@@ -25,7 +27,7 @@ public class EndlessRunner extends Game {
 
 
     //Todas las pantallas tienen que ponerse aqui...
-    public BaseScreen gameScreen,menuScreen,gameOverScreen,cargandoScreen,topPartidaBasica,userLogInScreen,userScreen,userSignUpSceen,creditosScreen;
+    public BaseScreen gameScreen,menuScreen,gameOverScreen,cargandoScreen,topPartidaBasica,userLogInScreen,userScreen,userSignUpSceen,creditosScreen,ajustesScreen;
 
 
     public SpriteBatch batch;
@@ -36,6 +38,7 @@ public class EndlessRunner extends Game {
 
         //XML-ko datuak irakurri
         hasieratuDatuakXML();
+        InicializarDatosDesdeXML();
 
 
         batch = new SpriteBatch();
@@ -94,17 +97,50 @@ public class EndlessRunner extends Game {
         //fondo
         manager.load("paisajes/dia/png/BG/BG.png",Texture.class);
         manager.load("bg/fondoTops.png",Texture.class);
+        manager.load("bg/FondoAjustes.png",Texture.class);
         manager.load("bg/FondoMenu.png",Texture.class);
         
         //menu
         manager.load("gameover.png",Texture.class);
         manager.load("titulo.png",Texture.class);
         //botoiak
+        //euskeraz
         manager.load("input/euskera/jokatu.png",Texture.class);
         manager.load("input/euskera/puntuazioak.png",Texture.class);
         manager.load("input/euskera/kontua.png",Texture.class);
         manager.load("input/euskera/aukerak.png",Texture.class);
         manager.load("input/euskera/kredituak.png",Texture.class);
+        manager.load("input/euskera/atzera.png",Texture.class);
+        //gaztelera
+        manager.load("input/gaztelera/jokatu.png",Texture.class);
+        manager.load("input/gaztelera/puntuazioak.png",Texture.class);
+        manager.load("input/gaztelera/kontua.png",Texture.class);
+        manager.load("input/gaztelera/aukerak.png",Texture.class);
+        manager.load("input/gaztelera/kredituak.png",Texture.class);
+        manager.load("input/gaztelera/atzera.png",Texture.class);
+        //ingelesa
+        manager.load("input/ingelesa/jokatu.png",Texture.class);
+        manager.load("input/ingelesa/puntuazioak.png",Texture.class);
+        manager.load("input/ingelesa/kontua.png",Texture.class);
+        manager.load("input/ingelesa/aukerak.png",Texture.class);
+        manager.load("input/ingelesa/kredituak.png",Texture.class);
+        manager.load("input/ingelesa/atzera.png",Texture.class);
+
+
+
+        //idiomas
+        manager.load("input/idiomas/es.png",Texture.class);
+        manager.load("input/idiomas/eus.png",Texture.class);
+        manager.load("input/idiomas/en.png",Texture.class);
+        manager.load("input/idiomas/es_aukeratuta.png",Texture.class);
+        manager.load("input/idiomas/eus_aukeratuta.png",Texture.class);
+        manager.load("input/idiomas/en_aukeratuta.png",Texture.class);
+        //musica y sonidos
+        manager.load("input/musica/musica_on.png",Texture.class);
+        manager.load("input/musica/musica_off.png",Texture.class);
+        manager.load("input/musica/sonidos_on.png",Texture.class);
+        manager.load("input/musica/sonidos_off.png",Texture.class);
+
 
         //sonidos & musica
         manager.load("audio/die.ogg", Sound.class);
@@ -130,6 +166,7 @@ public class EndlessRunner extends Game {
         userLogInScreen= new UserLoginScreen(this);
         userSignUpSceen = new UserSignupScreen(this);
         creditosScreen = new CreditosScreen(this);
+        ajustesScreen=new AjustesScreen(this);
         setScreen(menuScreen);
     }
 

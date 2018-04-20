@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.endlessrunner.EndlessRunner;
+import com.endlessrunner.ayuda.Ajustes;
 import com.endlessrunner.ayuda.DatosUsuarioXML;
 
 /**
@@ -27,8 +28,7 @@ public class MenuScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
     private Skin skin;
     private Image tituloa;
     //private TextButton jokatu,puntuazioak,aukerak,kontua,kredituak;
-    private Image puntuazioaBotoia,kontuaBotoia,aukeraBotoia,kredituakBotoia;
-    private ImageButton jokatuBotoia;
+    private ImageButton jokatuBotoia,puntuazioaBotoia,kontuaBotoia,aukeraBotoia,kredituakBotoia;
 
 
     public MenuScreen(final EndlessRunner jokoa) {
@@ -42,11 +42,11 @@ public class MenuScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
         tituloa = new Image(jokoa.getManager().get("titulo.png", Texture.class));
 
         //"botones/Euskera/jokatu.png"
-        jokatuBotoia = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/euskera/jokatu.png")))));
-        puntuazioaBotoia = new Image(jokoa.getManager().get("input/euskera/puntuazioak.png", Texture.class));
-        kontuaBotoia = new Image(jokoa.getManager().get("input/euskera/kontua.png", Texture.class));
-        aukeraBotoia = new Image(jokoa.getManager().get("input/euskera/aukerak.png", Texture.class));
-        kredituakBotoia = new Image(jokoa.getManager().get("input/euskera/kredituak.png", Texture.class));
+        jokatuBotoia = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/"+ Ajustes.Ruta+"/jokatu.png")))));
+        puntuazioaBotoia =new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/"+ Ajustes.Ruta+"/puntuazioak.png")))));
+        kontuaBotoia = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/"+ Ajustes.Ruta+"/kontua.png")))));
+        aukeraBotoia = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/"+ Ajustes.Ruta+"/aukerak.png")))));
+        kredituakBotoia = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/"+ Ajustes.Ruta+"/kredituak.png")))));
 
 
         jokatuBotoia.addCaptureListener(new ChangeListener() {
@@ -56,7 +56,7 @@ public class MenuScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
             }
         });
 
-        /*puntuazioaBotoia.addCaptureListener(new ChangeListener() {
+        puntuazioaBotoia.addCaptureListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 jokoa.setScreen(jokoa.topPartidaBasica);
@@ -67,6 +67,13 @@ public class MenuScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 jokoa.setScreen(jokoa.creditosScreen);
+            }
+        });
+
+        aukeraBotoia.addCaptureListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                jokoa.setScreen(jokoa.ajustesScreen);
             }
         });
 
@@ -81,7 +88,7 @@ public class MenuScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
                 }
 
             }
-        });*/
+        });
 
         tituloa.setPosition( 20, 250 );
 

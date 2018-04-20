@@ -56,7 +56,12 @@ public class EntidadSetaPuntos  extends Actor {
             if((GameScreen.jugador.getX() + GameScreen.jugador.getWidth()) > getX() && GameScreen.jugador.getX() < (getX() + getWidth())
                     &&
                     (GameScreen.jugador.getY() + GameScreen.jugador.getHeight()) > getY() && GameScreen.jugador.getY() < (getY() + getHeight())){
-                GameScreen.puntuacion=GameScreen.puntuacion+14;
+
+                int puntosGanados = (int) (Math.random() * 8) + 10;
+                GameScreen.timerPuntuacion = 1;
+                GameScreen.labelPuntosConseguidos.setText(" +"+puntosGanados+"         ");
+
+                GameScreen.puntuacion=GameScreen.puntuacion+puntosGanados;
                 GameScreen.sonidoPunto.play();
                 GameScreen.puntuacionTextoLabel.setText(String.format("Puntuacion: %03d", GameScreen.puntuacion));
                 sinCoger=false;

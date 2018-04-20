@@ -21,6 +21,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.endlessrunner.EndlessRunner;
+import com.endlessrunner.ayuda.Ajustes;
 import com.endlessrunner.entidades.FactoriaDeEntidades;
 import com.endlessrunner.entidades.actorAventurero.ActorAventurero;
 import com.endlessrunner.entidades.objetos.EntidadSetaPuntos;
@@ -79,9 +80,9 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
 
     //Puntuaciones, tiempo...
     Table table;
-    public static int timer,puntuacion;
+    public static int timer,puntuacion,timerPuntuacion;
     public static float timeCount;
-    public static Label labelTiempo,puntuacionTextoLabel;
+    public static Label labelTiempo,puntuacionTextoLabel,labelPuntosConseguidos;
     public static boolean pegadoAlSuelo;
     public static boolean jugadorEnElSuelo;
     public static int cantidadSaltos;
@@ -117,6 +118,7 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
         sonidoCharco = jokoa.getManager().get("audio/charco.ogg");
 
         timer = 0;
+        timerPuntuacion=0;
         timeCount = 0f;
         puntuacion=0;
         cantidadSaltos = 0;
@@ -137,10 +139,16 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
 
         //Label puntuacionLabel= new Label(String.format("%06d",0),new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         puntuacionTextoLabel=new Label("Puntuacion: 000", new Label.LabelStyle(new BitmapFont(),Color.WHITE) );
-        puntuacionTextoLabel.sizeBy(40);
-        labelTiempo = new Label("Cuenta atras: 000",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        puntuacionTextoLabel.setFontScale(2);
+
+        labelTiempo = new Label("                 ",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        labelTiempo.setFontScale(2);
+
+        labelPuntosConseguidos = new Label("              ",new Label.LabelStyle(new BitmapFont(), Color.ORANGE));
+        labelPuntosConseguidos.setFontScale(3);
 
         table.add(puntuacionTextoLabel).expandX().padTop(20);
+        table.add(labelPuntosConseguidos).expandX().padTop(20);
         table.add(labelTiempo).expandX().padTop(20);
         //table.add(puntuacionLabel).expandX().padTop(10);
         stage.addActor(table);
@@ -163,6 +171,9 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
         GeneracionDeEscenario.GenerarSuelo(listaDeSuelo,world,factory,2000,listaAgua,listaDeSueloIzquierda,listaDeSueloDerecha);
         GeneracionDeEscenario.GenerarSegundosPisos(listaSegundoPiso,world,factory,listaDeMontes,listaDeSetasPuntos);
 
+        GeneracionDeEscenario.GenerarSinSalto(listaDeSetasSinSalto,world,factory);
+        GeneracionDeEscenario.GenerarRocas(listaDeMontes,world,factory);
+        GeneracionDeEscenario.GenerarSetasPositivas(listaDeSetasPuntos,world,factory);
         GeneracionDeEscenario.GenerarSinSalto(listaDeSetasSinSalto,world,factory);
         GeneracionDeEscenario.GenerarRocas(listaDeMontes,world,factory);
         GeneracionDeEscenario.GenerarSetasPositivas(listaDeSetasPuntos,world,factory);
@@ -201,8 +212,11 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
         stage.getCamera().update();
 
 
-        musicaDeFondo.setVolume(0.75f);
-        musicaDeFondo.play();
+        if(Ajustes.Musica){
+            musicaDeFondo.setVolume(0.75f);
+            musicaDeFondo.play();
+        }
+
     }
 
 
@@ -249,8 +263,10 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
             table.moveBy(speed, 0);
         }
 
-        if (timer == 0)
-            GameScreen.labelTiempo.setColor(Color.WHITE);
+        if (timer == 0) GameScreen.labelTiempo.setColor(Color.WHITE);
+
+        if(timerPuntuacion==0) GameScreen.labelPuntosConseguidos.setText("              ");
+
 
         if (jugador.getY() < -150){
             matarJugador(CausaMuerte.CAIDA);
@@ -274,10 +290,15 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
 
 
                 if(timer>0)timer--;
+                if(timerPuntuacion>0)timerPuntuacion--;
 
                 if(timer==0)jugador.setPegadoAlSuelo(false);
 
-                labelTiempo.setText(String.format("Cuenta atras: %03d", GameScreen.timer));
+                if(timer!=0){
+                    labelTiempo.setText(String.format("Cuenta atras: %03d", GameScreen.timer));
+                }else{
+                    labelTiempo.setText(String.format("                  "));
+                }
 
 
                 timeCount = 0;
@@ -347,9 +368,16 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
             timer = 0;
 
             causaMuerte = causa;
-            musicaDeFondo.stop();
-            sonidoMuerte.play();
-            sonidoOuch.play(0.8f);
+
+            if(Ajustes.Musica){
+                musicaDeFondo.stop();
+            }
+            if(Ajustes.Sonidos){
+                sonidoMuerte.play();
+                sonidoOuch.play(0.8f);
+            }
+
+
 
             stage.addAction(
                     Actions.sequence(

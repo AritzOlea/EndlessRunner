@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.endlessrunner.Pantallas.partida_basica.GameScreen;
+import com.endlessrunner.ayuda.Ajustes;
 
 import static com.endlessrunner.ayuda.Constantes.IMPULSO_DE_SALTO;
 import static com.endlessrunner.ayuda.Constantes.PIXELS_POR_METRO;
@@ -182,7 +183,7 @@ public class ActorAventurero extends Actor{
             body.setLinearVelocity(vel);
             Vector2 position = body.getPosition();
             body.applyLinearImpulse(0, IMPULSO_DE_SALTO, position.x, position.y, true);
-            GameScreen.sonidoSalto.play();
+            if(Ajustes.Sonidos)GameScreen.sonidoSalto.play();
             GameScreen.cantidadSaltos++;
         }else if(saltandoUno && !saltandoDos) {
             saltandoDos = true;
@@ -191,7 +192,7 @@ public class ActorAventurero extends Actor{
             body.setLinearVelocity(vel);
             Vector2 position = body.getPosition();
             body.applyLinearImpulse(0, IMPULSO_DE_SALTO*1.2f, position.x, position.y, true);
-            GameScreen.sonidoSalto.play();
+            if(Ajustes.Sonidos)GameScreen.sonidoSalto.play();
             GameScreen.cantidadSaltos++;
         }
     }

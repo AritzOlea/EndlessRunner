@@ -109,6 +109,7 @@ public class DatosUsuarioXML {
                 fallDeaths=0;
                 collisionDeaths=0;
                 cameraOutDeaths=0;
+                datuakGordeXML();
 
             }
 
