@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.endlessrunner.Pantallas.partida_basica.GameScreen;
+import com.endlessrunner.ayuda.Ajustes;
 
 import static com.endlessrunner.ayuda.Constantes.PIXELS_POR_METRO;
 
@@ -76,7 +77,9 @@ public class EntidadSetaSinSalto  extends Actor {
                 GameScreen.labelTiempo.setText(String.format("Cuenta atras: %03d", GameScreen.timer));
                 GameScreen.labelTiempo.setColor(Color.RED);
                 sinCoger = false;
-                GameScreen.sonidoCharco.play();
+                if(Ajustes.Sonidos) {
+                    GameScreen.sonidoCharco.play();
+                }
 
             } else {
 

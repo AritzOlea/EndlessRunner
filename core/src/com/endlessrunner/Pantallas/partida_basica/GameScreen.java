@@ -3,12 +3,10 @@ package com.endlessrunner.Pantallas.partida_basica;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Contact;
@@ -82,7 +80,7 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
     //Puntuaciones, tiempo...
     Table table;
     public static int timer,puntuacion,timerPuntuacion;
-    public static float timeCount;
+    public static float timeCount, pointAddTimeCount, timeGlued;
     public static Label labelTiempo,puntuacionTextoLabel,labelPuntosConseguidos;
     public static boolean pegadoAlSuelo;
     public static boolean jugadorEnElSuelo;
@@ -91,7 +89,7 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
     public static int cantidadColas;
     public static CausaMuerte causaMuerte;
 
-    //public BitmapFont pntsFnt;
+    public BitmapFont fntCuarenta, fntTreinta;
 
 
     /*
@@ -121,13 +119,16 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
         timer = 0;
         timerPuntuacion=0;
         timeCount = 0f;
+        pointAddTimeCount = 0f;
+        timeGlued = 0f;
         puntuacion=0;
         cantidadSaltos = 0;
         cantidadSetas = 0;
         cantidadColas = 0;
 
         jugadorEnElSuelo = true;
-        //pntsFnt = jokoa.getManager().get("fonts/googtimes.ttf", BitmapFont.class);
+        fntCuarenta = jokoa.getManager().get("size40.ttf", BitmapFont.class);
+        fntTreinta = jokoa.getManager().get("size30.ttf", BitmapFont.class);
     }
 
     @Override
@@ -140,20 +141,19 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
         table.setFillParent(true);
 
         Label puntuacionLabel= new Label(String.format("%06d",0),new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        puntuacionTextoLabel=new Label("Puntuacion: 000", new Label.LabelStyle(new BitmapFont(),Color.WHITE) );
-        puntuacionTextoLabel.setFontScale(2);
+        //puntuacionTextoLabel=new Label("Puntuacion: 000", new Label.LabelStyle(new BitmapFont(),Color.WHITE) );
+        //puntuacionTextoLabel.setFontScale(2);
 
-        //puntuacionTextoLabel=new Label("Puntuacion: 000", new Label.LabelStyle(pntsFnt,Color.WHITE) );
+        puntuacionTextoLabel=new Label("Puntuacion: 000", new Label.LabelStyle(fntCuarenta,Color.WHITE) );
 
-        labelTiempo = new Label("                 ",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        labelTiempo.setFontScale(2);
+        labelTiempo = new Label("                 ",new Label.LabelStyle(fntTreinta, Color.WHITE));
 
-        labelPuntosConseguidos = new Label("              ",new Label.LabelStyle(new BitmapFont(), Color.ORANGE));
-        labelPuntosConseguidos.setFontScale(3);
+        labelPuntosConseguidos = new Label("              ",new Label.LabelStyle(fntTreinta, Color.ORANGE));
 
-        table.add(puntuacionTextoLabel).expandX().padTop(20);
-        table.add(labelPuntosConseguidos).expandX().padTop(20);
-        table.add(labelTiempo).expandX().padTop(20);
+        table.add(puntuacionTextoLabel).expandX().pad(30);
+        table.add(labelTiempo).expandX().padRight(30);
+        table.row();
+        table.add(labelPuntosConseguidos).height(300).expandX();
         //table.add(puntuacionLabel).expandX().padTop(10);
         stage.addActor(table);
 
@@ -286,26 +286,33 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
     public void updateTimer(float delta){
         if (jugador.isVivo()) {
             timeCount += delta;
-            if (timeCount >= 1) {
-
-                puntuacion=puntuacion+2;
-                puntuacionTextoLabel.setText(String.format("Puntuacion: %03d", GameScreen.puntuacion));
-
-
-                if(timer>0)timer--;
-                if(timerPuntuacion>0)timerPuntuacion--;
-
-                if(timer==0)jugador.setPegadoAlSuelo(false);
-
+            if (timerPuntuacion > 0){
+                pointAddTimeCount += delta;
+                if (pointAddTimeCount >= 1){
+                    timerPuntuacion--;
+                    pointAddTimeCount = 0;
+                }
+            }
+            if (timer > 0){
+                timeGlued += delta;
+                if (timeGlued >= 1){
+                    timer--;
+                    timeGlued = 0;
+                    if(timer==0)jugador.setPegadoAlSuelo(false);
+                }
                 if(timer!=0){
                     labelTiempo.setText(String.format("Cuenta atras: %03d", GameScreen.timer));
                 }else{
                     labelTiempo.setText(String.format("                  "));
                 }
+            }
+            if (timeCount >= 1) {
 
-
+                puntuacion=puntuacion+2;
+                puntuacionTextoLabel.setText(String.format("Puntuacion: %03d", GameScreen.puntuacion));
                 timeCount = 0;
             }
+
         }
     }
 

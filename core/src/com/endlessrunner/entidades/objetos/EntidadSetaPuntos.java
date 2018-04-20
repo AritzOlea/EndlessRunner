@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.endlessrunner.Pantallas.partida_basica.GameScreen;
+import com.endlessrunner.ayuda.Ajustes;
 
 import static com.endlessrunner.ayuda.Constantes.PIXELS_POR_METRO;
 
@@ -62,7 +63,9 @@ public class EntidadSetaPuntos  extends Actor {
                 GameScreen.labelPuntosConseguidos.setText(" +"+puntosGanados+"         ");
 
                 GameScreen.puntuacion=GameScreen.puntuacion+puntosGanados;
-                GameScreen.sonidoPunto.play();
+                if(Ajustes.Sonidos) {
+                    GameScreen.sonidoPunto.play();
+                }
                 GameScreen.puntuacionTextoLabel.setText(String.format("Puntuacion: %03d", GameScreen.puntuacion));
                 sinCoger=false;
                 GameScreen.cantidadSetas++;

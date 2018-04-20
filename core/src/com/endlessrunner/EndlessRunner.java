@@ -53,9 +53,9 @@ public class EndlessRunner extends Game {
 
         manager = new AssetManager();
 
-        //FileHandleResolver resolver = new InternalFileHandleResolver();
-        //manager.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader(resolver));
-        //manager.setLoader(BitmapFont.class, ".ttf", new FreetypeFontLoader(resolver));
+        FileHandleResolver resolver = new InternalFileHandleResolver();
+        manager.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader(resolver));
+        manager.setLoader(BitmapFont.class, ".ttf", new FreetypeFontLoader(resolver));
 
         /*
         Aquí cargaremos todos los recursos (imagenes, audios, ...)
@@ -164,10 +164,15 @@ public class EndlessRunner extends Game {
         manager.load("audio/charco.ogg", Sound.class);
 
         //fuentes
-        //FreetypeFontLoader.FreeTypeFontLoaderParameter points = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
-        //points.fontFileName = "fonts/goodtimes.ttf";
-        //points.fontParameters.size = 40;
-        //manager.load("fonts/goodtimes.ttf", BitmapFont.class, points);
+        FreetypeFontLoader.FreeTypeFontLoaderParameter totalPoints = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        totalPoints.fontFileName = "fonts/goodtimes.ttf";
+        totalPoints.fontParameters.size = 40;
+        manager.load("size40.ttf", BitmapFont.class, totalPoints);
+
+        FreetypeFontLoader.FreeTypeFontLoaderParameter points = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        points.fontFileName = "fonts/goodtimes.ttf";
+        points.fontParameters.size = 30;
+        manager.load("size30.ttf", BitmapFont.class, points);
 
 
         //Meto la pantalla de carga para iniciar el juego
