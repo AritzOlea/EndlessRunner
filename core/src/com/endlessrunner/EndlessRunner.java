@@ -2,10 +2,18 @@ package com.endlessrunner;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.FileHandleResolver;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeType;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
+import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
 import com.endlessrunner.Pantallas.menus.AjustesScreen;
 import com.endlessrunner.Pantallas.menus.CreditosScreen;
 import com.endlessrunner.Pantallas.menus.UserScreen;
@@ -44,6 +52,11 @@ public class EndlessRunner extends Game {
         batch = new SpriteBatch();
 
         manager = new AssetManager();
+
+        //FileHandleResolver resolver = new InternalFileHandleResolver();
+        //manager.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader(resolver));
+        //manager.setLoader(BitmapFont.class, ".ttf", new FreetypeFontLoader(resolver));
+
         /*
         Aquí cargaremos todos los recursos (imagenes, audios, ...)
          */
@@ -149,6 +162,12 @@ public class EndlessRunner extends Game {
         manager.load("audio/point.ogg", Sound.class);
         manager.load("audio/ouch.ogg", Sound.class);
         manager.load("audio/charco.ogg", Sound.class);
+
+        //fuentes
+        //FreetypeFontLoader.FreeTypeFontLoaderParameter points = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        //points.fontFileName = "fonts/goodtimes.ttf";
+        //points.fontParameters.size = 40;
+        //manager.load("fonts/goodtimes.ttf", BitmapFont.class, points);
 
 
         //Meto la pantalla de carga para iniciar el juego

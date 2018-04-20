@@ -3,6 +3,7 @@ package com.endlessrunner.Pantallas.partida_basica;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -90,7 +91,7 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
     public static int cantidadColas;
     public static CausaMuerte causaMuerte;
 
-    //Pegado al suelo
+    //public BitmapFont pntsFnt;
 
 
     /*
@@ -126,6 +127,7 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
         cantidadColas = 0;
 
         jugadorEnElSuelo = true;
+        //pntsFnt = jokoa.getManager().get("fonts/googtimes.ttf", BitmapFont.class);
     }
 
     @Override
@@ -137,9 +139,11 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
         table.top();
         table.setFillParent(true);
 
-        //Label puntuacionLabel= new Label(String.format("%06d",0),new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        Label puntuacionLabel= new Label(String.format("%06d",0),new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         puntuacionTextoLabel=new Label("Puntuacion: 000", new Label.LabelStyle(new BitmapFont(),Color.WHITE) );
         puntuacionTextoLabel.setFontScale(2);
+
+        //puntuacionTextoLabel=new Label("Puntuacion: 000", new Label.LabelStyle(pntsFnt,Color.WHITE) );
 
         labelTiempo = new Label("                 ",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         labelTiempo.setFontScale(2);
@@ -226,7 +230,6 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
     public void render(float delta) {
 
         updateTimer(delta);
-
 
         //update(delta);//separar el update logico del render
 
