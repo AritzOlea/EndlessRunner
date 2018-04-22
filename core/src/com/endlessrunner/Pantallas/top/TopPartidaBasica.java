@@ -18,6 +18,7 @@ import com.endlessrunner.EndlessRunner;
 import com.endlessrunner.ayuda.DatosUsuarioXML;
 import com.endlessrunner.ayuda.servidor.ControlServidor;
 
+import static com.endlessrunner.ayuda.servidor.ControlServidor.datuakPasaZerbitzariari;
 import static com.endlessrunner.ayuda.servidor.ControlServidor.nicks;
 import static com.endlessrunner.ayuda.servidor.ControlServidor.puntuaciones;
 
@@ -111,8 +112,10 @@ public class TopPartidaBasica extends com.endlessrunner.Pantallas.partida_basica
     @Override
     public void show() {
 
-        if(!DatosUsuarioXML.user.equals("Anonimo"))
-            ControlServidor.insertarRegistro(1,DatosUsuarioXML.topScore,DatosUsuarioXML.user);
+        if(!DatosUsuarioXML.user.equals("Anonimo")) {
+            ControlServidor.insertarRegistro(1, DatosUsuarioXML.topScore, DatosUsuarioXML.user);
+            datuakPasaZerbitzariari();
+        }
 
         ControlServidor.conseguirTop(5,1);
 

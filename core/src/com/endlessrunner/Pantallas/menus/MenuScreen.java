@@ -1,14 +1,18 @@
 package com.endlessrunner.Pantallas.menus;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -27,6 +31,9 @@ public class MenuScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
     private Stage stage;
     private Skin skin;
     private Image tituloa;
+    private BitmapFont fuente;
+    private Label welcomeLbl;
+    private Table taula;
     //private TextButton jokatu,puntuazioak,aukerak,kontua,kredituak;
     private ImageButton jokatuBotoia,puntuazioaBotoia,kontuaBotoia,aukeraBotoia,kredituakBotoia;
 
@@ -91,6 +98,7 @@ public class MenuScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
         });
 
         tituloa.setPosition( 20, 250 );
+        tituloa.setScale(0.8f);
 
         jokatuBotoia.setSize(175, 80);
         puntuazioaBotoia.setSize(200, 80);
@@ -104,6 +112,16 @@ public class MenuScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
         aukeraBotoia.setPosition(390, 100);
         kontuaBotoia.setPosition(520, 180);
 
+        fuente = jokoa.getManager().get("size20.ttf", BitmapFont.class);
+        welcomeLbl =new Label("", new Label.LabelStyle(fuente, Color.BLACK) );
+        taula = new Table();
+        taula.top().right();
+        taula.setFillParent(true);
+        taula.add(welcomeLbl);
+        taula.padTop(10);
+        taula.padRight(10);
+
+        stage.addActor(taula);
         stage.addActor(tituloa);
         stage.addActor(jokatuBotoia);
         stage.addActor(puntuazioaBotoia);
@@ -116,6 +134,11 @@ public class MenuScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
+        if(!DatosUsuarioXML.user.equals("Anonimo")){
+            welcomeLbl.setText("Ongi etorri, " + DatosUsuarioXML.user + "!");
+        }else{
+            welcomeLbl.setText("");
+        }
     }
 
     @Override

@@ -262,6 +262,19 @@ public class GameOverScreen extends com.endlessrunner.Pantallas.partida_basica.B
         GameScreen.cantidadSetas = 0;
         GameScreen.cantidadColas = 0;
         GameScreen.puntuacion = 0;
+
+        if(!DatosUsuarioXML.user.equals("Anonimo")){
+            stats.setVisible(true);
+            ranking.setVisible(true);
+            retry.setPosition(60, 140);
+            menu.setPosition(380, 140);
+        }else{
+            stats.setVisible(false);
+            ranking.setVisible(false);
+            retry.setPosition(60, 80);
+            menu.setPosition(380, 80);
+        }
+
     }
 
     @Override

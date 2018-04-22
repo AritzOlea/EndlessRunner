@@ -174,6 +174,11 @@ public class EndlessRunner extends Game {
         points.fontParameters.size = 30;
         manager.load("size30.ttf", BitmapFont.class, points);
 
+        FreetypeFontLoader.FreeTypeFontLoaderParameter welcome = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        points.fontFileName = "fonts/goodtimes.ttf";
+        points.fontParameters.size = 20;
+        manager.load("size20.ttf", BitmapFont.class, points);
+
 
         //Meto la pantalla de carga para iniciar el juego
         cargandoScreen = new CargandoScreen(this);
