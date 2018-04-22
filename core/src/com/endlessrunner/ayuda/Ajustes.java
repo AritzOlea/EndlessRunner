@@ -1,12 +1,18 @@
 package com.endlessrunner.ayuda;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.xml.sax.InputSource;
 
 import java.io.File;
+import java.io.FileReader;
+import java.io.StringBufferInputStream;
+import java.io.StringReader;
+import java.util.Scanner;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -36,16 +42,33 @@ public class Ajustes {
         //XML
         try {
 
-            File f = new File(localizacionXMLAjustes);
+            File myDir = new File(Gdx.files.getLocalStoragePath(), "xml");
+            myDir.mkdir();
+
+            File f = new File(Gdx.files.getLocalStoragePath() +  "/" + localizacionXMLAjustes);
 
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 
             //SI EL XML EXISTE DESDE ANTES
             if(f.exists() && !f.isDirectory()) {
-                Document doc = docBuilder.parse(localizacionXMLAjustes);
 
-                Node node;String comprobarBool;
+                String xmlContent = "";
+
+                Scanner sc= new Scanner (new FileReader(Gdx.files.getLocalStoragePath() +  "/" + localizacionXMLAjustes));
+
+
+                while(sc.hasNext()) {
+                    if (sc.hasNext())
+                        xmlContent += sc.next() + " ";
+                    else
+                        xmlContent += sc.next();
+                }
+
+                Document doc = docBuilder.parse(new InputSource(new StringReader(xmlContent)));
+
+                Node node;
+                String comprobarBool;
 
 
                 node = doc.getElementsByTagName("Idioma").item(0);
@@ -74,6 +97,7 @@ public class Ajustes {
 
 
         }catch (Exception e){
+            e.printStackTrace();
             System.err.println("Ha habido un error al crear el archivo XML, imposible inicializar los ajustes!");
         }
 
@@ -82,8 +106,6 @@ public class Ajustes {
     public static void DatuakGordeXMLajustes(){
 
         try {
-
-            File f = new File(localizacionXMLAjustes);
 
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -108,12 +130,12 @@ public class Ajustes {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new File(localizacionXMLAjustes));
+            StreamResult result = new StreamResult(new File(Gdx.files.getLocalStoragePath() +  "/" + localizacionXMLAjustes).getPath());
 
             transformer.transform(source, result);
 
         }catch (Exception e){
-
+            e.printStackTrace();
         }
 
     }

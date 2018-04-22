@@ -146,7 +146,7 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
 
         puntuacionTextoLabel=new Label("Puntuacion: 000", new Label.LabelStyle(fntCuarenta,Color.WHITE) );
 
-        labelTiempo = new Label("                 ",new Label.LabelStyle(fntTreinta, Color.WHITE));
+        labelTiempo = new Label("                 ",new Label.LabelStyle(fntTreinta, Color.RED));
 
         labelPuntosConseguidos = new Label("              ",new Label.LabelStyle(fntTreinta, Color.ORANGE));
 
@@ -266,7 +266,7 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
             table.moveBy(speed, 0);
         }
 
-        if (timer == 0) GameScreen.labelTiempo.setColor(Color.WHITE);
+        if (timer == 0) GameScreen.labelTiempo.setColor(Color.RED);
 
         if(timerPuntuacion==0) GameScreen.labelPuntosConseguidos.setText("              ");
 
@@ -307,7 +307,6 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
                 }
             }
             if (timeCount >= 1) {
-
                 puntuacion=puntuacion+2;
                 puntuacionTextoLabel.setText(String.format("Puntuacion: %03d", GameScreen.puntuacion));
                 timeCount = 0;
@@ -460,9 +459,6 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
 
             if (areCollided(contact, "jugador", "suelo")) {
                 jugadorEnElSuelo = false;
-                //        if (jugador.isVivo() && Gdx.input.isTouched()) {
-                //            sonidoSalto.play();
-                //        }
             }
         }
 

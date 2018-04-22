@@ -17,8 +17,12 @@ import com.endlessrunner.ayuda.DatosUsuarioXML;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.xml.sax.InputSource;
 
 import java.io.File;
+import java.io.FileReader;
+import java.io.StringReader;
+import java.util.Scanner;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -115,14 +119,28 @@ public class GameOverScreen extends com.endlessrunner.Pantallas.partida_basica.B
         //XML
         try {
 
-            File f = new File(localizacionXML);
+            File myDir = new File(Gdx.files.getLocalStoragePath(), "xml");
+            myDir.mkdir();
+
+            File f = new File(Gdx.files.getLocalStoragePath() +  "/" + localizacionXML);
 
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 
             //SI EL XML EXISTE DESDE ANTES
             if(f.exists() && !f.isDirectory()) {
-                Document doc = docBuilder.parse(localizacionXML);
+                String xmlContent = "";
+
+                Scanner sc= new Scanner (new FileReader(Gdx.files.getLocalStoragePath() +  "/" + localizacionXML));
+
+                while(sc.hasNext()) {
+                    if (sc.hasNext())
+                        xmlContent += sc.next() + " ";
+                    else
+                        xmlContent += sc.next();
+                }
+
+                Document doc = docBuilder.parse(new InputSource(new StringReader(xmlContent)));
 
                 //CONSIGO EL ELEMENTO ROOT DEL XML
                 Node root = doc.getFirstChild();
@@ -161,7 +179,8 @@ public class GameOverScreen extends com.endlessrunner.Pantallas.partida_basica.B
                 TransformerFactory transformerFactory = TransformerFactory.newInstance();
                 Transformer transformer = transformerFactory.newTransformer();
                 DOMSource source = new DOMSource(doc);
-                StreamResult result = new StreamResult(new File(localizacionXML));
+                StreamResult result = new StreamResult(new File(Gdx.files.getLocalStoragePath() +  "/" + localizacionXML).getPath());
+
                 transformer.transform(source, result);
 
             //SI EL XML NO EXISTE Y HAY QUE CREARLO
@@ -224,12 +243,13 @@ public class GameOverScreen extends com.endlessrunner.Pantallas.partida_basica.B
                 TransformerFactory transformerFactory = TransformerFactory.newInstance();
                 Transformer transformer = transformerFactory.newTransformer();
                 DOMSource source = new DOMSource(doc);
-                StreamResult result = new StreamResult(new File(localizacionXML));
+                StreamResult result = new StreamResult(new File(Gdx.files.getLocalStoragePath() +  "/" + localizacionXML).getPath());
 
                 transformer.transform(source, result);
             }
 
         }catch (Exception e){
+            e.printStackTrace();
             System.err.println("Ha habido un error al crear el archivo XML, imposible guardar datos de partida");
         }
 
