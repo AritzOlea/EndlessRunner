@@ -36,6 +36,7 @@ public class Ajustes {
     public static boolean Musica=true;
     public static boolean Sonidos=true;
 
+    public static String Personaje ="aventurero";
 
     public static void InicializarDatosDesdeXML(){
 
@@ -86,7 +87,8 @@ public class Ajustes {
                 comprobarBool=node.getTextContent();
                 if(comprobarBool.equals("Si"))Sonidos=true;else Sonidos=false;
 
-
+                node = doc.getElementsByTagName("Personaje").item(0);
+                Personaje=node.getTextContent();
 
             }else {//SI EL XML NO EXISTE Y HAY QUE CREARLO
 
@@ -126,6 +128,10 @@ public class Ajustes {
             if(Sonidos)sonido.appendChild(doc.createTextNode("Si"));else sonido.appendChild(doc.createTextNode("No"));
             rootElement.appendChild(sonido);
 
+            Element personaje = doc.createElement("Personaje");
+            personaje.appendChild(doc.createTextNode(Personaje));
+            rootElement.appendChild(personaje);
+
 
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
@@ -141,8 +147,5 @@ public class Ajustes {
     }
 
 
-    public static void GuardarDatosEnXML(){
-
-    }
 
 }

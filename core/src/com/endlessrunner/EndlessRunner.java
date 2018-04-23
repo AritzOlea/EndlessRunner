@@ -96,6 +96,41 @@ public class EndlessRunner extends Game {
         manager.load("personajes/aventurero/Dead__007.png",Texture.class);
         manager.load("personajes/aventurero/Dead__008.png",Texture.class);
         manager.load("personajes/aventurero/Dead__009.png",Texture.class);
+        //NINJA
+        manager.load("personajes/ninja/Idle__000.png",Texture.class);
+        //corriendo
+        manager.load("personajes/ninja/Run__000.png",Texture.class);
+        manager.load("personajes/ninja/Run__001.png",Texture.class);
+        manager.load("personajes/ninja/Run__002.png",Texture.class);
+        manager.load("personajes/ninja/Run__003.png",Texture.class);
+        manager.load("personajes/ninja/Run__004.png",Texture.class);
+        manager.load("personajes/ninja/Run__005.png",Texture.class);
+        manager.load("personajes/ninja/Run__006.png",Texture.class);
+        manager.load("personajes/ninja/Run__007.png",Texture.class);
+        manager.load("personajes/ninja/Run__008.png",Texture.class);
+        manager.load("personajes/ninja/Run__009.png",Texture.class);
+        //saltando
+        manager.load("personajes/ninja/Jump__000.png",Texture.class);
+        manager.load("personajes/ninja/Jump__001.png",Texture.class);
+        manager.load("personajes/ninja/Jump__002.png",Texture.class);
+        manager.load("personajes/ninja/Jump__003.png",Texture.class);
+        manager.load("personajes/ninja/Jump__004.png",Texture.class);
+        manager.load("personajes/ninja/Jump__005.png",Texture.class);
+        manager.load("personajes/ninja/Jump__006.png",Texture.class);
+        manager.load("personajes/ninja/Jump__007.png",Texture.class);
+        manager.load("personajes/ninja/Jump__008.png",Texture.class);
+        manager.load("personajes/ninja/Jump__009.png",Texture.class);
+        //muerto
+        manager.load("personajes/ninja/Dead__000.png",Texture.class);
+        manager.load("personajes/ninja/Dead__001.png",Texture.class);
+        manager.load("personajes/ninja/Dead__002.png",Texture.class);
+        manager.load("personajes/ninja/Dead__003.png",Texture.class);
+        manager.load("personajes/ninja/Dead__004.png",Texture.class);
+        manager.load("personajes/ninja/Dead__005.png",Texture.class);
+        manager.load("personajes/ninja/Dead__006.png",Texture.class);
+        manager.load("personajes/ninja/Dead__007.png",Texture.class);
+        manager.load("personajes/ninja/Dead__008.png",Texture.class);
+        manager.load("personajes/ninja/Dead__009.png",Texture.class);
 
         //paisajes
         manager.load("paisajes/dia/png/Object/Stone.png",Texture.class);
@@ -112,7 +147,7 @@ public class EndlessRunner extends Game {
         manager.load("bg/fondoTops.png",Texture.class);
         manager.load("bg/FondoAjustes.png",Texture.class);
         manager.load("bg/FondoMenu.png",Texture.class);
-        
+
         //menu
         manager.load("gameover.png",Texture.class);
         manager.load("titulo.png",Texture.class);
@@ -139,7 +174,11 @@ public class EndlessRunner extends Game {
         manager.load("input/ingelesa/kredituak.png",Texture.class);
         manager.load("input/ingelesa/atzera.png",Texture.class);
 
-
+        //aukeratu pertsonaia
+        manager.load("input/personajes/personaje1.png",Texture.class);
+        manager.load("input/personajes/personaje2.png",Texture.class);
+        manager.load("input/personajes/personaje1_aukeratuta.png",Texture.class);
+        manager.load("input/personajes/personaje2_aukeratuta.png",Texture.class);
 
         //idiomas
         manager.load("input/idiomas/es.png",Texture.class);
