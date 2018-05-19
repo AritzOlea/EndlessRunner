@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.endlessrunner.EndlessRunner;
 import com.endlessrunner.Pantallas.partida_basica.BaseScreen;
+import com.endlessrunner.ayuda.Ajustes;
 
 /**
  * Created by Jongui on 27/03/2018.
@@ -33,14 +34,31 @@ public class CreditosScreen extends BaseScreen{
 
         skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
 
-        back = new TextButton("Atzera", skin);
+        if (Ajustes.Idioma.equals("ES")) {
+            back = new TextButton("Atras", skin);
+            credits = new Label("EndlessRunner\n" +
+                    "Alumnos de la asignatura Softwarea Garatzeko Tresna Aurreratuak (SGTA) 2018:\n" +
+                    "Jon Guillo, Aritz Olea y Ander Lopez.\n\n" +
 
-        credits = new Label("EndlessRunner\n" +
-                "Softwarea Garatzeko Tresna Aurreratuak (SGTA) 2018 irakasgaiko ikasleak:\n" +
-                "Jon Guillo, Aritz Olea eta Ander Lopez.\n\n" +
+                    "Musica: \"Hot Pursuit\" (incompetech.com)\n" +
+                    "Sonidos: freesound.org", skin);
+        }else if (Ajustes.Idioma.equals("EN")) {
+            back = new TextButton("Back", skin);
+            credits = new Label("EndlessRunner\n" +
+                    "Students from subject Softwarea Garatzeko Tresna Aurreratuak (SGTA) 2018:\n" +
+                    "Jon Guillo, Aritz Olea and Ander Lopez.\n\n" +
 
-                "Musika: \"Hot Pursuit\" (incompetech.com)\n" +
-                "Soinuak: freesound.org", skin);
+                    "Music: \"Hot Pursuit\" (incompetech.com)\n" +
+                    "Sounds: freesound.org", skin);
+        }else {
+            back = new TextButton("Atzera", skin);
+            credits = new Label("EndlessRunner\n" +
+                    "Softwarea Garatzeko Tresna Aurreratuak (SGTA) 2018 irakasgaiko ikasleak:\n" +
+                    "Jon Guillo, Aritz Olea eta Ander Lopez.\n\n" +
+
+                    "Musika: \"Hot Pursuit\" (incompetech.com)\n" +
+                    "Soinuak: freesound.org", skin);
+        }
 
         back.addCaptureListener(new ChangeListener() {
             @Override
@@ -60,6 +78,31 @@ public class CreditosScreen extends BaseScreen{
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
+        if (Ajustes.Idioma.equals("ES")) {
+            back.setText("Atras");
+            credits.setText("EndlessRunner\n" +
+                    "Alumnos de la asignatura Softwarea Garatzeko Tresna Aurreratuak (SGTA) 2018:\n" +
+                    "Jon Guillo, Aritz Olea y Ander Lopez.\n\n" +
+
+                    "Musica: \"Hot Pursuit\" (incompetech.com)\n" +
+                    "Sonidos: freesound.org");
+        }else if (Ajustes.Idioma.equals("EN")) {
+            back.setText("Back");
+            credits.setText("EndlessRunner\n" +
+                    "Students from subject Softwarea Garatzeko Tresna Aurreratuak (SGTA) 2018:\n" +
+                    "Jon Guillo, Aritz Olea and Ander Lopez.\n\n" +
+
+                    "Music: \"Hot Pursuit\" (incompetech.com)\n" +
+                    "Sounds: freesound.org");
+        }else{
+            back.setText("Atzera");
+            credits.setText("EndlessRunner\n" +
+                    "Softwarea Garatzeko Tresna Aurreratuak (SGTA) 2018 irakasgaiko ikasleak:\n" +
+                    "Jon Guillo, Aritz Olea eta Ander Lopez.\n\n" +
+
+                    "Musika: \"Hot Pursuit\" (incompetech.com)\n" +
+                    "Soinuak: freesound.org");
+        }
     }
 
     @Override

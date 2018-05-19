@@ -135,10 +135,21 @@ public class MenuScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
     public void show() {
         Gdx.input.setInputProcessor(stage);
         if(!DatosUsuarioXML.user.equals("Anonimo")){
-            welcomeLbl.setText("Ongi etorri, " + DatosUsuarioXML.user + "!");
+            if (Ajustes.Idioma.equals("ES")) {
+                welcomeLbl.setText("Bienvenido, " + DatosUsuarioXML.user + "!");
+            }else if (Ajustes.Idioma.equals("EN")) {
+                welcomeLbl.setText("Welcome, " + DatosUsuarioXML.user + "!");
+            }else{
+                welcomeLbl.setText("Ongi etorri, " + DatosUsuarioXML.user + "!");
+            }
         }else{
             welcomeLbl.setText("");
         }
+        jokatuBotoia.getStyle().imageUp=new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/"+ Ajustes.Ruta+"/jokatu.png"))));
+        puntuazioaBotoia.getStyle().imageUp=new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/"+ Ajustes.Ruta+"/puntuazioak.png"))));
+        kontuaBotoia.getStyle().imageUp=new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/"+ Ajustes.Ruta+"/kontua.png"))));
+        aukeraBotoia.getStyle().imageUp=new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/"+ Ajustes.Ruta+"/aukerak.png"))));
+        kredituakBotoia.getStyle().imageUp=new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/"+ Ajustes.Ruta+"/kredituak.png"))));
     }
 
     @Override

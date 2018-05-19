@@ -99,14 +99,14 @@ public class UserScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
         if(Ajustes.Idioma.equals("EUS")){
             user =new Label("Erabiltzailea: \n     "+DatosUsuarioXML.user, new Label.LabelStyle(fuente, Color.valueOf("333030")) );
             topScore =new Label("Puntuazio altuena: "+DatosUsuarioXML.topScore, new Label.LabelStyle(fuente, Color.BLACK) );
-            avgScore =new Label("Puntuen batazbestekoa: "+DatosUsuarioXML.avgScore, new Label.LabelStyle(fuente, Color.DARK_GRAY) );
+            avgScore =new Label("Puntuen media: "+DatosUsuarioXML.avgScore, new Label.LabelStyle(fuente, Color.DARK_GRAY) );
             games =new Label("Jokatutako partidak: "+DatosUsuarioXML.playedGames, new Label.LabelStyle(fuente, Color.BLACK) );
             jumps =new Label("Jauzi kopurua: "+DatosUsuarioXML.totallJumps, new Label.LabelStyle(fuente, Color.DARK_GRAY) );
             mashrooms =new Label("Perretxiko kopurua: "+DatosUsuarioXML.totalMashrooms, new Label.LabelStyle(fuente, Color.BLACK) );
             glues =new Label("Kola kopurua: "+DatosUsuarioXML.totalGlues, new Label.LabelStyle(fuente, Color.DARK_GRAY) );
-            falls =new Label("Erorketagatik heriotza: "+DatosUsuarioXML.fallDeaths, new Label.LabelStyle(fuente, Color.BLACK) );
-            collision =new Label("Talkagatik heriotza: "+DatosUsuarioXML.collisionDeaths, new Label.LabelStyle(fuente, Color.DARK_GRAY) );
-            cameraout =new Label("Kameragatik heriotza: "+DatosUsuarioXML.collisionDeaths, new Label.LabelStyle(fuente, Color.BLACK) );
+            falls =new Label("Erorketa heriotzak: "+DatosUsuarioXML.fallDeaths, new Label.LabelStyle(fuente, Color.BLACK) );
+            collision =new Label("Talka heriotzak: "+DatosUsuarioXML.collisionDeaths, new Label.LabelStyle(fuente, Color.DARK_GRAY) );
+            cameraout =new Label("Kamera heriotzak: "+DatosUsuarioXML.collisionDeaths, new Label.LabelStyle(fuente, Color.BLACK) );
 
         }else if(Ajustes.Idioma.equals("ES")){
             user =new Label("Usuario: \n     "+DatosUsuarioXML.user, new Label.LabelStyle(fuente, Color.valueOf("333030")) );
@@ -115,7 +115,7 @@ public class UserScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
             games =new Label("Partidas jugadas: "+DatosUsuarioXML.playedGames, new Label.LabelStyle(fuente, Color.BLACK) );
             jumps =new Label("Total de saltos: "+DatosUsuarioXML.totallJumps, new Label.LabelStyle(fuente, Color.DARK_GRAY) );
             mashrooms =new Label("Total de setas: "+DatosUsuarioXML.totalMashrooms, new Label.LabelStyle(fuente, Color.BLACK) );
-            glues =new Label("Totalde colas: "+DatosUsuarioXML.totalGlues, new Label.LabelStyle(fuente, Color.DARK_GRAY) );
+            glues =new Label("Total de colas: "+DatosUsuarioXML.totalGlues, new Label.LabelStyle(fuente, Color.DARK_GRAY) );
             falls =new Label("Muertes por caida: "+DatosUsuarioXML.fallDeaths, new Label.LabelStyle(fuente, Color.BLACK) );
             collision =new Label("Muertes por colision: "+DatosUsuarioXML.collisionDeaths, new Label.LabelStyle(fuente, Color.DARK_GRAY) );
             cameraout =new Label("Muertes por camara: "+DatosUsuarioXML.collisionDeaths, new Label.LabelStyle(fuente, Color.BLACK) );

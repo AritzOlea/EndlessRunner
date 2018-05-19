@@ -36,6 +36,8 @@ public class AjustesScreen extends BaseScreen {
     private ImageButton per1,per2;
     private ImageButton atras;
 
+    private Boolean aventurero;
+
     public AjustesScreen(final EndlessRunner jokoa) {
         super(jokoa);
 
@@ -47,7 +49,6 @@ public class AjustesScreen extends BaseScreen {
         CargarPersonajes();
 
         String rutaAtras,rutaIdiomaEuskera=".png",rutaIdiomaGaztelera=".png",rutaIdiomaIngelesa=".png";
-
 
         if(Ajustes.Idioma.equals("EUS")){
             rutaIdiomaEuskera="_aukeratuta.png";
@@ -79,40 +80,45 @@ public class AjustesScreen extends BaseScreen {
 
 
         if(Ajustes.Personaje.equals("aventurero")){
-            per1= new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/personajes/personaje1_aukeratuta.png")))));
-            per2= new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/personajes/personaje2.png")))));
+            aventurero = true;
+            per1= new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/" + Ajustes.Ruta + "/abenturazale_aukeratuta.png")))));
+            per2= new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/" + Ajustes.Ruta + "/ninja.png")))));
         }else{
-            per1= new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/personajes/personaje1.png")))));
-            per2= new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/personajes/personaje2_aukeratuta.png")))));
+            aventurero = false;
+            per1= new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/" + Ajustes.Ruta + "/abenturazale.png")))));
+            per2= new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/" + Ajustes.Ruta + "/ninja_aukeratuta.png")))));
         }
 
         per1.addCaptureListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                aventurero = true;
                 Ajustes.Personaje="aventurero";IndiceTextura=0;
-                per1.getStyle().imageUp=new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/personajes/personaje1_aukeratuta.png"))));
-                per2.getStyle().imageUp=new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/personajes/personaje2.png"))));
+                per1.getStyle().imageUp=new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/" + Ajustes.Ruta + "/abenturazale_aukeratuta.png"))));
+                per2.getStyle().imageUp=new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/" + Ajustes.Ruta + "/ninja.png"))));
             }
         });
 
         per2.addCaptureListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                aventurero = false;
                 Ajustes.Personaje="ninja";IndiceTextura=0;
-                per1.getStyle().imageUp=new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/personajes/personaje1.png"))));
-                per2.getStyle().imageUp=new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/personajes/personaje2_aukeratuta.png"))));
+                per1.getStyle().imageUp=new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/" + Ajustes.Ruta + "/abenturazale.png"))));
+                per2.getStyle().imageUp=new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/" + Ajustes.Ruta + "/ninja_aukeratuta.png"))));
             }
         });
-
 
         idiomaEuskera.addCaptureListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Ajustes.Idioma="EUS";
+                Ajustes.Ruta="euskera";
                 idiomaEuskera.getStyle().imageUp=new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/idiomas/eus_aukeratuta.png"))));
                 idiomaGaztelera.getStyle().imageUp=new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/idiomas/es.png"))));
                 idiomaIngles.getStyle().imageUp=new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/idiomas/en.png"))));
                 atras.getStyle().imageUp=new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/euskera/atzera.png"))));
+                updateProtag();
 
             }
         });
@@ -121,11 +127,12 @@ public class AjustesScreen extends BaseScreen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Ajustes.Idioma="ES";
+                Ajustes.Ruta="gaztelera";
                 idiomaEuskera.getStyle().imageUp=new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/idiomas/eus.png"))));
                 idiomaGaztelera.getStyle().imageUp=new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/idiomas/es_aukeratuta.png"))));
                 idiomaIngles.getStyle().imageUp=new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/idiomas/en.png"))));
                 atras.getStyle().imageUp=new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/gaztelera/atzera.png"))));
-
+                updateProtag();
             }
         });
 
@@ -133,10 +140,12 @@ public class AjustesScreen extends BaseScreen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Ajustes.Idioma="EN";
+                Ajustes.Ruta="ingelesa";
                 idiomaEuskera.getStyle().imageUp=new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/idiomas/eus.png"))));
                 idiomaGaztelera.getStyle().imageUp=new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/idiomas/es.png"))));
                 idiomaIngles.getStyle().imageUp=new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/idiomas/en_aukeratuta.png"))));
                 atras.getStyle().imageUp=new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/ingelesa/atzera.png"))));
+                updateProtag();
             }
         });
 
@@ -221,6 +230,16 @@ public class AjustesScreen extends BaseScreen {
 
     }
 
+    private void updateProtag(){
+        if (aventurero) {
+            per1.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/" + Ajustes.Ruta + "/abenturazale_aukeratuta.png"))));
+            per2.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/" + Ajustes.Ruta + "/ninja.png"))));
+        }else{
+            per1.getStyle().imageUp=new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/" + Ajustes.Ruta + "/abenturazale.png"))));
+            per2.getStyle().imageUp=new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/" + Ajustes.Ruta + "/ninja_aukeratuta.png"))));
+        }
+    }
+
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
@@ -258,9 +277,9 @@ public class AjustesScreen extends BaseScreen {
 
         if(Ajustes.Personaje.equals("aventurero")){
             jokoa.batch.draw(per1TextureMov[IndiceTextura],100, 80, 80 , 80 );
-            jokoa.batch.draw(per2Texture,270, 80, 80 , 80 );
+            jokoa.batch.draw(per2Texture,290, 80, 52 , 98 );
         }else{
-            jokoa.batch.draw(per1Texture,100, 80, 80 , 80 );
+            jokoa.batch.draw(per1Texture,100, 80, 64 , 98 );
             jokoa.batch.draw(per2TextureMov[IndiceTextura],270, 80, 80 , 80 );
         }
 
