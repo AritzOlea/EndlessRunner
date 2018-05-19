@@ -2,20 +2,29 @@ package com.endlessrunner.Pantallas.menus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.endlessrunner.EndlessRunner;
+import com.endlessrunner.ayuda.Ajustes;
 import com.endlessrunner.ayuda.DatosUsuarioXML;
 
+import static com.endlessrunner.ayuda.DatosUsuarioXML.avgScore;
 import static com.endlessrunner.ayuda.DatosUsuarioXML.saioaItxi;
+import static com.endlessrunner.ayuda.DatosUsuarioXML.topScore;
+import static com.endlessrunner.ayuda.DatosUsuarioXML.user;
 import static com.endlessrunner.ayuda.servidor.ControlServidor.datuakPasaZerbitzariari;
 import static com.endlessrunner.ayuda.servidor.ControlServidor.logInZuzena;
 
@@ -29,7 +38,12 @@ public class UserScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
     private Stage stage;
     private Skin skin;
 
-    private TextButton   atzera, usuarioLogeado,itxiKontua;
+
+    private ImageButton atzera,itxi;
+
+    private Label user,topScore,avgScore, games, jumps, mashrooms, glues, falls, collision, cameraout;
+
+
 
     public UserScreen(final EndlessRunner jokoa) {
         super(jokoa);
@@ -37,23 +51,34 @@ public class UserScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
         stage = new Stage(new FitViewport(640, 360));
 
         skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
-        fondoBackground=jokoa.getManager().get("paisajes/dia/png/BG/BG.png");
+        fondoBackground=jokoa.getManager().get("bg/fondoUser.png");
 
 
-        atzera = new TextButton("Atzera", skin);
-        usuarioLogeado = new TextButton(" ", skin);
-        itxiKontua= new TextButton("Itxi", skin);
+    }
+
+    @Override
+    public void show() {
+
+        stage.clear();
 
 
 
+        atzera = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/"+ Ajustes.Ruta+"/atzera.png")))));
         atzera.addCaptureListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 jokoa.setScreen(jokoa.menuScreen);
             }
         });
+        atzera.setSize(100,50);
+        atzera.setPosition(100,30);
 
-        itxiKontua.addCaptureListener(new ChangeListener() {
+        stage.addActor(atzera);
+
+
+
+        itxi = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/"+ Ajustes.Ruta+"/itxi.png")))));
+        itxi.addCaptureListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
 
@@ -64,32 +89,66 @@ public class UserScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
                 jokoa.setScreen(jokoa.menuScreen);
             }
         });
+        itxi.setSize(100,50);
+        itxi.setPosition(112,150);
+        stage.addActor(itxi);
 
 
-        atzera.setSize(100,50);
-        usuarioLogeado.setSize(500,280);
-        itxiKontua.setSize(100,50);
+        BitmapFont fuente = jokoa.getManager().get("size10.ttf", BitmapFont.class);
+
+        if(Ajustes.Idioma.equals("EUS")){
+            user =new Label("Erabiltzailea: \n     "+DatosUsuarioXML.user, new Label.LabelStyle(fuente, Color.valueOf("333030")) );
+            topScore =new Label("Puntuazio altuena: "+DatosUsuarioXML.topScore, new Label.LabelStyle(fuente, Color.BLACK) );
+            avgScore =new Label("Puntuen batazbestekoa: "+DatosUsuarioXML.avgScore, new Label.LabelStyle(fuente, Color.DARK_GRAY) );
+            games =new Label("Jokatutako partidak: "+DatosUsuarioXML.playedGames, new Label.LabelStyle(fuente, Color.BLACK) );
+            jumps =new Label("Jauzi kopurua: "+DatosUsuarioXML.totallJumps, new Label.LabelStyle(fuente, Color.DARK_GRAY) );
+            mashrooms =new Label("Perretxiko kopurua: "+DatosUsuarioXML.totalMashrooms, new Label.LabelStyle(fuente, Color.BLACK) );
+            glues =new Label("Kola kopurua: "+DatosUsuarioXML.totalGlues, new Label.LabelStyle(fuente, Color.DARK_GRAY) );
+            falls =new Label("Erorketagatik heriotza: "+DatosUsuarioXML.fallDeaths, new Label.LabelStyle(fuente, Color.BLACK) );
+            collision =new Label("Talkagatik heriotza: "+DatosUsuarioXML.collisionDeaths, new Label.LabelStyle(fuente, Color.DARK_GRAY) );
+            cameraout =new Label("Kameragatik heriotza: "+DatosUsuarioXML.collisionDeaths, new Label.LabelStyle(fuente, Color.BLACK) );
+
+        }else if(Ajustes.Idioma.equals("ES")){
+            user =new Label("Usuario: \n     "+DatosUsuarioXML.user, new Label.LabelStyle(fuente, Color.valueOf("333030")) );
+            topScore =new Label("Puntuaje máximo: "+DatosUsuarioXML.topScore, new Label.LabelStyle(fuente, Color.BLACK) );
+            avgScore =new Label("Media de puntos: "+DatosUsuarioXML.avgScore, new Label.LabelStyle(fuente, Color.DARK_GRAY) );
+            games =new Label("Partidas jugadas: "+DatosUsuarioXML.playedGames, new Label.LabelStyle(fuente, Color.BLACK) );
+            jumps =new Label("Total de saltos: "+DatosUsuarioXML.totallJumps, new Label.LabelStyle(fuente, Color.DARK_GRAY) );
+            mashrooms =new Label("Total de setas: "+DatosUsuarioXML.totalMashrooms, new Label.LabelStyle(fuente, Color.BLACK) );
+            glues =new Label("Totalde colas: "+DatosUsuarioXML.totalGlues, new Label.LabelStyle(fuente, Color.DARK_GRAY) );
+            falls =new Label("Muertes por caida: "+DatosUsuarioXML.fallDeaths, new Label.LabelStyle(fuente, Color.BLACK) );
+            collision =new Label("Muertes por colision: "+DatosUsuarioXML.collisionDeaths, new Label.LabelStyle(fuente, Color.DARK_GRAY) );
+            cameraout =new Label("Muertes por camara: "+DatosUsuarioXML.collisionDeaths, new Label.LabelStyle(fuente, Color.BLACK) );
+
+        }else{//EN
+            user =new Label("User: \n     "+DatosUsuarioXML.user, new Label.LabelStyle(fuente, Color.valueOf("333030")) );
+            topScore =new Label("TopScore: "+DatosUsuarioXML.topScore, new Label.LabelStyle(fuente, Color.BLACK) );
+            avgScore =new Label("AvgScore: "+DatosUsuarioXML.avgScore, new Label.LabelStyle(fuente, Color.DARK_GRAY) );
+            games =new Label("Played Games: "+DatosUsuarioXML.playedGames, new Label.LabelStyle(fuente, Color.BLACK) );
+            jumps =new Label("Total Jumps: "+DatosUsuarioXML.totallJumps, new Label.LabelStyle(fuente, Color.DARK_GRAY) );
+            mashrooms =new Label("Total Mashrooms: "+DatosUsuarioXML.totalMashrooms, new Label.LabelStyle(fuente, Color.BLACK) );
+            glues =new Label("Total Glues: "+DatosUsuarioXML.totalGlues, new Label.LabelStyle(fuente, Color.DARK_GRAY) );
+            falls =new Label("Fall Deaths: "+DatosUsuarioXML.fallDeaths, new Label.LabelStyle(fuente, Color.BLACK) );
+            collision =new Label("Collision Deaths: "+DatosUsuarioXML.collisionDeaths, new Label.LabelStyle(fuente, Color.DARK_GRAY) );
+            cameraout =new Label("CameraOut Deaths: "+DatosUsuarioXML.collisionDeaths, new Label.LabelStyle(fuente, Color.BLACK) );
+
+        }
+
+        user.setX(46);user.setY(240);stage.addActor(user);
 
 
-        usuarioLogeado.setPosition(20, 20);
-        atzera.setPosition(530,10);
-        itxiKontua.setPosition(530,70);
+        topScore.setX(340);topScore.setY(280);stage.addActor(topScore);
+        avgScore.setX(340);avgScore.setY(255);stage.addActor(avgScore);
+        games.setX(340);games.setY(230);stage.addActor(games);
+        jumps.setX(340);jumps.setY(205);stage.addActor(jumps);
+        mashrooms.setX(340);mashrooms.setY(180);stage.addActor(mashrooms);
+        glues.setX(340);glues.setY(155);stage.addActor(glues);
+        falls.setX(340);falls.setY(130);stage.addActor(falls);
+        collision.setX(340);collision.setY(105);stage.addActor(collision);
+        cameraout.setX(340);cameraout.setY(80);stage.addActor(cameraout);
 
 
-        stage.addActor(atzera);
-        stage.addActor(usuarioLogeado);
-        stage.addActor(itxiKontua);
 
-
-    }
-
-    @Override
-    public void show() {
-
-        usuarioLogeado.setText("User: "+DatosUsuarioXML.user+"\nTopScore: "+DatosUsuarioXML.topScore+
-                "\nAvgScore: "+DatosUsuarioXML.avgScore+"\nPlayedGames:"+DatosUsuarioXML.playedGames+"\nTotalJumps: "+DatosUsuarioXML.totallJumps+
-                "\nTotalMashrooms: "+DatosUsuarioXML.totalMashrooms+"\nTotalGlues: "+DatosUsuarioXML.totalGlues+"\nFallDeaths: "+DatosUsuarioXML.fallDeaths+
-                "\nCollisionDeaths: "+DatosUsuarioXML.collisionDeaths+"\nCameraOutDeaths: "+DatosUsuarioXML.cameraOutDeaths);
         Gdx.input.setInputProcessor(stage);
 
     }
@@ -111,9 +170,14 @@ public class UserScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act();
 
+
+
+
+
+
+
         jokoa.batch.begin();
-        //HAY QUE MULTIPLICAR LA RESOLUCIÓN DE PANTALLA POR ALGÚN NUMERO PARA QUE QUEDE BIEN
-        jokoa.batch.draw(fondoBackground,0,0, Gdx.graphics.getWidth() * 1.75f, Gdx.graphics.getHeight() * 1.75f);
+        jokoa.batch.draw(fondoBackground,0,0, Gdx.graphics.getWidth() , Gdx.graphics.getHeight() );
         jokoa.batch.end();
 
         stage.draw();

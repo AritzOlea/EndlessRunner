@@ -145,6 +145,7 @@ public class EndlessRunner extends Game {
         //fondo
         manager.load("paisajes/dia/png/BG/BG.png",Texture.class);
         manager.load("bg/fondoTops.png",Texture.class);
+        manager.load("bg/fondoUser.png",Texture.class);
         manager.load("bg/FondoAjustes.png",Texture.class);
         manager.load("bg/FondoMenu.png",Texture.class);
 
@@ -214,9 +215,15 @@ public class EndlessRunner extends Game {
         manager.load("size30.ttf", BitmapFont.class, points);
 
         FreetypeFontLoader.FreeTypeFontLoaderParameter welcome = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
-        points.fontFileName = "fonts/goodtimes.ttf";
-        points.fontParameters.size = 20;
-        manager.load("size20.ttf", BitmapFont.class, points);
+        welcome.fontFileName = "fonts/goodtimes.ttf";
+        welcome.fontParameters.size = 20;
+        manager.load("size20.ttf", BitmapFont.class, welcome);
+
+        FreetypeFontLoader.FreeTypeFontLoaderParameter tam10 = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        tam10.fontFileName = "fonts/goodtimes.ttf";
+        tam10.fontParameters.size = 15;
+        manager.load("size10.ttf", BitmapFont.class, tam10);
+
 
 
         //Meto la pantalla de carga para iniciar el juego

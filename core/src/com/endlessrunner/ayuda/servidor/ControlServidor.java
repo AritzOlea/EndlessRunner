@@ -68,6 +68,36 @@ public class ControlServidor {
 
     }
 
+    public static void perderTiempo(){
+        try{
+
+
+
+            URL url = new URL("https://www.google.es/");
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestMethod("GET");
+            urlConnection.connect();
+
+            String line;
+            char a;
+
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+
+            while((line=br.readLine())!=null){
+                for(int i=0;i<line.length();i++){
+                    a=line.charAt(i);
+                }
+            }
+
+
+
+
+        }catch(Exception e){
+
+        }
+    }
+
 
     public static void insertarRegistro(int modoDeJuego,int puntuacion,String nick){
 
