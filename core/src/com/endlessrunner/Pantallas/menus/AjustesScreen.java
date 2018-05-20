@@ -36,6 +36,8 @@ public class AjustesScreen extends BaseScreen {
     private ImageButton per1,per2;
     private ImageButton atras;
 
+    private ImageButton aventureroImage,ninja;
+
     private Boolean aventurero;
 
     public AjustesScreen(final EndlessRunner jokoa) {
@@ -46,7 +48,27 @@ public class AjustesScreen extends BaseScreen {
         skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
         fondoBackground=jokoa.getManager().get("bg/FondoAjustes.png");
 
-        CargarPersonajes();
+
+
+    }
+
+    private void updateProtag(){
+        if (aventurero) {
+            per1.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/" + Ajustes.Ruta + "/abenturazale_aukeratuta.png"))));
+            per2.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/" + Ajustes.Ruta + "/ninja.png"))));
+        }else{
+            per1.getStyle().imageUp=new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/" + Ajustes.Ruta + "/abenturazale.png"))));
+            per2.getStyle().imageUp=new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/" + Ajustes.Ruta + "/ninja_aukeratuta.png"))));
+        }
+    }
+
+    @Override
+    public void show() {
+
+        stage.clear();
+
+
+        //CargarPersonajes();
 
         String rutaAtras,rutaIdiomaEuskera=".png",rutaIdiomaGaztelera=".png",rutaIdiomaIngelesa=".png";
 
@@ -217,7 +239,10 @@ public class AjustesScreen extends BaseScreen {
         per1.setPosition(100, 20);
         per2.setPosition(280, 20);
 
-
+        aventureroImage= new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("personajes/aventurero/Idle__000.png")))));
+        ninja= new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("personajes/ninja/Idle__000.png")))));
+        aventureroImage.setPosition(100,80);aventureroImage.setSize(80,80);stage.addActor(aventureroImage);
+        ninja.setPosition(290,80);ninja.setSize(80,80);stage.addActor(ninja);
 
         stage.addActor(per1);
         stage.addActor(per2);
@@ -228,20 +253,7 @@ public class AjustesScreen extends BaseScreen {
         stage.addActor(idiomaIngles);
         stage.addActor(atras);
 
-    }
 
-    private void updateProtag(){
-        if (aventurero) {
-            per1.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/" + Ajustes.Ruta + "/abenturazale_aukeratuta.png"))));
-            per2.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/" + Ajustes.Ruta + "/ninja.png"))));
-        }else{
-            per1.getStyle().imageUp=new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/" + Ajustes.Ruta + "/abenturazale.png"))));
-            per2.getStyle().imageUp=new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/" + Ajustes.Ruta + "/ninja_aukeratuta.png"))));
-        }
-    }
-
-    @Override
-    public void show() {
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -258,6 +270,11 @@ public class AjustesScreen extends BaseScreen {
 
     public int IndiceTextura,cadaTexturaXveces;
 
+    private String aventureroQuieto="personajes/aventurero/Idle__000.png";
+    private String ninjaQuieto="personajes/ninja/Idle__000.png";
+    private String[] aventureroCorriendo = {"personajes/aventurero/Run__000.png","personajes/aventurero/Run__001.png","personajes/aventurero/Run__002.png","personajes/aventurero/Run__003.png","personajes/aventurero/Run__004.png","personajes/aventurero/Run__005.png","personajes/aventurero/Run__006.png","personajes/aventurero/Run__007.png","personajes/aventurero/Run__008.png","personajes/aventurero/Run__009.png"};
+    private String[] ninjaCorriendo = {"personajes/ninja/Run__000.png","personajes/ninja/Run__001.png","personajes/ninja/Run__002.png","personajes/ninja/Run__003.png","personajes/ninja/Run__004.png","personajes/ninja/Run__005.png","personajes/ninja/Run__006.png","personajes/ninja/Run__007.png","personajes/ninja/Run__008.png","personajes/ninja/Run__009.png"};
+
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0.4f, 0.5f, 0.8f, 1f);
@@ -268,7 +285,7 @@ public class AjustesScreen extends BaseScreen {
         jokoa.batch.draw(fondoBackground,0,0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
 
-        if(cadaTexturaXveces<3){
+        if(cadaTexturaXveces<2){
             cadaTexturaXveces++;
         }else{
             cadaTexturaXveces=0;
@@ -276,11 +293,11 @@ public class AjustesScreen extends BaseScreen {
         }
 
         if(Ajustes.Personaje.equals("aventurero")){
-            jokoa.batch.draw(per1TextureMov[IndiceTextura],100, 80, 80 , 80 );
-            jokoa.batch.draw(per2Texture,290, 80, 52 , 98 );
+            aventureroImage.getStyle().imageUp=new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(aventureroCorriendo[IndiceTextura]))));
+            ninja.getStyle().imageUp=new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(ninjaQuieto))));
         }else{
-            jokoa.batch.draw(per1Texture,100, 80, 64 , 98 );
-            jokoa.batch.draw(per2TextureMov[IndiceTextura],270, 80, 80 , 80 );
+            ninja.getStyle().imageUp=new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(ninjaCorriendo[IndiceTextura]))));
+            aventureroImage.getStyle().imageUp=new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(aventureroQuieto))));
         }
 
         jokoa.batch.end();
