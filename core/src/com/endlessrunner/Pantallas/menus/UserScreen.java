@@ -21,6 +21,8 @@ import com.endlessrunner.EndlessRunner;
 import com.endlessrunner.ayuda.Ajustes;
 import com.endlessrunner.ayuda.DatosUsuarioXML;
 
+import java.text.DecimalFormat;
+
 import static com.endlessrunner.ayuda.DatosUsuarioXML.avgScore;
 import static com.endlessrunner.ayuda.DatosUsuarioXML.saioaItxi;
 import static com.endlessrunner.ayuda.DatosUsuarioXML.topScore;
@@ -96,10 +98,14 @@ public class UserScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
 
         BitmapFont fuente = jokoa.getManager().get("size10.ttf", BitmapFont.class);
 
+        DecimalFormat df = new DecimalFormat();
+        df.setMaximumFractionDigits(2);
+        String puntosMedia = df.format(DatosUsuarioXML.avgScore);
+
         if(Ajustes.Idioma.equals("EUS")){
             user =new Label("Erabiltzailea: \n     "+DatosUsuarioXML.user, new Label.LabelStyle(fuente, Color.valueOf("333030")) );
             topScore =new Label("Puntuazio altuena: "+DatosUsuarioXML.topScore, new Label.LabelStyle(fuente, Color.BLACK) );
-            avgScore =new Label("Puntuen media: "+DatosUsuarioXML.avgScore, new Label.LabelStyle(fuente, Color.DARK_GRAY) );
+            avgScore =new Label("Puntuen media: "+puntosMedia, new Label.LabelStyle(fuente, Color.DARK_GRAY) );
             games =new Label("Jokatutako partidak: "+DatosUsuarioXML.playedGames, new Label.LabelStyle(fuente, Color.BLACK) );
             jumps =new Label("Jauzi kopurua: "+DatosUsuarioXML.totallJumps, new Label.LabelStyle(fuente, Color.DARK_GRAY) );
             mashrooms =new Label("Perretxiko kopurua: "+DatosUsuarioXML.totalMashrooms, new Label.LabelStyle(fuente, Color.BLACK) );
@@ -111,7 +117,7 @@ public class UserScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
         }else if(Ajustes.Idioma.equals("ES")){
             user =new Label("Usuario: \n     "+DatosUsuarioXML.user, new Label.LabelStyle(fuente, Color.valueOf("333030")) );
             topScore =new Label("Puntuaje máximo: "+DatosUsuarioXML.topScore, new Label.LabelStyle(fuente, Color.BLACK) );
-            avgScore =new Label("Media de puntos: "+DatosUsuarioXML.avgScore, new Label.LabelStyle(fuente, Color.DARK_GRAY) );
+            avgScore =new Label("Media de puntos: "+puntosMedia, new Label.LabelStyle(fuente, Color.DARK_GRAY) );
             games =new Label("Partidas jugadas: "+DatosUsuarioXML.playedGames, new Label.LabelStyle(fuente, Color.BLACK) );
             jumps =new Label("Total de saltos: "+DatosUsuarioXML.totallJumps, new Label.LabelStyle(fuente, Color.DARK_GRAY) );
             mashrooms =new Label("Total de setas: "+DatosUsuarioXML.totalMashrooms, new Label.LabelStyle(fuente, Color.BLACK) );
@@ -123,7 +129,7 @@ public class UserScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
         }else{//EN
             user =new Label("User: \n     "+DatosUsuarioXML.user, new Label.LabelStyle(fuente, Color.valueOf("333030")) );
             topScore =new Label("TopScore: "+DatosUsuarioXML.topScore, new Label.LabelStyle(fuente, Color.BLACK) );
-            avgScore =new Label("AvgScore: "+DatosUsuarioXML.avgScore, new Label.LabelStyle(fuente, Color.DARK_GRAY) );
+            avgScore =new Label("AvgScore: "+puntosMedia, new Label.LabelStyle(fuente, Color.DARK_GRAY) );
             games =new Label("Played Games: "+DatosUsuarioXML.playedGames, new Label.LabelStyle(fuente, Color.BLACK) );
             jumps =new Label("Total Jumps: "+DatosUsuarioXML.totallJumps, new Label.LabelStyle(fuente, Color.DARK_GRAY) );
             mashrooms =new Label("Total Mashrooms: "+DatosUsuarioXML.totalMashrooms, new Label.LabelStyle(fuente, Color.BLACK) );
