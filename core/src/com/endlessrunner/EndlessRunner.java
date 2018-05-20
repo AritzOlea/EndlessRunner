@@ -148,6 +148,8 @@ public class EndlessRunner extends Game {
         manager.load("bg/fondoUser.png",Texture.class);
         manager.load("bg/FondoAjustes.png",Texture.class);
         manager.load("bg/FondoMenu.png",Texture.class);
+        manager.load("bg/FondoPantallaPostPartida.png", Texture.class);
+        manager.load("bg/FondoCreditos.png", Texture.class);
 
         //menu
         manager.load("gameover.png",Texture.class);

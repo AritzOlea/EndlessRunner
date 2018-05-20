@@ -2,17 +2,25 @@ package com.endlessrunner.Pantallas.partida_basica;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.endlessrunner.EndlessRunner;
+import com.endlessrunner.ayuda.Ajustes;
 import com.endlessrunner.ayuda.DatosUsuarioXML;
+import com.endlessrunner.ayuda.servidor.ControlServidor;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -34,6 +42,9 @@ import javax.xml.transform.stream.StreamResult;
 
 import static com.endlessrunner.ayuda.DatosUsuarioXML.hasieratuDatuakXML;
 import static com.endlessrunner.ayuda.DatosUsuarioXML.localizacionXML;
+import static com.endlessrunner.ayuda.servidor.ControlServidor.TopEnString;
+import static com.endlessrunner.ayuda.servidor.ControlServidor.conseguirTopEnString;
+import static com.endlessrunner.ayuda.servidor.ControlServidor.datuakPasaZerbitzariari;
 
 /**
  * Created by Jongui on 27/03/2018.
@@ -41,11 +52,17 @@ import static com.endlessrunner.ayuda.DatosUsuarioXML.localizacionXML;
 
 public class GameOverScreen extends com.endlessrunner.Pantallas.partida_basica.BaseScreen {
 
+
+    private Texture fondoBackground;
     private Stage stage;
     private Skin skin;
-    private Image gameover;
-    private TextButton retry, menu,stats,ranking;
 
+    //private Image gameover;
+    //private TextButton retry, menu,stats,ranking;
+
+    private ImageButton jokatu,atzera;
+
+    private Label resultadoLabel,rankingLabel;
 
     public GameOverScreen(final EndlessRunner jokoa) {
         super(jokoa);
@@ -53,68 +70,66 @@ public class GameOverScreen extends com.endlessrunner.Pantallas.partida_basica.B
         stage = new Stage(new FitViewport(640, 360));
 
         skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+        fondoBackground=jokoa.getManager().get("bg/FondoPantallaPostPartida.png");
 
-        retry = new TextButton("Berriz", skin);
-        menu = new TextButton("Menua", skin);
-        stats= new TextButton("Estadistikak", skin);
-        ranking= new TextButton("Ranking", skin);
 
-        gameover = new Image(jokoa.getManager().get("gameover.png", Texture.class));
 
-        retry.addCaptureListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                jokoa.setScreen(jokoa.gameScreen);
-            }
-        });
-
-        menu.addCaptureListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                jokoa.setScreen(jokoa.menuScreen);
-            }
-        });
-
-        stats.addCaptureListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                if(!DatosUsuarioXML.user.equals("Anonimo"))
-                    jokoa.setScreen(jokoa.userScreen);
-            }
-        });
-
-        ranking.addCaptureListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                if(!DatosUsuarioXML.user.equals("Anonimo"))
-                    jokoa.setScreen(jokoa.topPartidaBasica);
-            }
-        });
-
-        gameover.setPosition(320 - gameover.getWidth() / 2, 320 - gameover.getHeight());
-        retry.setSize(200, 80);
-        menu.setSize(200, 80);
-        stats.setSize(200, 80);
-        ranking.setSize(200, 80);
-
-        retry.setPosition(60, 140);
-        menu.setPosition(380, 140);
-        stats.setPosition(60, 20);
-        ranking.setPosition(380, 20);
-
-        stage.addActor(retry);
-        stage.addActor(gameover);
-        stage.addActor(menu);
-        stage.addActor(stats);
-        stage.addActor(ranking);
 
     }
 
     @Override
     public void show() {
+
+        stage.clear();
+
+        jokatu = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/"+ Ajustes.Ruta+"/jokatu.png")))));
+        jokatu.addCaptureListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                jokoa.setScreen(jokoa.gameScreen);
+            }
+        });
+        jokatu.setSize(196,64);
+        jokatu.setPosition(93,19);
+        stage.addActor(jokatu);
+
+
+        atzera = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/"+ Ajustes.Ruta+"/atzera.png")))));
+        atzera.addCaptureListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                jokoa.setScreen(jokoa.menuScreen);
+            }
+        });
+        atzera.setSize(196,64);
+        atzera.setPosition(353,19);
+        stage.addActor(atzera);
+
+
+
+        resultadoLabel = new Label("",new Label.LabelStyle(jokoa.getManager().get("size20.ttf", BitmapFont.class), Color.valueOf("333030")));
+        if (Ajustes.Idioma.equals("ES")) {
+            resultadoLabel.setText("Puntuacion: \n"+GameScreen.puntuacion);
+        }else if (Ajustes.Idioma.equals("EN")) {
+            resultadoLabel.setText("Puntuation: \n"+GameScreen.puntuacion);
+        }else{
+            resultadoLabel.setText("Puntuaketa: \n        "+GameScreen.puntuacion);
+        }
+        rankingLabel = new Label("\n\n\n\nCargando\n\n\n\n\n\n",new Label.LabelStyle(jokoa.getManager().get("size20.ttf", BitmapFont.class), Color.BLACK));
+
+        resultadoLabel.setX(75);
+        resultadoLabel.setY(185);
+
+        rankingLabel.setX(400);
+        rankingLabel.setY(80);
+
+        stage.addActor(resultadoLabel);
+        stage.addActor(rankingLabel);
+
+
+
         Gdx.input.setInputProcessor(stage);
 
-        //final String localizacionXML = "xml/datos.xml";
 
         //XML
         try {
@@ -263,17 +278,18 @@ public class GameOverScreen extends com.endlessrunner.Pantallas.partida_basica.B
         GameScreen.cantidadColas = 0;
         GameScreen.puntuacion = 0;
 
-        if(!DatosUsuarioXML.user.equals("Anonimo")){
-            stats.setVisible(true);
-            ranking.setVisible(true);
-            retry.setPosition(60, 140);
-            menu.setPosition(380, 140);
-        }else{
-            stats.setVisible(false);
-            ranking.setVisible(false);
-            retry.setPosition(60, 80);
-            menu.setPosition(380, 80);
-        }
+
+        listo=false;
+        new Thread() {
+            public void run() {
+                if(!DatosUsuarioXML.user.equals("Anonimo")) {
+                    ControlServidor.insertarRegistro(1, DatosUsuarioXML.topScore, DatosUsuarioXML.user);
+                    datuakPasaZerbitzariari();
+                }
+                conseguirTopEnString(5,1);
+                listo=true;
+            }
+        }.start();
 
     }
 
@@ -288,11 +304,41 @@ public class GameOverScreen extends com.endlessrunner.Pantallas.partida_basica.B
         stage.dispose();
     }
 
+
+    private int indiceCargando=0;
+    String[] cargandoES={"Cargando","Cargando","Cargando","Cargando.","Cargando.","Cargando.","Cargando..","Cargando..","Cargando..","Cargando...","Cargando...","Cargando..."};
+    String[] cargandoEU={"Kargatzen","Kargatzen","Kargatzen","Kargatzen.","Kargatzen.","Kargatzen.","Kargatzen..","Kargatzen..","Kargatzen..","Kargatzen...","Kargatzen...","Kargatzen..."};
+    String[] cargandoEN={"Loading","Loading","Loading","Loading.","Loading.","Loading.","Loading..","Loading..","Loading..","Loading...","Loading...","Loading..."};
+
+    private boolean listo;
+
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0.4f, 0.5f, 0.8f, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
         stage.act();
+
+        if(listo){
+            rankingLabel.setText(TopEnString);
+
+        }else{
+            indiceCargando++;if(indiceCargando==cargandoES.length)indiceCargando=0;
+
+            if (Ajustes.Idioma.equals("ES")) {
+                rankingLabel.setText("\n\n"+cargandoES[indiceCargando]+"\n\n\n");
+            }else if (Ajustes.Idioma.equals("EN")) {
+                rankingLabel.setText("\n\n"+cargandoEN[indiceCargando]+"\n\n\n");
+            }else{
+                rankingLabel.setText("\n\n"+cargandoEU[indiceCargando]+"\n\n\n");
+            }
+
+        }
+
+        jokoa.batch.begin();
+        jokoa.batch.draw(fondoBackground,0,0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        jokoa.batch.end();
+
         stage.draw();
     }
 

@@ -2,12 +2,17 @@ package com.endlessrunner.Pantallas.menus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.endlessrunner.EndlessRunner;
 import com.endlessrunner.Pantallas.partida_basica.BaseScreen;
@@ -22,10 +27,15 @@ public class CreditosScreen extends BaseScreen{
     private Stage stage;
 
     private Skin skin;
-
+    private Image tituloa;
     private Label credits;
 
-    private TextButton back;
+    private ImageButton atzera;
+
+    private Texture fondoBackground;
+
+
+
 
     public CreditosScreen(final EndlessRunner game) {
         super(game);
@@ -34,75 +44,72 @@ public class CreditosScreen extends BaseScreen{
 
         skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
 
+        fondoBackground=jokoa.getManager().get("bg/FondoCreditos.png");
+
+    }
+
+    @Override
+    public void show() {
+
+        stage.clear();
+
+
+        tituloa = new Image(jokoa.getManager().get("titulo.png", Texture.class));
+        tituloa.setPosition( 20, 250 );
+        tituloa.setScale(0.8f);
+        stage.addActor(tituloa);
+
+
         if (Ajustes.Idioma.equals("ES")) {
-            back = new TextButton("Atras", skin);
-            credits = new Label("EndlessRunner\n" +
-                    "Alumnos de la asignatura Softwarea Garatzeko Tresna Aurreratuak (SGTA) 2018:\n" +
+            credits = new Label(
+                    "Alumnos de la asignatura Softwarea Garatzeko\nTresna Aurreratuak (SGTA) 2018:\n" +
                     "Jon Guillo, Aritz Olea y Ander Lopez.\n\n" +
 
                     "Musica: \"Hot Pursuit\" (incompetech.com)\n" +
                     "Sonidos: freesound.org", skin);
         }else if (Ajustes.Idioma.equals("EN")) {
-            back = new TextButton("Back", skin);
-            credits = new Label("EndlessRunner\n" +
-                    "Students from subject Softwarea Garatzeko Tresna Aurreratuak (SGTA) 2018:\n" +
+            credits = new Label(
+                    "Students from subject Softwarea Garatzeko\nTresna Aurreratuak (SGTA) 2018:\n" +
                     "Jon Guillo, Aritz Olea and Ander Lopez.\n\n" +
 
                     "Music: \"Hot Pursuit\" (incompetech.com)\n" +
                     "Sounds: freesound.org", skin);
         }else {
-            back = new TextButton("Atzera", skin);
-            credits = new Label("EndlessRunner\n" +
-                    "Softwarea Garatzeko Tresna Aurreratuak (SGTA) 2018 irakasgaiko ikasleak:\n" +
+            credits = new Label(
+                    "Softwarea Garatzeko Tresna Aurreratuak\n(SGTA) 2018 irakasgaiko ikasleak:\n" +
                     "Jon Guillo, Aritz Olea eta Ander Lopez.\n\n" +
 
                     "Musika: \"Hot Pursuit\" (incompetech.com)\n" +
                     "Soinuak: freesound.org", skin);
         }
+        credits.setPosition(45, 50);
+        stage.addActor(credits);
 
-        back.addCaptureListener(new ChangeListener() {
+
+        String rutaAtras;
+        if(Ajustes.Idioma.equals("EUS")){
+            rutaAtras="euskera";
+        }else if(Ajustes.Idioma.equals("ES")){
+            rutaAtras="gaztelera";
+        }else{//EN
+            rutaAtras="ingelesa";
+        }
+
+        atzera = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("input/"+rutaAtras+"/atzera.png")))));
+        atzera.addCaptureListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(game.menuScreen);
+                jokoa.setScreen(jokoa.menuScreen);
             }
         });
+        atzera.setSize(160, 50);
 
-        credits.setPosition(20, 340 - credits.getHeight());
-        back.setSize(200, 80);
-        back.setPosition(40, 50);
+        atzera.setPosition(470, 20);
+        stage.addActor(atzera);
 
-        stage.addActor(back);
-        stage.addActor(credits);
-    }
 
-    @Override
-    public void show() {
+
         Gdx.input.setInputProcessor(stage);
-        if (Ajustes.Idioma.equals("ES")) {
-            back.setText("Atras");
-            credits.setText("EndlessRunner\n" +
-                    "Alumnos de la asignatura Softwarea Garatzeko Tresna Aurreratuak (SGTA) 2018:\n" +
-                    "Jon Guillo, Aritz Olea y Ander Lopez.\n\n" +
-
-                    "Musica: \"Hot Pursuit\" (incompetech.com)\n" +
-                    "Sonidos: freesound.org");
-        }else if (Ajustes.Idioma.equals("EN")) {
-            back.setText("Back");
-            credits.setText("EndlessRunner\n" +
-                    "Students from subject Softwarea Garatzeko Tresna Aurreratuak (SGTA) 2018:\n" +
-                    "Jon Guillo, Aritz Olea and Ander Lopez.\n\n" +
-
-                    "Music: \"Hot Pursuit\" (incompetech.com)\n" +
-                    "Sounds: freesound.org");
-        }else{
-            back.setText("Atzera");
-            credits.setText("EndlessRunner\n" +
-                    "Softwarea Garatzeko Tresna Aurreratuak (SGTA) 2018 irakasgaiko ikasleak:\n" +
-                    "Jon Guillo, Aritz Olea eta Ander Lopez.\n\n" +
-
-                    "Musika: \"Hot Pursuit\" (incompetech.com)\n" +
-                    "Soinuak: freesound.org");
-        }
     }
 
     @Override
@@ -122,6 +129,12 @@ public class CreditosScreen extends BaseScreen{
         Gdx.gl.glClearColor(0.2f, 0.3f, 0.5f, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act();
+
+
+        jokoa.batch.begin();
+        jokoa.batch.draw(fondoBackground,0,0, Gdx.graphics.getWidth() , Gdx.graphics.getHeight());
+        jokoa.batch.end();
+
         stage.draw();
     }
 

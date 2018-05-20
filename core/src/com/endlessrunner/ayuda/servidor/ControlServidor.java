@@ -68,6 +68,19 @@ public class ControlServidor {
 
     }
 
+
+    public static String TopEnString;
+    public static void conseguirTopEnString(int numeroTop,int modoDeJuego){
+        conseguirTop(numeroTop,modoDeJuego);
+        String emaitza= "1. "+nicks.get(0)+": "+puntuaciones.get(0)+"\n"+
+                        "2. "+nicks.get(1)+": "+puntuaciones.get(1)+"\n"+
+                        "3. "+nicks.get(2)+": "+puntuaciones.get(2)+"\n"+
+                        "4. "+nicks.get(3)+": "+puntuaciones.get(3)+"\n"+
+                        "5. "+nicks.get(4)+": "+puntuaciones.get(4);
+
+        TopEnString=emaitza;
+    }
+
     public static void perderTiempo(){
         try{
 

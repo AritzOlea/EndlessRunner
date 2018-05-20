@@ -133,12 +133,10 @@ public class TopPartidaBasica extends com.endlessrunner.Pantallas.partida_basica
                     ControlServidor.insertarRegistro(1, DatosUsuarioXML.topScore, DatosUsuarioXML.user);
                     datuakPasaZerbitzariari();
 
-
-
+                    /*perderTiempo();
                     perderTiempo();
                     perderTiempo();
-                    perderTiempo();
-                    perderTiempo();
+                    perderTiempo();*/
                 }
 
                 ControlServidor.conseguirTop(5,1);
