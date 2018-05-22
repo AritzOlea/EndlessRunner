@@ -1,6 +1,7 @@
 package com.endlessrunner.ayuda;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.endlessrunner.Pantallas.partida_basica.GameScreen;
 
 import org.w3c.dom.Document;
@@ -222,5 +223,38 @@ public class DatosUsuarioXML {
         cameraOutDeaths=0;
         datuakGordeXML();
     }
+
+
+
+    public static final String UsernameFiltroRuta = "txt/UsernameFiltro.txt";
+
+    public static boolean NombreDeUsuarioAdecuado(String user){
+
+        if(!user.matches("\\w*")){
+            return false;
+        }
+
+        try{
+
+            FileHandle file = Gdx.files.internal(UsernameFiltroRuta);
+            String fitx = file.readString();
+            fitx.replace(" ","");
+
+            String[] palabras = fitx.split(",");
+
+            for(String s: palabras)
+                if(user.contains(s))
+                    return false;
+
+
+
+        }catch (Exception e){
+
+        }
+
+
+        return true;
+    }
+
 
 }

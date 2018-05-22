@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.endlessrunner.EndlessRunner;
 import com.endlessrunner.Pantallas.partida_basica.BaseScreen;
 
+import static com.endlessrunner.ayuda.DatosUsuarioXML.NombreDeUsuarioAdecuado;
 import static com.endlessrunner.ayuda.servidor.ControlServidor.erabiltzaileaErregistratu;
 import static com.endlessrunner.ayuda.servidor.ControlServidor.logInZuzena;
 
@@ -55,15 +56,22 @@ public class UserSignupScreen extends BaseScreen {
         signUp.addCaptureListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                if (usuarioLoginString.length() < 4){
+                if (usuarioLoginString.length() < 4 || usuarioLoginString.length() > 10){
                     mensaje.setColor(Color.RED);
-                    mensaje.setText("Erabiltzailea gutxienez 4 karaketekoa izan behar da.");
-                }else if(passLoginString.length() < 4){
+                    mensaje.setText("Erabiltzailea 4 eta 10 karaktere artekoa izan behar da.");
+                }else if(passLoginString.length() < 4 || passLoginString.length() > 10){
                     mensaje.setColor(Color.RED);
-                    mensaje.setText("Pasahitza gutxienez 4 karaketekoa izan behar da.");
-                }else if(!passLoginString.equals(pass2LoginString)){
+                    mensaje.setText("Pasahitza 4 eta 10 karaktere artekoa izan behar da.");
+                }else if(!passLoginString.equals(pass2LoginString)) {
                     mensaje.setColor(Color.RED);
                     mensaje.setText("Pasahitza ondo errepikatu behar da");
+                }else if(! NombreDeUsuarioAdecuado(usuarioLoginString)) {
+                    mensaje.setColor(Color.RED);
+                    mensaje.setText("Erabiltzaile izenak karaketereak eta letrak soilikeduki ditzake.\n" +
+                            "Gainera, bertan erabilitako hizkuntza egokia izan behar da. ");
+                }else if(passLoginString.contains(" ")){
+                    mensaje.setColor(Color.RED);
+                    mensaje.setText("Pasahitzak ezin du tarte hutsik izan!");
                 }else{
                     if (erabiltzaileaErregistratu(usuarioLoginString,passLoginString)) {
                         mensaje.setColor(Color.WHITE);
@@ -153,6 +161,7 @@ public class UserSignupScreen extends BaseScreen {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
+        usuarioLoginString=""; passLoginString=""; pass2LoginString="";
         mensaje.setText("");
         usuarioLogin.setText("Erabiltzailea:\n");
         passLogin.setText("Pasahitza:\n");
@@ -172,7 +181,7 @@ public class UserSignupScreen extends BaseScreen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0.4f, 0.5f, 0.8f, 1f);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act();
 

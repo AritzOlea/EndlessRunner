@@ -233,7 +233,7 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
 
         //update(delta);//separar el update logico del render
 
-        Gdx.gl.glClearColor(0.4f, 0.5f, 0.8f, 1f);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 
