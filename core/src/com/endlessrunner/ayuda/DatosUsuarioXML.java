@@ -224,33 +224,25 @@ public class DatosUsuarioXML {
         datuakGordeXML();
     }
 
-
-
-    public static final String UsernameFiltroRuta = "txt/UsernameFiltro.txt";
+    public static final String[] Comprobaciones={"cabron","puta","ostia","joder","tonto","polla","coño","culo","tetas",
+            "subnormal","imbecil","gilipollas","nazi","hitler","franco","sindrome","maricon","gay","homosexual","putos",
+            "puto","facha","fatxa","eta","ETA","pichu","cocaina","sanax","heroina","marihuana","droga","sexo","alcohol",
+            "alkol","tabaco","tabako","puta","mierda","whore","fuck","silly","cock","pussy","ass","boobs","asshole",
+            "syndrome","fucking","fucking","facha","cocaine","sanax","heroin","marijuana","drug","sex","alcohol","tobacco","shit"};
 
     public static boolean NombreDeUsuarioAdecuado(String user){
+
+        user=user.toLowerCase();
 
         if(!user.matches("\\w*")){
             return false;
         }
 
-        try{
-
-            FileHandle file = Gdx.files.internal(UsernameFiltroRuta);
-            String fitx = file.readString();
-            fitx.replace(" ","");
-
-            String[] palabras = fitx.split(",");
-
-            for(String s: palabras)
-                if(user.contains(s))
-                    return false;
+        for(String s: Comprobaciones)
+            if(user.contains(s))
+                return false;
 
 
-
-        }catch (Exception e){
-
-        }
 
 
         return true;

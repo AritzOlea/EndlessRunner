@@ -177,14 +177,26 @@ public class UserLoginScreen extends BaseScreen {
             switch (sarrera){
                 case 0:
                     usuarioLoginString=input;
-                    usuarioLogin.setText("Erabiltzailea:\n"+usuarioLoginString);
+                    if (Ajustes.Idioma.equals("ES")) {
+                        usuarioLogin.setText("Usuario:\n"+usuarioLoginString);
+                    }else if (Ajustes.Idioma.equals("EN")) {
+                        usuarioLogin.setText("Username:\n"+usuarioLoginString);
+                    }else {
+                        usuarioLogin.setText("Erabiltzailea:\n"+usuarioLoginString);
+                    }
                     break;
 
                 case 1:
                     passLoginString=input;
                     String passLag="";
                     for(int i=0;i<passLoginString.length();i++)passLag=passLag+"*";
-                    passLogin.setText("Pasahitza:\n"+passLag);
+                    if (Ajustes.Idioma.equals("ES")) {
+                        passLogin.setText("Contrasena:\n"+passLag);
+                    }else if (Ajustes.Idioma.equals("EN")) {
+                        passLogin.setText("Password:\n"+passLag);
+                    }else {
+                        passLogin.setText("Pasahitza:\n"+passLag);
+                    }
                     break;
             }
         }

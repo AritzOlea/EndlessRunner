@@ -59,27 +59,71 @@ public class UserSignupScreen extends BaseScreen {
             public void changed(ChangeEvent event, Actor actor) {
                 if (usuarioLoginString.length() < 4 || usuarioLoginString.length() > 10){
                     mensaje.setColor(Color.RED);
-                    mensaje.setText("Erabiltzailea 4 eta 10 karaktere artekoa izan behar da.");
+                    if (Ajustes.Idioma.equals("ES")) {
+                        mensaje.setText("El usuario debe tener entre 4 y 10 caracteres.");
+                    }else if (Ajustes.Idioma.equals("EN")) {
+                        mensaje.setText("Username must have between 4 and 10 characters.");
+                    }else {
+                        mensaje.setText("Erabiltzailea 4 eta 10 karaktere artekoa izan behar da.");
+                    }
                 }else if(passLoginString.length() < 4 || passLoginString.length() > 10){
                     mensaje.setColor(Color.RED);
-                    mensaje.setText("Pasahitza 4 eta 10 karaktere artekoa izan behar da.");
+                    if (Ajustes.Idioma.equals("ES")) {
+                        mensaje.setText("La contrasena debe tener entre 4 y 10 caracteres.");
+                    }else if (Ajustes.Idioma.equals("EN")) {
+                        mensaje.setText("Password must have between 4 and 10 characters.");
+                    }else {
+                        mensaje.setText("Pasahitza 4 eta 10 karaktere artekoa izan behar da.");
+                    }
                 }else if(!passLoginString.equals(pass2LoginString)) {
                     mensaje.setColor(Color.RED);
-                    mensaje.setText("Pasahitza ondo errepikatu behar da");
+                    if (Ajustes.Idioma.equals("ES")) {
+                        mensaje.setText("La contrasena se debe de repetir bien.");
+                    }else if (Ajustes.Idioma.equals("EN")) {
+                        mensaje.setText("Password must be repeated OK.");
+                    }else {
+                        mensaje.setText("Pasahitza ondo errepikatu behar da.");
+                    }
                 }else if(! NombreDeUsuarioAdecuado(usuarioLoginString)) {
                     mensaje.setColor(Color.RED);
-                    mensaje.setText("Erabiltzaile izenak karaketereak eta letrak soilikeduki ditzake.\n" +
-                            "Gainera, bertan erabilitako hizkuntza egokia izan behar da. ");
+                    if (Ajustes.Idioma.equals("ES")) {
+                        mensaje.setText("El nombre de usuario solo puede contener caracteres y letras.\n" +
+                                "Ademas, el lenguaje debe de ser apropiado. ");
+                    }else if (Ajustes.Idioma.equals("EN")) {
+                        mensaje.setText("Username can only contain characters and letters.\n" +
+                                "Moreover, the language must be appropriate. ");
+                    }else {
+                        mensaje.setText("Erabiltzaile izenak karaketereak eta letrak soilik eduki ditzazke.\n" +
+                                "Gainera, bertan erabilitako hizkuntza egokia izan behar da. ");
+                    }
                 }else if(passLoginString.contains(" ")){
                     mensaje.setColor(Color.RED);
-                    mensaje.setText("Pasahitzak ezin du tarte hutsik izan!");
+                    if (Ajustes.Idioma.equals("ES")) {
+                        mensaje.setText("La contrasena no puede tener espacios en blanco!");
+                    }else if (Ajustes.Idioma.equals("EN")) {
+                        mensaje.setText("Password cannot have empty spaces!");
+                    }else {
+                        mensaje.setText("Pasahitzak ezin du tarte hutsik izan!");
+                    }
                 }else{
                     if (erabiltzaileaErregistratu(usuarioLoginString,passLoginString)) {
                         mensaje.setColor(Color.WHITE);
-                        mensaje.setText(usuarioLoginString + " ondo erregistratua izan da!");
+                        if (Ajustes.Idioma.equals("ES")) {
+                            mensaje.setText(usuarioLoginString + " se ha registrado correctamente!");
+                        }else if (Ajustes.Idioma.equals("EN")) {
+                            mensaje.setText(usuarioLoginString + " signed up successfully!");
+                        }else {
+                            mensaje.setText(usuarioLoginString + " ondo erregistratua izan da!");
+                        }
                     }else {
                         mensaje.setColor(Color.RED);
-                        mensaje.setText("Errorea gertatu da erregistratzean... Saiatu berriro.");
+                        if (Ajustes.Idioma.equals("ES")) {
+                            mensaje.setText("Ha habido un error al registrarse... Intentelo de nuevo.");
+                        }else if (Ajustes.Idioma.equals("EN")) {
+                            mensaje.setText("There has been an error while signing up... Try again.");
+                        }else {
+                            mensaje.setText("Errorea gertatu da erregistratzean... Saiatu berriro.");
+                        }
                     }
                 }
             }
@@ -225,21 +269,39 @@ public class UserSignupScreen extends BaseScreen {
             switch (sarrera){
                 case 0:
                     usuarioLoginString=input;
-                    usuarioLogin.setText("Erabiltzailea:\n"+usuarioLoginString);
+                    if (Ajustes.Idioma.equals("ES")) {
+                        usuarioLogin.setText("Usuario:\n"+usuarioLoginString);
+                    }else if (Ajustes.Idioma.equals("EN")) {
+                        usuarioLogin.setText("Username:\n"+usuarioLoginString);
+                    }else {
+                        usuarioLogin.setText("Erabiltzailea:\n"+usuarioLoginString);
+                    }
                     break;
 
                 case 1:
                     passLoginString=input;
                     String passLag="";
                     for(int i=0;i<passLoginString.length();i++)passLag=passLag+"*";
-                    passLogin.setText("Pasahitza:\n"+passLag);
+                    if (Ajustes.Idioma.equals("ES")) {
+                        passLogin.setText("Contrasena:\n"+passLag);
+                    }else if (Ajustes.Idioma.equals("EN")) {
+                        passLogin.setText("Password:\n"+passLag);
+                    }else {
+                        passLogin.setText("Pasahitza:\n"+passLag);
+                    }
                     break;
 
                 case 2:
                     pass2LoginString=input;
                     String pass2Lag="";
                     for(int i=0;i<pass2LoginString.length();i++)pass2Lag=pass2Lag+"*";
-                    passLogin2.setText("Pasahitza errepikatu:\n"+pass2Lag);
+                    if (Ajustes.Idioma.equals("ES")) {
+                        passLogin2.setText("Repetir contrasena:\n"+pass2Lag);
+                    }else if (Ajustes.Idioma.equals("EN")) {
+                        passLogin2.setText("Repeat password:\n"+pass2Lag);
+                    }else {
+                        passLogin2.setText("Pasahitza errepikatu:\n"+pass2Lag);
+                    }
                     break;
             }
         }
