@@ -144,7 +144,12 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
         //puntuacionTextoLabel=new Label("Puntuacion: 000", new Label.LabelStyle(new BitmapFont(),Color.WHITE) );
         //puntuacionTextoLabel.setFontScale(2);
 
-        puntuacionTextoLabel=new Label("Puntuacion: 000", new Label.LabelStyle(fntCuarenta,Color.WHITE) );
+        if (Ajustes.Idioma.equals("ES"))
+            puntuacionTextoLabel=new Label("Puntuacion: 000", new Label.LabelStyle(fntCuarenta,Color.WHITE) );
+        else if (Ajustes.Idioma.equals("EN"))
+            puntuacionTextoLabel=new Label("Score: 000", new Label.LabelStyle(fntCuarenta,Color.WHITE) );
+        else
+            puntuacionTextoLabel=new Label("Puntuazioa: 000", new Label.LabelStyle(fntCuarenta,Color.WHITE) );
 
         labelTiempo = new Label("                 ",new Label.LabelStyle(fntTreinta, Color.RED));
 
@@ -301,14 +306,24 @@ public class GameScreen extends com.endlessrunner.Pantallas.partida_basica.BaseS
                     if(timer==0)jugador.setPegadoAlSuelo(false);
                 }
                 if(timer!=0){
-                    labelTiempo.setText(String.format("Cuenta atras: %03d", GameScreen.timer));
+                    if (Ajustes.Idioma.equals("ES"))
+                        labelTiempo.setText(String.format("Cuenta atras: %03d", GameScreen.timer));
+                    else if (Ajustes.Idioma.equals("EN"))
+                        labelTiempo.setText(String.format("Countdown: %03d", GameScreen.timer));
+                    else
+                        labelTiempo.setText(String.format("Denbora: %03d", GameScreen.timer));
                 }else{
                     labelTiempo.setText(String.format("                  "));
                 }
             }
             if (timeCount >= 1) {
                 puntuacion=puntuacion+2;
-                puntuacionTextoLabel.setText(String.format("Puntuacion: %03d", GameScreen.puntuacion));
+                if (Ajustes.Idioma.equals("ES"))
+                    puntuacionTextoLabel.setText(String.format("Puntuacion: %03d", GameScreen.puntuacion));
+                else if (Ajustes.Idioma.equals("EN"))
+                    puntuacionTextoLabel.setText(String.format("Score: %03d", GameScreen.puntuacion));
+                else
+                    puntuacionTextoLabel.setText(String.format("Puntuazioa: %03d", GameScreen.puntuacion));
                 timeCount = 0;
             }
 

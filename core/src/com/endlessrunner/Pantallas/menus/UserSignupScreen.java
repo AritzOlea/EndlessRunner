@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.endlessrunner.EndlessRunner;
 import com.endlessrunner.Pantallas.partida_basica.BaseScreen;
+import com.endlessrunner.ayuda.Ajustes;
 
 import static com.endlessrunner.ayuda.DatosUsuarioXML.NombreDeUsuarioAdecuado;
 import static com.endlessrunner.ayuda.servidor.ControlServidor.erabiltzaileaErregistratu;
@@ -166,6 +167,28 @@ public class UserSignupScreen extends BaseScreen {
         usuarioLogin.setText("Erabiltzailea:\n");
         passLogin.setText("Pasahitza:\n");
         passLogin2.setText("Pasahitza errepikatu:\n");
+        if (Ajustes.Idioma.equals("ES")) {
+            usuarioLogin.setText("Usuario:\n");
+            passLogin.setText("Contrasena:\n");
+            passLogin2.setText("Repetir contrasena:\n");
+            atzera.setText("Atras");
+            hasierara.setText("Principio");
+            signUp.setText("Registrarse");
+        }else if (Ajustes.Idioma.equals("EN")) {
+            usuarioLogin.setText("Username:\n");
+            passLogin.setText("Password:\n");
+            passLogin2.setText("Repeat password:\n");
+            atzera.setText("Back");
+            hasierara.setText("Home");
+            signUp.setText("Sign up");
+        }else {
+            usuarioLogin.setText("Erabiltzailea:\n");
+            passLogin.setText("Pasahitza:\n");
+            passLogin2.setText("Pasahitza errepikatu:\n");
+            atzera.setText("Atzera");
+            hasierara.setText("Hasierara");
+            signUp.setText("Erregistratu");
+        }
     }
 
     @Override

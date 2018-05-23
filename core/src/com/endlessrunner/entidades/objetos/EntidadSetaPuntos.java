@@ -1,5 +1,6 @@
 package com.endlessrunner.entidades.objetos;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -66,7 +67,12 @@ public class EntidadSetaPuntos  extends Actor {
                 if(Ajustes.Sonidos) {
                     GameScreen.sonidoPunto.play();
                 }
-                GameScreen.puntuacionTextoLabel.setText(String.format("Puntuacion: %03d", GameScreen.puntuacion));
+                if (Ajustes.Idioma.equals("ES"))
+                    GameScreen.puntuacionTextoLabel.setText(String.format("Puntuacion: %03d", GameScreen.puntuacion));
+                else if (Ajustes.Idioma.equals("EN"))
+                    GameScreen.puntuacionTextoLabel.setText(String.format("Score: %03d", GameScreen.puntuacion));
+                else
+                    GameScreen.puntuacionTextoLabel.setText(String.format("Puntuazioa: %03d", GameScreen.puntuacion));
                 sinCoger=false;
                 GameScreen.cantidadSetas++;
             }else{

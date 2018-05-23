@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.endlessrunner.EndlessRunner;
 import com.endlessrunner.Pantallas.partida_basica.BaseScreen;
+import com.endlessrunner.ayuda.Ajustes;
 
 import static com.endlessrunner.ayuda.DatosUsuarioXML.saioaItxi;
 import static com.endlessrunner.ayuda.servidor.ControlServidor.datuakPasaZerbitzariari;
@@ -121,8 +122,25 @@ public class UserLoginScreen extends BaseScreen {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
-        usuarioLogin.setText("Erabiltzailea:\n");
-        passLogin.setText("Pasahitza:\n");
+        if (Ajustes.Idioma.equals("ES")) {
+            usuarioLogin.setText("Usuario:\n");
+            passLogin.setText("Contrasena:\n");
+            atzera.setText("Atras");
+            signUp.setText("Registrarse");
+            logIn.setText("Loguearse");
+        }else if (Ajustes.Idioma.equals("EN")) {
+            usuarioLogin.setText("Username:\n");
+            passLogin.setText("Password:\n");
+            atzera.setText("Back");
+            signUp.setText("Sign up");
+            logIn.setText("Log in");
+        }else {
+            usuarioLogin.setText("Erabiltzailea:\n");
+            passLogin.setText("Pasahitza:\n");
+            atzera.setText("Atzera");
+            signUp.setText("Erregistratu");
+            logIn.setText("Logeatu");
+        }
     }
 
     @Override
